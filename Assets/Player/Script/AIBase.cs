@@ -12,7 +12,10 @@ public abstract class AIBase : PlayerNumber {
     [SerializeField, Header("obj探索範囲")]
     protected float searchDistance;
     [SerializeField, Header("視野角")]
-    protected float viewAngle=0.85f;
+    protected float viewAng=0.85f;
+    [SerializeField, Header("再行動開始待ち時間")]
+    protected float waitMoveTime = 2;
+
 
 
     protected NavMeshAgent navMeshAgent;
@@ -26,6 +29,7 @@ public abstract class AIBase : PlayerNumber {
     protected float nextPosDistance;            //次の場所までの距離
     protected float stopTrackingTime;           //0になったら見失う
     protected bool TrackingFlg;                 //見失ったかどうか
+    protected bool recastFlg;                   //攻撃後行動開始できるか否か
     protected string targetTag;                 //対象のタグ
 
 
@@ -33,20 +37,13 @@ public abstract class AIBase : PlayerNumber {
     protected virtual void Start ()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        recastFlg = true;
         stopTrackingTime = 0;
     }
 
 	protected virtual void Update ()
     {
-        if (stopTrackingTime <= 0)
-        {
-            target = null;
-            TrackingFlg = false;
-        }
-        else
-        {
-            stopTrackingTime -= Time.deltaTime;
-        }
+
         InSight();
 
 	}
@@ -82,7 +79,7 @@ public abstract class AIBase : PlayerNumber {
         {
             Vector3 dir = targetMobs[num].transform.position - transform.position;
 
-            if (ViewingAngle(dir))//視界に入っているか
+            if (ViewingAngle(dir,transform.forward,viewAng))//視界に入っているか
             {
                 Ray ray = new Ray(transform.position, dir);
                 RaycastHit hit;
@@ -91,7 +88,7 @@ public abstract class AIBase : PlayerNumber {
                 {
                     if (hit.transform.tag == targetTag)
                     {
-                        Debug.Log("Insight");
+                        //Debug.Log("Insight");
                         return true;
                     }
                     return false;
@@ -107,10 +104,11 @@ public abstract class AIBase : PlayerNumber {
         return false;
     }
 
-    bool ViewingAngle(Vector3 dir)//正面にいるならtrue
+    protected bool ViewingAngle(Vector3 dir,Vector3 dir2,float viewAngle)//正面にいるならtrue
     {
         dir.Normalize();
-        float dot = Vector3.Dot(dir, transform.forward);
+        dir2.Normalize();
+        float dot = Vector3.Dot(dir, dir2);
         float rad = Mathf.Acos(dot);
         if (rad < viewAngle)//視野角に入っているか
         {
@@ -155,4 +153,10 @@ public abstract class AIBase : PlayerNumber {
     }
 
     protected abstract void MoveRandom(float range);//移動処理
+
+    protected IEnumerator RecastTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        recastFlg = true;
+    }
 }

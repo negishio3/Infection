@@ -70,6 +70,11 @@ public class EntrySystem : MonoBehaviour {
             entryFlg[3] = false;
             text[3].text = noEntryText;
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ChangeScene();
+        }
     }
 
     void ChangeScene()

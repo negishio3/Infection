@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMove : PlayerNumber
 {
     [SerializeField, Header("速度")]
@@ -16,9 +17,12 @@ public class PlayerMove : PlayerNumber
     private int terrainLayer;//地面レイヤー番号
     [SerializeField]
     private GameObject raypos;//rayを飛ばす地点
+    [SerializeField]
+    private Camera _camera;
 
     private CharacterController cCon;
     private CameraMove CM;
+
 
     private Vector3 vecInput;
     private Vector3 velocity;
@@ -36,6 +40,8 @@ public class PlayerMove : PlayerNumber
         CM.RotSpeed = rotspeed;
         CM.PlayerObj = gameObject;
         layerMask = 1 << terrainLayer;
+        CameraRect();
+        
     }
 
     // Update is called once per frame
@@ -78,5 +84,27 @@ public class PlayerMove : PlayerNumber
         { return true; }
         else
         { return false; }
+    }
+
+    void CameraRect()
+    {
+        switch (playerNum)
+        {
+            case 1:
+                _camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+                break;
+
+            case 2:
+                _camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                break;
+
+            case 3:
+                _camera.rect = new Rect(0, 0, 0.5f, 0.5f);
+                break;
+
+            case 4:
+                _camera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
+                break;
+        }
     }
 }

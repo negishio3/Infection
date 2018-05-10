@@ -47,48 +47,62 @@ public class MobTest : AIBase
     // Update is called once per frame
     protected override void Update()
     {
-        if (!getCaughtFlg)
+        if (mobPattern != MobPattern.RUN)
         {
-            base.Update();
+            if (stopTrackingTime <= 0)
+            {
+                target = null;
+                TrackingFlg = false;
+            }
+            else
+            {
+                stopTrackingTime -= Time.deltaTime;
+            }
+        }
+        if (getCaughtFlg)
+        {
+            mobPattern = MobPattern.WAIT;
+        }
+        base.Update();
+        switch (mobPattern)
+        {
+            case MobPattern.WAIT:
+                Wait();
+                break;
+            case MobPattern.RUNDOMWAIK:
+                RundomWalk();
+                break;
+            case MobPattern.RUN:
+                Run();
+                break;
+        }
+
+        if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero||Mypos==transform.position)
+        {
             switch (mobPattern)
             {
                 case MobPattern.WAIT:
-                    Wait();
                     break;
                 case MobPattern.RUNDOMWAIK:
-                    RundomWalk();
+                    MoveRandom(RandomWalkPosRange);
                     break;
                 case MobPattern.RUN:
-                    Run();
+                    MoveRandom(RandomRunPosrange);
                     break;
             }
-
-            if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero)
-            {
-                switch (mobPattern)
-                {
-                    case MobPattern.WAIT:
-                        break;
-                    case MobPattern.RUNDOMWAIK:
-                        MoveRandom(RandomWalkPosRange);
-                        break;
-                    case MobPattern.RUN:
-                        MoveRandom(RandomRunPosrange);
-                        break;
-                }
-            }
-
-            if (targetMobs.Any())
-            {
-                if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < 5)
-                {
-                    dis = 0;
-                }
-                else { dis = 5; }
-            }
-            Mypos = transform.position;
         }
+
+        if (targetMobs.Any())
+        {
+            if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < 5)
+            {
+                dis = 0;
+            }
+            else { dis = 5; }
+        }
+        Mypos = transform.position;
     }
+
 
     protected override void OnTriggerEnter(Collider col)
     {
@@ -98,6 +112,7 @@ public class MobTest : AIBase
 
     void Wait()
     {
+        navMeshAgent.ResetPath();
         if (targetMobs.Any())
         {
             if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
@@ -166,16 +181,32 @@ public class MobTest : AIBase
             {
                 targetDistance = Vector3.Distance(targetMobs[0].transform.position, nextPos);
                 nextPosDistance = Vector3.Distance(transform.position, nextPos);
+                Vector3 nexdis = nextPos - transform.position;
 
-                //プレイヤーに近い位置ならやり直す
-                if ((mobPattern == MobPattern.RUN && targetDistance - dis < nextPosDistance) ||
-                (mobPattern == MobPattern.RUNDOMWAIK && targetDistance < runDistance + 2))
+                if (mobPattern==MobPattern.RUN||TrackingFlg)
                 {
-                    MoveRandom(range);
+                    //プレイヤーに近い位置,プレイヤー方向ならやり直す
+                    if ((mobPattern == MobPattern.RUN && targetDistance - dis < nextPosDistance) ||
+                    (mobPattern == MobPattern.RUNDOMWAIK && targetDistance < runDistance + 2) ||
+                    ViewingAngle(targetMobs[0].transform.position, nexdis, viewAng))
+                    {
+                        MoveRandom(range);
+                    }
+                    else
+                    {
+                        navMeshAgent.SetDestination(nextPos);
+                    }
                 }
                 else
                 {
-                    navMeshAgent.SetDestination(nextPos);
+                    if (!ViewingAngle(nexdis, transform.forward, 1.5f))
+                    {
+                        MoveRandom(range);
+                    }
+                    else
+                    {
+                        navMeshAgent.SetDestination(nextPos);
+                    }
                 }
             }
         }
