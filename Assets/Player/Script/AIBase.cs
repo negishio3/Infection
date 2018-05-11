@@ -30,7 +30,7 @@ public abstract class AIBase : PlayerNumber {
     protected float stopTrackingTime;           //0になったら見失う
     protected bool TrackingFlg;                 //見失ったかどうか
     protected bool recastFlg;                   //攻撃後行動開始できるか否か
-    protected string targetTag;                 //対象のタグ
+    protected string targetTag;                 //検索対象のタグ
 
 
 
@@ -124,10 +124,20 @@ public abstract class AIBase : PlayerNumber {
     {
         if (GameObject.FindGameObjectWithTag(tag))
         {
-            objs = GameObject.FindGameObjectsWithTag(tag).
-            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内か
-            Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).//陣営が異なるか
-            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//並び替え
+            if (playerNum == 0)
+            {
+                objs = GameObject.FindGameObjectsWithTag(tag).
+                Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+                Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).//番号が異なるなら取得
+                OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//近い順に並び替え
+            }
+            else
+            {
+               objs = GameObject.FindGameObjectsWithTag(tag).
+               Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+               Where(e => e.GetComponent<PlayerNumber>().PlayerNum == 0).//市民なら取得
+               OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//近い順に並び替え
+            }
         }
         else
         {

@@ -106,7 +106,7 @@ public class MobTest : AIBase
 
     protected override void OnTriggerEnter(Collider col)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
 
