@@ -15,23 +15,27 @@ public abstract class AIBase : PlayerNumber {
     protected float viewAng=0.85f;
     [SerializeField, Header("再行動開始待ち時間")]
     protected float waitMoveTime = 2;
+    [SerializeField, Header("頭オブジェクト")]
+    protected GameObject headObj;
 
 
 
     protected NavMeshAgent navMeshAgent;
     protected GameObject[] targetMobs;          //対象候補
     protected GameObject target;                //現在の対象
+
     protected Vector3 Mypos;                    //自分の現在地
     protected Vector3 nextPos;                  //次の移動地点
     protected int num;                          //対象を選ぶ番号
-    protected int loseSightTime = 5;            //見失うまでの時間
+    protected int numberToLookAround;           //見回すまでの移動回数
+    protected const int loseSightTime = 5;      //見失うまでの時間
     protected float targetDistance;             //ターゲットと次の移動場所の距離
     protected float nextPosDistance;            //次の場所までの距離
     protected float stopTrackingTime;           //0になったら見失う
     protected bool TrackingFlg;                 //見失ったかどうか
     protected bool recastFlg;                   //攻撃後行動開始できるか否か
     protected string targetTag;                 //検索対象のタグ
-
+    protected const int navmeshMask = ~(1 << 3);
 
 
     protected virtual void Start ()
@@ -43,9 +47,7 @@ public abstract class AIBase : PlayerNumber {
 
 	protected virtual void Update ()
     {
-
         InSight();
-
 	}
 
     protected abstract void OnTriggerEnter(Collider col);
@@ -53,7 +55,7 @@ public abstract class AIBase : PlayerNumber {
     protected void InSight()//視界に入っているか確認
     {
         SearchObj(targetTag, out targetMobs);
-        if (targetMobs.Any())
+        if (targetMobs.Any())//targetmobsに中身があるならtrue
         {
             num = 0;
             while (targetMobs.Length > num)
@@ -91,15 +93,13 @@ public abstract class AIBase : PlayerNumber {
                         //Debug.Log("Insight");
                         return true;
                     }
+
+
                     return false;
                 }
                 return false;
             }
             return false;
-        }
-        else
-        {
-
         }
         return false;
     }
@@ -120,24 +120,13 @@ public abstract class AIBase : PlayerNumber {
         }
     }
 
-    void SearchObj(string tag, out GameObject[] objs)//条件を満たしているobjを近い順に取得する
+    protected virtual void SearchObj(string tag, out GameObject[] objs)//条件を満たしているobjを近い順に取得する
     {
-        if (GameObject.FindGameObjectWithTag(tag))
+        if (GameObject.FindGameObjectWithTag(tag))//市民の処理
         {
-            if (playerNum == 0)
-            {
-                objs = GameObject.FindGameObjectsWithTag(tag).
-                Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
-                Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).//番号が異なるなら取得
-                OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//近い順に並び替え
-            }
-            else
-            {
-               objs = GameObject.FindGameObjectsWithTag(tag).
-               Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
-               Where(e => e.GetComponent<PlayerNumber>().PlayerNum == 0).//市民なら取得
-               OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//近い順に並び替え
-            }
+            objs = GameObject.FindGameObjectsWithTag(tag).
+            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
         }
         else
         {
@@ -150,12 +139,21 @@ public abstract class AIBase : PlayerNumber {
     {
         for (int i = 0; i < 30; i++)
         {
+
             Vector3 randomPoint = center + UnityEngine.Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, navmeshMask))
             {
-                result = hit.position;
-                return true;
+                Ray ray; RaycastHit rayhit;
+                ray = new Ray(hit.position, Vector3.down);
+                if (Physics.Raycast(ray,out rayhit, 1f))
+                {
+                    if (rayhit.collider.tag == "Area")
+                    {
+                        result = hit.position;
+                        return true;
+                    }
+                }
             }
         }
         result = Vector3.zero;
@@ -164,9 +162,17 @@ public abstract class AIBase : PlayerNumber {
 
     protected abstract void MoveRandom(float range);//移動処理
 
-    protected IEnumerator RecastTime(float time)
+    protected virtual void ToLookAround()
+    {
+        //あたりを見回す
+
+    }
+
+    protected IEnumerator RecastTime(float time)//攻撃後硬直
     {
         yield return new WaitForSeconds(time);
         recastFlg = true;
     }
+
+
 }

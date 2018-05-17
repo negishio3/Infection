@@ -10,6 +10,7 @@ public class MobTest : AIBase
     {
         WAIT,
         RUNDOMWAIK,
+        AREAMOVE,
         RUN
     }
     private MobPattern mobPattern;
@@ -19,18 +20,21 @@ public class MobTest : AIBase
     [SerializeField]
     private int runDistance;
 
+
     protected float RandomRunPosrange = 25;
     protected float RandomWalkPosRange = 15;
 
     private float dis;//プレイヤーが近ければ0それ以外５
-    private int numberOfZombi;//変身するゾンビの番号
     private bool getCaughtFlg = false;
+    protected string secondTags;
 
     public MobPattern _MobPattern
     {
         get { return mobPattern; }
         set { mobPattern = value; }
     }
+
+
 
     public bool GetCaughtFlg
     {
@@ -42,6 +46,8 @@ public class MobTest : AIBase
     {
         base.Start();
         targetTag = "Player";
+        secondTags = "Mob";
+
     }
 
     // Update is called once per frame
@@ -71,6 +77,9 @@ public class MobTest : AIBase
                 break;
             case MobPattern.RUNDOMWAIK:
                 RundomWalk();
+                break;
+            case MobPattern.AREAMOVE:
+                AreaMove();
                 break;
             case MobPattern.RUN:
                 Run();
@@ -151,6 +160,11 @@ public class MobTest : AIBase
         }
     }
 
+    void AreaMove()
+    {
+
+    }
+
     void Run()
     {
         if (targetMobs.Any())
@@ -211,5 +225,41 @@ public class MobTest : AIBase
             }
         }
     }
+
+    protected override void SearchObj(string tag, out GameObject[] objs)
+    {
+        if (GameObject.FindGameObjectWithTag(tag))//市民の処理
+        {
+            objs = GameObject.FindGameObjectsWithTag(tag).
+            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
+        }
+        else
+        {
+            objs = null;
+        }
+        if (GameObject.FindGameObjectWithTag(secondTags))
+        {
+            GameObject[] obj2;
+            obj2 = GameObject.FindGameObjectsWithTag(secondTags).
+            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance)
+            .ToArray();
+            objs.Concat(obj2).OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();
+        }
+        else if(objs.Any())
+        {
+            return;
+        }
+        else
+        {
+            objs = null;
+        }
+    }
+
+
+    //protected override void ToLookAround()
+    //{
+
+    //}
 }
 

@@ -24,13 +24,19 @@ public class StartCreate : MonoBehaviour {
     {
         for(int i = 0; i < 4; i++)
         {
-            GameObject obj,cObj;
+            GameObject cObj;
             if (EntrySystem.entryFlg[i])
-            { obj = PlayerObj; }
+            {
+                cObj = (GameObject)Instantiate(PlayerObj, pos[i], Quaternion.identity);
+                cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+            }
             else
-            { obj = AIPlayerObj; }
-            cObj=(GameObject)Instantiate(obj,pos[i], Quaternion.identity);
-            cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+            { 
+                cObj = (GameObject)Instantiate(AIPlayerObj, pos[i], Quaternion.identity);
+                cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+                AreaSystem.AIPlayerList.Add(cObj.GetComponent<AIPlayer>());
+            }
+
         }
     }
 

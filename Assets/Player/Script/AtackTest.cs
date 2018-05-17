@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtackTest : MonoBehaviour {
+public class AtackTest : MonoBehaviour {//そのうち消すはず
     private int parNum;
 
     public int ParNum

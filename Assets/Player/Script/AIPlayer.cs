@@ -8,18 +8,31 @@ public class AIPlayer : AIBase
 {
     public enum MoveState
     {
-        WAIT,
-        MOVE,
-        STALKING,
-        ATACK
+        WAIT,       //待機
+        MOVE,       //移動
+        AREAMOVE,
+        STALKING,   //追跡
+        ATACK       //攻撃
     }
     [SerializeField]
     protected MoveState moveState=MoveState.MOVE;
 
     [SerializeField]
     private Camera _camera;
+    protected Vector3 areaPos;               //(仮)移動先エリア
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
+
+    public Vector3 AreaPos
+    {
+        get { return areaPos; }
+        set
+        {
+            areaPos = value;
+            moveState = MoveState.AREAMOVE;
+            navMeshAgent.SetDestination(areaPos);
+        }
+    }
 
     protected override void Start()
     {
@@ -30,7 +43,7 @@ public class AIPlayer : AIBase
 
     protected override void Update()
     {
-        if (stopTrackingTime <= 0)
+        if (stopTrackingTime <= 0)//一定時間視界に入らなかったら見失う
         {
             target = null;
             TrackingFlg = false;
@@ -52,6 +65,9 @@ public class AIPlayer : AIBase
             case MoveState.MOVE:
                 Move();
                 break;
+            case MoveState.AREAMOVE:
+                AreaMove();
+                break;
             case MoveState.STALKING:
                 Stalking();
                 break;
@@ -60,7 +76,7 @@ public class AIPlayer : AIBase
                 break;
         }
 
-        if (!recastFlg)
+        if (!recastFlg)//攻撃中なら対象のほうへ向く
         {
             AtackRotation();
         }
@@ -96,6 +112,19 @@ public class AIPlayer : AIBase
         }
     }
 
+    void AreaMove()
+    {
+        Ray ray;RaycastHit hit;
+        ray = new Ray(transform.position, Vector3.down);
+        if (Physics.Raycast(ray, out hit,5f))
+        {
+            if(hit.collider.tag == "Area")
+            {
+                moveState = MoveState.MOVE;
+            }
+        }
+    }
+
     void Stalking()
     {
         if (target)
@@ -126,8 +155,8 @@ public class AIPlayer : AIBase
         {
             //攻撃処理
             MobTest mobTest = target.GetComponent<MobTest>();
-            mobTest.GetCaughtFlg=true;
-            mobTest.PlayerNum = playerNum;
+            mobTest.GetCaughtFlg=true;                          //Mobの動きを止める
+            mobTest.PlayerNum = playerNum;                      //MobChangeSystemを使うようになったら消す
             recastFlg = false;
             moveState = MoveState.WAIT;
             StartCoroutine(RecastTime(waitMoveTime));
@@ -142,9 +171,9 @@ public class AIPlayer : AIBase
         }
     }
 
-    void AtackRotation()
+    void AtackRotation()//攻撃するとき対象に向く処理
     {
-        if (atackedTarget)
+        if (atackedTarget)//対象がいるか確認
         {
             float rotationSpeed = 5;
             Vector3 dir = new Vector3(atackedTarget.transform.position.x, transform.position.y, atackedTarget.transform.position.z) - transform.position;
@@ -171,12 +200,27 @@ public class AIPlayer : AIBase
         }
     }
 
+    protected override void SearchObj(string tag, out GameObject[] objs)
+    {
+        if (GameObject.FindGameObjectWithTag(tag))//tagのオブジェクトの存在確認
+        {
+            objs = GameObject.FindGameObjectsWithTag(tag).
+            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+            Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).                      //番号が異なるなら取得
+            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
+        }
+        else
+        {
+            objs = null;
+        }
+    }
+
     protected override void OnTriggerEnter(Collider col)
     {
         throw new System.NotImplementedException();
     }
 
-    void CameraRect()
+    void CameraRect()//カメラの表示位置
     {
         switch (playerNum)
         {
@@ -196,5 +240,10 @@ public class AIPlayer : AIBase
                 _camera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
                 break;
         }
+    }
+
+    void OnDestroy()
+    {
+        AreaSystem.AIPlayerList.Remove(gameObject.GetComponent<AIPlayer>());
     }
 }
