@@ -139,7 +139,6 @@ public abstract class AIBase : PlayerNumber {
     {
         for (int i = 0; i < 30; i++)
         {
-
             Vector3 randomPoint = center + UnityEngine.Random.insideUnitSphere * range;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, navmeshMask))

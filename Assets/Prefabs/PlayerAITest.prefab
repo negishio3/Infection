@@ -186,8 +186,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 91ea8e6e8e5add245b5c150d002a9b87, type: 2}
-  - {fileID: 2100000, guid: 367c7814c217abb48bb19838f9d902b5, type: 2}
+  - {fileID: 2100000, guid: da52496589d362049a94dcee8a114cc9, type: 2}
+  - {fileID: 2100000, guid: da52496589d362049a94dcee8a114cc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,9 +250,11 @@ MonoBehaviour:
   playerNum: 1
   walkSpeed: 1.5
   runSpeed: 3.7
-  searchDistance: 15
-  viewAng: 0.85
+  searchDistance: 30
+  viewAng: 0.9
   waitMoveTime: 2
+  headObj: {fileID: 0}
+  moveState: 1
   _camera: {fileID: 20289694724966374}
 --- !u!114 &114150112489113614
 MonoBehaviour:

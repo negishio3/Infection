@@ -99,11 +99,11 @@ public class AIPlayer : AIBase
         if (TrackingFlg)
         {
             moveState = MoveState.STALKING;
-            if (target)
-            {
-                nextPos = target.transform.position;
-                navMeshAgent.SetDestination(nextPos);
-            }
+            //if (target)
+            //{
+            //    nextPos = target.transform.position;
+            //    navMeshAgent.SetDestination(nextPos);
+            //}
             return;
         }
         if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero||Mypos==transform.position)
@@ -127,20 +127,17 @@ public class AIPlayer : AIBase
 
     void Stalking()
     {
-        if (target)
+        if (!TrackingFlg||!target)//見失ったらMOVEに変更
+        {
+            MoveRandom(randomPosRange);
+            moveState = MoveState.MOVE;
+        }
+        else if (target)
         {
             if (Vector3.Distance(target.transform.position, transform.position) < 2)//接触していたらATACKに変更
             {
                 moveState = MoveState.ATACK;
             }
-        }
-        else if (!TrackingFlg)//見失ったらMOVEに変更
-        {
-            MoveRandom(randomPosRange);
-            moveState = MoveState.MOVE;
-        }
-        if (target)
-        {
             if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero || Mypos == transform.position)
             {
                 nextPos = target.transform.position;
@@ -161,6 +158,7 @@ public class AIPlayer : AIBase
             moveState = MoveState.WAIT;
             StartCoroutine(RecastTime(waitMoveTime));
             atackedTarget = target;
+            Destroy(target);
             target = null;
             //MobChangeSystem.MobChanger(atackedTarget.transform.position, playerNum);
             //Destroy(atackedTarget);

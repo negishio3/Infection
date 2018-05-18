@@ -36,7 +36,7 @@ public class AreaSystem : MonoBehaviour {
     void Update()
     {
         times += Time.deltaTime;
-        if (times> 10)
+        if (times> 30)
         {
             times = 0;
             RandomPos(pos,out pos);
@@ -73,7 +73,7 @@ public class AreaSystem : MonoBehaviour {
             if (Vector3.Distance(areapos, f.transform.position) < 30)
             {
                 f.tag = "Area";
-                f.GetComponent<Renderer>().material.color = Color.red;
+                f.GetComponent<Renderer>().material.color = Color.cyan;
                 areaObj.Add(f);
                 num++;
             }
@@ -83,7 +83,8 @@ public class AreaSystem : MonoBehaviour {
             a.AreaPos = areapos;
         }
         MobChangeSystem.MobDelete();
-        for(int j = 0; j < 8; j++)
+        
+        for(int j = 0; j < 12; j++)
         {
             Vector3 v;
             MobSpawnPos(areapos, out v);
