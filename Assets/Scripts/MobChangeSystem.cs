@@ -48,7 +48,7 @@ public class MobChangeSystem : MonoBehaviour
         {
             int a=0;
             MobCount(i + 1, out a);
-            scoreCount[i] = a;
+            scoreCount[i] += a;
         }
         foreach (GameObject mob in GameObject.FindGameObjectsWithTag("Mob"))
         {

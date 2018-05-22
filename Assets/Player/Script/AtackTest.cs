@@ -16,7 +16,7 @@ public class AtackTest : MonoBehaviour {//そのうち消すはず
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Mob" && col.GetComponent<PlayerNumber>().PlayerNum == 0)
+        if (col.tag == "Mob"&&col.GetComponent<PlayerNumber>().PlayerNum!=parNum)
         {
             MobChangeSystem.MobChanger(col.transform.position, parNum);
             Destroy(col.gameObject);

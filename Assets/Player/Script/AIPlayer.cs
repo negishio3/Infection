@@ -10,18 +10,22 @@ public class AIPlayer : AIBase
     {
         WAIT,       //待機
         MOVE,       //移動
-        AREAMOVE,
+        AREAMOVE,   //エリアに向かう
         STALKING,   //追跡
         ATACK       //攻撃
     }
     [SerializeField]
     protected MoveState moveState=MoveState.MOVE;
 
+    public GameObject createpos;
     [SerializeField]
     private Camera _camera;
+    [SerializeField]
+    private GameObject atk;
     protected Vector3 areaPos;               //(仮)移動先エリア
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
+
 
     public Vector3 AreaPos
     {
@@ -99,11 +103,6 @@ public class AIPlayer : AIBase
         if (TrackingFlg)
         {
             moveState = MoveState.STALKING;
-            //if (target)
-            //{
-            //    nextPos = target.transform.position;
-            //    navMeshAgent.SetDestination(nextPos);
-            //}
             return;
         }
         if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero||Mypos==transform.position)
@@ -121,6 +120,7 @@ public class AIPlayer : AIBase
             if(hit.collider.tag == "Area")
             {
                 moveState = MoveState.MOVE;
+                MoveRandom(randomPosRange);
             }
         }
     }
@@ -151,17 +151,19 @@ public class AIPlayer : AIBase
         if (target&&recastFlg)
         {
             //攻撃処理
-            MobTest mobTest = target.GetComponent<MobTest>();
-            mobTest.GetCaughtFlg=true;                          //Mobの動きを止める
-            mobTest.PlayerNum = playerNum;                      //MobChangeSystemを使うようになったら消す
+            //MobTest mobTest = target.GetComponent<MobTest>();
+            //mobTest.GetCaughtFlg=true;                          //Mobの動きを止める
+            GameObject obj;
+            obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
+            obj.GetComponent<AtackTest>().ParNum = playerNum;
             recastFlg = false;
             moveState = MoveState.WAIT;
             StartCoroutine(RecastTime(waitMoveTime));
             atackedTarget = target;
-            Destroy(target);
-            target = null;
             //MobChangeSystem.MobChanger(atackedTarget.transform.position, playerNum);
             //Destroy(atackedTarget);
+            target = null;
+
         }
         else
         {
@@ -215,7 +217,7 @@ public class AIPlayer : AIBase
 
     protected override void OnTriggerEnter(Collider col)
     {
-        throw new System.NotImplementedException();
+
     }
 
     void CameraRect()//カメラの表示位置

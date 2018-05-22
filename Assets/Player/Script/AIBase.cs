@@ -43,6 +43,25 @@ public abstract class AIBase : PlayerNumber {
         navMeshAgent = GetComponent<NavMeshAgent>();
         recastFlg = true;
         stopTrackingTime = 0;
+        Renderer r;
+        r = GetComponent<Renderer>();
+        switch (playerNum)
+        {
+            case 0:
+                break;
+            case 1:
+                r.material.color = Color.red;
+                break;
+            case 2:
+                r.material.color = Color.blue;
+                break;
+            case 3:
+                r.material.color = Color.yellow;
+                break;
+            case 4:
+                r.material.color = Color.green;
+                break;
+        }
     }
 
 	protected virtual void Update ()

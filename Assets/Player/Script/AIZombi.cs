@@ -23,7 +23,7 @@ public class AIZombi : AIBase
     protected float RandomWalkPosRange = 15;
 
     private float dis;//プレイヤーが近ければ0それ以外５
-    private bool getCaughtFlg = false;
+    private bool startFlg = false;
 
     public MobPattern _MobPattern
     {
@@ -31,15 +31,16 @@ public class AIZombi : AIBase
         set { mobPattern = value; }
     }
 
-    public bool GetCaughtFlg
-    {
-        get { return getCaughtFlg; }
-        set { getCaughtFlg = value; }
-    }
+    //public bool GetCaughtFlg
+    //{
+    //    get { return getCaughtFlg; }
+    //    set { getCaughtFlg = value; }
+    //}
 
     protected override void Start()
     {
         base.Start();
+        StartCoroutine(StartFlg());
         targetTag = "Player";
     }
 
@@ -58,10 +59,10 @@ public class AIZombi : AIBase
                 stopTrackingTime -= Time.deltaTime;
             }
         }
-        if (getCaughtFlg)
-        {
-            mobPattern = MobPattern.WAIT;
-        }
+        //if (getCaughtFlg)
+        //{
+        //    mobPattern = MobPattern.WAIT;
+        //}
         base.Update();
         switch (mobPattern)
         {
@@ -111,15 +112,18 @@ public class AIZombi : AIBase
 
     void Wait()
     {
-        navMeshAgent.ResetPath();
-        if (targetMobs.Any())
+        if (startFlg)
         {
-            if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
+            navMeshAgent.ResetPath();
+            if (targetMobs.Any())
             {
-                mobPattern = MobPattern.RUNDOMWAIK;
-                MoveRandom(RandomWalkPosRange);
-                navMeshAgent.speed = walkSpeed;
-                return;
+                if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
+                {
+                    mobPattern = MobPattern.RUNDOMWAIK;
+                    MoveRandom(RandomWalkPosRange);
+                    navMeshAgent.speed = walkSpeed;
+                    return;
+                }
             }
         }
     }
@@ -211,7 +215,11 @@ public class AIZombi : AIBase
         }
     }
 
-
+    private IEnumerator StartFlg()
+    {
+        yield return new WaitForSeconds(1f);
+        startFlg = true;
+    }
 
 
     //protected override void ToLookAround()
