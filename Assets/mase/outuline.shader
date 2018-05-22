@@ -44,7 +44,7 @@
 
 		Pass
 	{
-		Cull Back
+		//Cull Back
 
 		CGPROGRAM
 #pragma vertex vert
@@ -74,11 +74,11 @@
 
 	fixed4 frag(v2f i) : SV_Target
 	{
-		half nl = max(0, dot(i.normal, _WorldSpaceLightPos0.xyz));
+		half nl = max(1, dot(i.normal, _WorldSpaceLightPos0.xyz));
 	if (nl <= 0.01f) nl = 0.1f;
-	else if (nl <= 0.3f) nl = 0.3f;
+	else if (nl <= 0.1f) nl = 0.1f;
 	else nl = 1.0f;
-	fixed4 col = fixed4(nl, nl, nl, 1);
+	fixed4 col = fixed4(nl, nl, nl, 0);
 	return col;
 	}
 		ENDCG
