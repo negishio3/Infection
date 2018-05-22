@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.AI;
 
-public class MobTest : AIBase
+public class AIZombi : AIBase
 {
     public enum MobPattern
     {
         WAIT,
         RUNDOMWAIK,
-        AREAMOVE,
         RUN
     }
     private MobPattern mobPattern;
@@ -25,8 +23,7 @@ public class MobTest : AIBase
     protected float RandomWalkPosRange = 15;
 
     private float dis;//プレイヤーが近ければ0それ以外５
-    private bool getCaughtFlg = false;
-    protected string secondTags;
+    private bool startFlg = false;
 
     public MobPattern _MobPattern
     {
@@ -34,20 +31,17 @@ public class MobTest : AIBase
         set { mobPattern = value; }
     }
 
-
-
-    public bool GetCaughtFlg
-    {
-        get { return getCaughtFlg; }
-        set { getCaughtFlg = value; }
-    }
+    //public bool GetCaughtFlg
+    //{
+    //    get { return getCaughtFlg; }
+    //    set { getCaughtFlg = value; }
+    //}
 
     protected override void Start()
     {
         base.Start();
+        StartCoroutine(StartFlg());
         targetTag = "Player";
-        secondTags = "Mob";
-
     }
 
     // Update is called once per frame
@@ -65,10 +59,10 @@ public class MobTest : AIBase
                 stopTrackingTime -= Time.deltaTime;
             }
         }
-        if (getCaughtFlg)
-        {
-            mobPattern = MobPattern.WAIT;
-        }
+        //if (getCaughtFlg)
+        //{
+        //    mobPattern = MobPattern.WAIT;
+        //}
         base.Update();
         switch (mobPattern)
         {
@@ -78,15 +72,12 @@ public class MobTest : AIBase
             case MobPattern.RUNDOMWAIK:
                 RundomWalk();
                 break;
-            case MobPattern.AREAMOVE:
-                AreaMove();
-                break;
             case MobPattern.RUN:
                 Run();
                 break;
         }
 
-        if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero||Mypos==transform.position)
+        if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero || Mypos == transform.position)
         {
             switch (mobPattern)
             {
@@ -121,15 +112,18 @@ public class MobTest : AIBase
 
     void Wait()
     {
-        navMeshAgent.ResetPath();
-        if (targetMobs.Any())
+        if (startFlg)
         {
-            if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
+            navMeshAgent.ResetPath();
+            if (targetMobs.Any())
             {
-                mobPattern = MobPattern.RUNDOMWAIK;
-                MoveRandom(RandomWalkPosRange);
-                navMeshAgent.speed = walkSpeed;
-                return;
+                if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
+                {
+                    mobPattern = MobPattern.RUNDOMWAIK;
+                    MoveRandom(RandomWalkPosRange);
+                    navMeshAgent.speed = walkSpeed;
+                    return;
+                }
             }
         }
     }
@@ -158,11 +152,6 @@ public class MobTest : AIBase
                 return;
             }
         }
-    }
-
-    void AreaMove()
-    {
-
     }
 
     void Run()
@@ -197,7 +186,7 @@ public class MobTest : AIBase
                 nextPosDistance = Vector3.Distance(transform.position, nextPos);
                 Vector3 nexdis = nextPos - transform.position;
 
-                if (mobPattern==MobPattern.RUN||TrackingFlg)
+                if (mobPattern == MobPattern.RUN || TrackingFlg)
                 {
                     //プレイヤーに近い位置,プレイヤー方向ならやり直す
                     if ((mobPattern == MobPattern.RUN && targetDistance - dis < nextPosDistance) ||
@@ -226,34 +215,10 @@ public class MobTest : AIBase
         }
     }
 
-    protected override void SearchObj(string tag, out GameObject[] objs)
+    private IEnumerator StartFlg()
     {
-        if (GameObject.FindGameObjectWithTag(tag))//市民の処理
-        {
-            objs = GameObject.FindGameObjectsWithTag(tag).
-            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
-            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
-        }
-        else
-        {
-            objs = null;
-        }
-        if (GameObject.FindGameObjectWithTag(secondTags))
-        {
-            GameObject[] obj2;
-            obj2 = GameObject.FindGameObjectsWithTag(secondTags).
-            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance)
-            .ToArray();
-            objs.Concat(obj2).OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();
-        }
-        else if(objs.Any())
-        {
-            return;
-        }
-        else
-        {
-            objs = null;
-        }
+        yield return new WaitForSeconds(1f);
+        startFlg = true;
     }
 
 
@@ -262,4 +227,3 @@ public class MobTest : AIBase
 
     //}
 }
-

@@ -10,6 +10,7 @@ public class MobChange : MonoBehaviour
         _MobZombie[0] = Resources.Load<GameObject>("mob(R)");
     }
 
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag != transform.tag)

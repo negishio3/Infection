@@ -12,43 +12,61 @@ public abstract class AIBase : PlayerNumber {
     [SerializeField, Header("obj探索範囲")]
     protected float searchDistance;
     [SerializeField, Header("視野角")]
-    protected float viewAngle=0.85f;
+    protected float viewAng=0.85f;
+    [SerializeField, Header("再行動開始待ち時間")]
+    protected float waitMoveTime = 2;
+    [SerializeField, Header("頭オブジェクト")]
+    protected GameObject headObj;
+
 
 
     protected NavMeshAgent navMeshAgent;
     protected GameObject[] targetMobs;          //対象候補
     protected GameObject target;                //現在の対象
+
     protected Vector3 Mypos;                    //自分の現在地
     protected Vector3 nextPos;                  //次の移動地点
     protected int num;                          //対象を選ぶ番号
-    protected int loseSightTime = 5;            //見失うまでの時間
+    protected int numberToLookAround;           //見回すまでの移動回数
+    protected const int loseSightTime = 5;      //見失うまでの時間
     protected float targetDistance;             //ターゲットと次の移動場所の距離
     protected float nextPosDistance;            //次の場所までの距離
     protected float stopTrackingTime;           //0になったら見失う
     protected bool TrackingFlg;                 //見失ったかどうか
-    protected string targetTag;                 //対象のタグ
-
+    protected bool recastFlg;                   //攻撃後行動開始できるか否か
+    protected string targetTag;                 //検索対象のタグ
+    protected const int navmeshMask = ~(1 << 3);
 
 
     protected virtual void Start ()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        recastFlg = true;
         stopTrackingTime = 0;
+        Renderer r;
+        r = GetComponent<Renderer>();
+        switch (playerNum)
+        {
+            case 0:
+                break;
+            case 1:
+                r.material.color = Color.red;
+                break;
+            case 2:
+                r.material.color = Color.blue;
+                break;
+            case 3:
+                r.material.color = Color.yellow;
+                break;
+            case 4:
+                r.material.color = Color.green;
+                break;
+        }
     }
 
 	protected virtual void Update ()
     {
-        if (stopTrackingTime <= 0)
-        {
-            target = null;
-            TrackingFlg = false;
-        }
-        else
-        {
-            stopTrackingTime -= Time.deltaTime;
-        }
         InSight();
-
 	}
 
     protected abstract void OnTriggerEnter(Collider col);
@@ -56,7 +74,7 @@ public abstract class AIBase : PlayerNumber {
     protected void InSight()//視界に入っているか確認
     {
         SearchObj(targetTag, out targetMobs);
-        if (targetMobs.Any())
+        if (targetMobs.Any())//targetmobsに中身があるならtrue
         {
             num = 0;
             while (targetMobs.Length > num)
@@ -82,7 +100,7 @@ public abstract class AIBase : PlayerNumber {
         {
             Vector3 dir = targetMobs[num].transform.position - transform.position;
 
-            if (ViewingAngle(dir))//視界に入っているか
+            if (ViewingAngle(dir,transform.forward,viewAng))//視界に入っているか
             {
                 Ray ray = new Ray(transform.position, dir);
                 RaycastHit hit;
@@ -91,26 +109,25 @@ public abstract class AIBase : PlayerNumber {
                 {
                     if (hit.transform.tag == targetTag)
                     {
-                        Debug.Log("Insight");
+                        //Debug.Log("Insight");
                         return true;
                     }
+
+
                     return false;
                 }
                 return false;
             }
             return false;
         }
-        else
-        {
-
-        }
         return false;
     }
 
-    bool ViewingAngle(Vector3 dir)//正面にいるならtrue
+    protected bool ViewingAngle(Vector3 dir,Vector3 dir2,float viewAngle)//正面にいるならtrue
     {
         dir.Normalize();
-        float dot = Vector3.Dot(dir, transform.forward);
+        dir2.Normalize();
+        float dot = Vector3.Dot(dir, dir2);
         float rad = Mathf.Acos(dot);
         if (rad < viewAngle)//視野角に入っているか
         {
@@ -122,14 +139,13 @@ public abstract class AIBase : PlayerNumber {
         }
     }
 
-    void SearchObj(string tag, out GameObject[] objs)//条件を満たしているobjを近い順に取得する
+    protected virtual void SearchObj(string tag, out GameObject[] objs)//条件を満たしているobjを近い順に取得する
     {
-        if (GameObject.FindGameObjectWithTag(tag))
+        if (GameObject.FindGameObjectWithTag(tag))//市民の処理
         {
             objs = GameObject.FindGameObjectsWithTag(tag).
-            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内か
-            Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).//陣営が異なるか
-            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();//並び替え
+            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
         }
         else
         {
@@ -144,10 +160,18 @@ public abstract class AIBase : PlayerNumber {
         {
             Vector3 randomPoint = center + UnityEngine.Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, navmeshMask))
             {
-                result = hit.position;
-                return true;
+                Ray ray; RaycastHit rayhit;
+                ray = new Ray(hit.position, Vector3.down);
+                if (Physics.Raycast(ray,out rayhit, 1f))
+                {
+                    if (rayhit.collider.tag == "Area")
+                    {
+                        result = hit.position;
+                        return true;
+                    }
+                }
             }
         }
         result = Vector3.zero;
@@ -155,4 +179,18 @@ public abstract class AIBase : PlayerNumber {
     }
 
     protected abstract void MoveRandom(float range);//移動処理
+
+    protected virtual void ToLookAround()
+    {
+        //あたりを見回す
+
+    }
+
+    protected IEnumerator RecastTime(float time)//攻撃後硬直
+    {
+        yield return new WaitForSeconds(time);
+        recastFlg = true;
+    }
+
+
 }
