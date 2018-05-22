@@ -29,7 +29,7 @@
 	v2f vert(appdata v)
 	{
 		v2f o;
-		v.vertex += float4(v.normal * 0.01f, 1);//線の太さ
+		v.vertex += float4(v.normal * 0.02f, 1);//線の太さ
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		return o;
 	}
