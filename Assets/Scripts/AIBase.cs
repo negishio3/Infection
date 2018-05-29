@@ -185,11 +185,11 @@ public abstract class AIBase : PlayerNumber {
 
     protected abstract void MoveRandom(float range);//移動処理
 
-    protected virtual void ToLookAround()
-    {
-        //あたりを見回す
+    //protected virtual void ToLookAround()
+    //{
+    //    //あたりを見回す
 
-    }
+    //}
 
     protected IEnumerator RecastTime(float time)//攻撃後硬直
     {

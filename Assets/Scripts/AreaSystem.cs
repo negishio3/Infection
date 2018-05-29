@@ -9,8 +9,6 @@ public class AreaSystem : MonoBehaviour
     private GameObject PlayerObj;
     [SerializeField, Header("AIプレイヤー")]
     private GameObject AIPlayerObj;
-    [SerializeField, Header("沸き位置")]
-    private Vector3[] poss = new Vector3[4];
 
     private List<GameObject> PlayerList = new List<GameObject>();
 
@@ -52,9 +50,24 @@ public class AreaSystem : MonoBehaviour
         areaQueue.Enqueue(area);
         foreach (GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
         {
-            pl.transform.position = new Vector3(pos.x, 1.5f, pos.z);
+            Destroy(pl);
         }
-        cam.transform.position = new Vector3(pos.x, 80f, pos.z - 20);
+        cam.transform.position = new Vector3(pos.x, 40f, pos.z - 20);
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 spwpos;
+            MobSpawnPos(pos, out spwpos);
+            GameObject obj;
+            if (EntrySystem.entryFlg[i])
+            {
+                obj=(GameObject)Instantiate(PlayerObj, spwpos, Quaternion.identity);
+            }
+            else
+            {
+                obj=(GameObject)Instantiate(AIPlayerObj, spwpos, Quaternion.identity);
+            }
+            obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+        }
         for (int i = 0; i < spcount; i++)
         {
             Vector3 spwpos;

@@ -1212,13 +1212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db5bfe5d22f8c848a40dba6e96586b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 0}
-  AIPlayerObj: {fileID: 0}
-  poss:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  PlayerObj: {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
+  AIPlayerObj: {fileID: 1317057438595746, guid: 18a6823aaa152ae4da6df99f7e09691d,
+    type: 2}
   cam: {fileID: 563855732}
   areaobj: {fileID: 1290580213265138, guid: 10c3dbb69eec8c249a40a98d14f194af, type: 2}
   poslist:
@@ -1530,7 +1526,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2008985850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c2a1edd389843a49af51adbc45711ee, type: 3}
   m_Name: 
