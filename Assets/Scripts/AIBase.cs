@@ -15,8 +15,8 @@ public abstract class AIBase : PlayerNumber {
     protected float viewAng=0.85f;
     [SerializeField, Header("再行動開始待ち時間")]
     protected float waitMoveTime = 2;
-    [SerializeField, Header("頭オブジェクト")]
-    protected GameObject headObj;
+    //[SerializeField, Header("頭オブジェクト")]
+    //protected GameObject headObj;
 
 
 
@@ -40,9 +40,6 @@ public abstract class AIBase : PlayerNumber {
 
     protected virtual void Start ()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        recastFlg = true;
-        stopTrackingTime = 0;
         Renderer r;
         r = GetComponent<Renderer>();
         switch (playerNum)
@@ -62,6 +59,11 @@ public abstract class AIBase : PlayerNumber {
                 r.material.color = Color.green;
                 break;
         }
+
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        recastFlg = true;
+        stopTrackingTime = 0;
+
     }
 
 	protected virtual void Update ()
@@ -74,21 +76,24 @@ public abstract class AIBase : PlayerNumber {
     protected void InSight()//視界に入っているか確認
     {
         SearchObj(targetTag, out targetMobs);
-        if (targetMobs.Any())//targetmobsに中身があるならtrue
+        if (targetMobs != null)//targetmobsに中身があるならtrue
         {
-            num = 0;
-            while (targetMobs.Length > num)
+            if (targetMobs.Length!=0)
             {
-                if (RayCheck())
+                num = 0;
+                while (targetMobs.Length > num)
                 {
-                    target = targetMobs[num];
-                    stopTrackingTime = loseSightTime;
-                    TrackingFlg = true;
-                    return;
-                }
-                else
-                {
-                    num++;
+                    if (RayCheck())
+                    {
+                        target = targetMobs[num];
+                        stopTrackingTime = loseSightTime;
+                        TrackingFlg = true;
+                        return;
+                    }
+                    else
+                    {
+                        num++;
+                    }
                 }
             }
         }
@@ -96,7 +101,7 @@ public abstract class AIBase : PlayerNumber {
 
     bool RayCheck()//レイが通るならtrue
     {
-        if (targetMobs.Any())//対象が存在するか
+        if (targetMobs.Length != 0)//対象が存在するか
         {
             Vector3 dir = targetMobs[num].transform.position - transform.position;
 
@@ -180,11 +185,11 @@ public abstract class AIBase : PlayerNumber {
 
     protected abstract void MoveRandom(float range);//移動処理
 
-    protected virtual void ToLookAround()
-    {
-        //あたりを見回す
+    //protected virtual void ToLookAround()
+    //{
+    //    //あたりを見回す
 
-    }
+    //}
 
     protected IEnumerator RecastTime(float time)//攻撃後硬直
     {

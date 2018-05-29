@@ -10,7 +10,6 @@ public class AIPlayer : AIBase
     {
         WAIT,       //待機
         MOVE,       //移動
-        AREAMOVE,   //エリアに向かう
         STALKING,   //追跡
         ATACK       //攻撃
     }
@@ -19,30 +18,17 @@ public class AIPlayer : AIBase
 
     public GameObject createpos;
     [SerializeField]
-    private Camera _camera;
-    [SerializeField]
     private GameObject atk;
-    protected Vector3 areaPos;               //(仮)移動先エリア
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
 
 
-    public Vector3 AreaPos
-    {
-        get { return areaPos; }
-        set
-        {
-            areaPos = value;
-            moveState = MoveState.AREAMOVE;
-            navMeshAgent.SetDestination(areaPos);
-        }
-    }
+
 
     protected override void Start()
     {
         base.Start();
         targetTag = "Mob";
-        CameraRect();
     }
 
     protected override void Update()
@@ -68,9 +54,6 @@ public class AIPlayer : AIBase
                 break;
             case MoveState.MOVE:
                 Move();
-                break;
-            case MoveState.AREAMOVE:
-                AreaMove();
                 break;
             case MoveState.STALKING:
                 Stalking();
@@ -111,19 +94,6 @@ public class AIPlayer : AIBase
         }
     }
 
-    void AreaMove()
-    {
-        Ray ray;RaycastHit hit;
-        ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit,5f))
-        {
-            if(hit.collider.tag == "Area")
-            {
-                moveState = MoveState.MOVE;
-                MoveRandom(randomPosRange);
-            }
-        }
-    }
 
     void Stalking()
     {
@@ -140,8 +110,11 @@ public class AIPlayer : AIBase
             }
             if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero || Mypos == transform.position)
             {
-                nextPos = target.transform.position;
-                navMeshAgent.SetDestination(nextPos);
+                if (navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
+                {
+                    nextPos = target.transform.position;
+                    navMeshAgent.SetDestination(nextPos);
+                }
             }
         }
     }
@@ -151,8 +124,6 @@ public class AIPlayer : AIBase
         if (target&&recastFlg)
         {
             //攻撃処理
-            //MobTest mobTest = target.GetComponent<MobTest>();
-            //mobTest.GetCaughtFlg=true;                          //Mobの動きを止める
             GameObject obj;
             obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
             obj.GetComponent<AtackTest>().ParNum = playerNum;
@@ -220,27 +191,6 @@ public class AIPlayer : AIBase
 
     }
 
-    void CameraRect()//カメラの表示位置
-    {
-        switch (playerNum)
-        {
-            case 1:
-                _camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-                break;
-
-            case 2:
-                _camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-                break;
-
-            case 3:
-                _camera.rect = new Rect(0, 0, 0.5f, 0.5f);
-                break;
-
-            case 4:
-                _camera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-                break;
-        }
-    }
 
     void OnDestroy()
     {
