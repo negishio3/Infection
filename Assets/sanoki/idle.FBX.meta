@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cfda941aa9583904e82845d1004e8f5c
-timeCreated: 1526878861
+guid: 7b64390acb1736d49a8dc67e71cab99d
+timeCreated: 1527054254
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -112,7 +112,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

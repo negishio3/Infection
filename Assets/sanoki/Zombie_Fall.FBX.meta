@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cfda941aa9583904e82845d1004e8f5c
-timeCreated: 1526878861
+guid: 4e5eb0dc409d7cd4582605f9aff6c2d8
+timeCreated: 1527139312
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -71,7 +71,7 @@ ModelImporter:
     400062: //RootNode
     2100000: 'Material #73'
     4300000: Box004
-    7400000: Take 001
+    7400000: fall
     9500000: //RootNode
     13700000: Box004
   externalObjects: {}
@@ -102,17 +102,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: fall
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
