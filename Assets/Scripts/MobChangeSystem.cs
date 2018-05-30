@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class MobChangeSystem : MonoBehaviour
 {
@@ -39,7 +40,9 @@ public class MobChangeSystem : MonoBehaviour
 
     public static void MobChanger(Vector3 pos, int num)
     {
-        Instantiate(mobZombies[num], pos, Quaternion.identity);
+        GameObject obj;
+        obj=(GameObject)Instantiate(mobZombies[num], pos, Quaternion.identity);
+        obj.GetComponent<NavMeshAgent>().enabled = true;
     }
 
     public static void MobDelete()

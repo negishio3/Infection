@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
 
 public class AreaSystem : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class AreaSystem : MonoBehaviour
             {
                 obj=(GameObject)Instantiate(AIPlayerObj, spwpos, Quaternion.identity);
             }
+            obj.GetComponent<NavMeshAgent>().enabled = true;
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
         }
         for (int i = 0; i < spcount; i++)
