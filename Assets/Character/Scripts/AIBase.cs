@@ -40,25 +40,25 @@ public abstract class AIBase : PlayerNumber {
 
     protected virtual void Start ()
     {
-        Renderer r;
-        r = GetComponent<Renderer>();
-        switch (playerNum)
-        {
-            case 0:
-                break;
-            case 1:
-                r.material.color = Color.red;
-                break;
-            case 2:
-                r.material.color = Color.blue;
-                break;
-            case 3:
-                r.material.color = Color.yellow;
-                break;
-            case 4:
-                r.material.color = Color.green;
-                break;
-        }
+        //Renderer r;
+        //r = GetComponent<Renderer>();
+        //switch (playerNum)
+        //{
+        //    case 0:
+        //        break;
+        //    case 1:
+        //        r.material.color = Color.red;
+        //        break;
+        //    case 2:
+        //        r.material.color = Color.blue;
+        //        break;
+        //    case 3:
+        //        r.material.color = Color.yellow;
+        //        break;
+        //    case 4:
+        //        r.material.color = Color.green;
+        //        break;
+        //}
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         recastFlg = true;
@@ -117,8 +117,6 @@ public abstract class AIBase : PlayerNumber {
                         //Debug.Log("Insight");
                         return true;
                     }
-
-
                     return false;
                 }
                 return false;

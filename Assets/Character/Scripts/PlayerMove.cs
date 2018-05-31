@@ -12,7 +12,7 @@ public class PlayerMove : PlayerNumber
     [SerializeField, Header("回転速")]
     private float rotspeed;
     //[SerializeField]
-    //private GameObject raypos;//rayを飛ばす地点
+    //private GameObject Yajirushi;
 
 
     private CharacterController cCon;
@@ -27,7 +27,8 @@ public class PlayerMove : PlayerNumber
 
     void Start()
     {
-        cCon = GetComponent<CharacterController>();        
+        cCon = GetComponent<CharacterController>();
+
     }
 
     // Update is called once per frame

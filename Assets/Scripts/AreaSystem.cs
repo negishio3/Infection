@@ -47,7 +47,7 @@ public class AreaSystem : MonoBehaviour
     void AreaChange(Vector3 pos)
     {
         MobChangeSystem.MobDelete();
-        GameObject area= Instantiate(areaobj, new Vector3(pos.x,1.5f,pos.z), Quaternion.identity);
+        GameObject area= Instantiate(areaobj, new Vector3(pos.x,0.1f,pos.z), Quaternion.identity);
         areaQueue.Enqueue(area);
         foreach (GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
         {
