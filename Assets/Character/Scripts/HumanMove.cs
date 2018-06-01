@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.AI;
+using System.Linq;
 
-public class MobTest : AIBase
-{
+public class HumanMove : AIBase {
+
     public enum MobPattern
     {
         WAIT,
         RUNDOMWAIK,
-        AREAMOVE,
         RUN
     }
     private MobPattern mobPattern;
@@ -25,21 +24,12 @@ public class MobTest : AIBase
     protected float RandomWalkPosRange = 15;
 
     private float dis;//プレイヤーが近ければ0それ以外５
-    private bool getCaughtFlg = false;
     protected string secondTags;
 
     public MobPattern _MobPattern
     {
         get { return mobPattern; }
         set { mobPattern = value; }
-    }
-
-
-
-    public bool GetCaughtFlg
-    {
-        get { return getCaughtFlg; }
-        set { getCaughtFlg = value; }
     }
 
     protected override void Start()
@@ -65,10 +55,6 @@ public class MobTest : AIBase
                 stopTrackingTime -= Time.deltaTime;
             }
         }
-        if (getCaughtFlg)
-        {
-            mobPattern = MobPattern.WAIT;
-        }
         base.Update();
         switch (mobPattern)
         {
@@ -78,15 +64,12 @@ public class MobTest : AIBase
             case MobPattern.RUNDOMWAIK:
                 RundomWalk();
                 break;
-            case MobPattern.AREAMOVE:
-                AreaMove();
-                break;
             case MobPattern.RUN:
                 Run();
                 break;
         }
 
-        if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero||Mypos==transform.position)
+        if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero || Mypos == transform.position)
         {
             switch (mobPattern)
             {
@@ -160,11 +143,6 @@ public class MobTest : AIBase
         }
     }
 
-    void AreaMove()
-    {
-
-    }
-
     void Run()
     {
         if (targetMobs.Any())
@@ -197,7 +175,7 @@ public class MobTest : AIBase
                 nextPosDistance = Vector3.Distance(transform.position, nextPos);
                 Vector3 nexdis = nextPos - transform.position;
 
-                if (mobPattern==MobPattern.RUN||TrackingFlg)
+                if (mobPattern == MobPattern.RUN || TrackingFlg)
                 {
                     //プレイヤーに近い位置,プレイヤー方向ならやり直す
                     if ((mobPattern == MobPattern.RUN && targetDistance - dis < nextPosDistance) ||
@@ -246,7 +224,7 @@ public class MobTest : AIBase
             .ToArray();
             objs.Concat(obj2).OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();
         }
-        else if(objs.Any())
+        else if (objs.Any())
         {
             return;
         }
@@ -255,11 +233,4 @@ public class MobTest : AIBase
             objs = null;
         }
     }
-
-
-    //protected override void ToLookAround()
-    //{
-
-    //}
 }
-

@@ -20,6 +20,7 @@ public class AtackTest : MonoBehaviour {//そのうち消すはず
         {
             MobChangeSystem.MobChanger(col.transform.position, parNum);
             Destroy(col.gameObject);
+            Destroy(gameObject, 0.05f);
         }
     }
 }

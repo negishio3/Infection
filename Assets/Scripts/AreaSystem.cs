@@ -21,7 +21,8 @@ public class AreaSystem : MonoBehaviour
     private GameObject areaobj;
     private float times;//エリア変更感覚
 
-    private int spcount = 8;//沸き数
+    private const int spcount = 20;//沸き数
+    private const int areDis = 15;//エリアの中心からの距離
 
     private Queue<GameObject> areaQueue=new Queue<GameObject>();
     public List<Vector3> poslist = new List<Vector3>(4);
@@ -91,8 +92,8 @@ public class AreaSystem : MonoBehaviour
                 x = areapos.x;z = areapos.z;
                 break;
             }
-            x = Random.Range(areapos.x + 10, areapos.x - 10);
-            z = Random.Range(areapos.z + 10, areapos.z - 10);
+            x = Random.Range(areapos.x + areDis, areapos.x - areDis);
+            z = Random.Range(areapos.z + areDis, areapos.z - areDis);
             ray = new Ray(new Vector3(x, 20, z), Vector3.down);
             Physics.Raycast(ray, out hit);
             c++;
