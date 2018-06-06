@@ -19,20 +19,27 @@ public class AIPlayer : AIBase
     public GameObject createpos;
     [SerializeField]
     private GameObject atk;
+
+    protected bool atkFlg=true;
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
 
-
+    private Animator anim;
+    private AnimatorStateInfo stateInfo;
 
 
     protected override void Start()
     {
         base.Start();
+        anim = GetComponent<Animator>();
+        stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         targetTag = "Mob";
     }
 
     protected override void Update()
     {
+        if (stateInfo.normalizedTime<0.9) { anim.SetBool("Bress", false); }
+
         if (stopTrackingTime <= 0)//一定時間視界に入らなかったら見失う
         {
             target = null;
@@ -83,7 +90,7 @@ public class AIPlayer : AIBase
 
     void Move()
     {
-        if (TrackingFlg)
+        if (TrackingFlg&&recastFlg)
         {
             moveState = MoveState.STALKING;
             return;
@@ -104,9 +111,10 @@ public class AIPlayer : AIBase
         }
         else if (target)
         {
-            if (Vector3.Distance(target.transform.position, transform.position) < 2)//接触していたらATACKに変更
+            if (Vector3.Distance(target.transform.position, transform.position) < 2&&atkFlg)//接触していたらATACKに変更
             {
                 moveState = MoveState.ATACK;
+                StartCoroutine(AtkCor());
             }
             if (Vector3.Distance(nextPos, transform.position) < 4 || Mypos == nextPos || nextPos == Vector3.zero || Mypos == transform.position)
             {
@@ -124,6 +132,7 @@ public class AIPlayer : AIBase
         if (target&&recastFlg)
         {
             //攻撃処理
+            anim.SetBool("Bress", true);
             GameObject obj;
             obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
             obj.GetComponent<AtackTest>().ParNum = playerNum;
@@ -150,7 +159,6 @@ public class AIPlayer : AIBase
             Vector3 dir = new Vector3(atackedTarget.transform.position.x, transform.position.y, atackedTarget.transform.position.z) - transform.position;
             Vector3 newdir = Vector3.RotateTowards(transform.forward, dir, rotationSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(newdir);
-
         }
     }
 
@@ -175,10 +183,21 @@ public class AIPlayer : AIBase
     {
         if (GameObject.FindGameObjectWithTag(tag))//tagのオブジェクトの存在確認
         {
-            objs = GameObject.FindGameObjectsWithTag(tag).
-            Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
-            Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).                      //番号が異なるなら取得
-            OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
+            if (!recastFlg)
+            {
+                objs = GameObject.FindGameObjectsWithTag(tag).
+                Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+                Where(e=>Vector3.Distance(transform.position,e.transform.position)>3).
+                Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).                      //番号が異なるなら取得
+                OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
+            }
+            else
+            {
+                objs = GameObject.FindGameObjectsWithTag(tag).
+                Where(e => Vector3.Distance(transform.position, e.transform.position) < searchDistance).//範囲内で
+                Where(e => e.GetComponent<PlayerNumber>().PlayerNum != playerNum).                      //番号が異なるなら取得
+                OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();     //近い順に並び替え
+            }
         }
         else
         {
@@ -186,14 +205,17 @@ public class AIPlayer : AIBase
         }
     }
 
-    protected override void OnTriggerEnter(Collider col)
-    {
-
-    }
-
-
     void OnDestroy()
     {
         AreaSystem.AIPlayerList.Remove(gameObject.GetComponent<AIPlayer>());
+    }
+    protected override void OnTriggerEnter(Collider col)
+    {
+    }
+    IEnumerator AtkCor()
+    {
+        atkFlg = false;
+        yield return new WaitForSeconds(2.4f);
+        atkFlg = true;
     }
 }

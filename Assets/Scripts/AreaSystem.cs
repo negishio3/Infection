@@ -11,7 +11,6 @@ public class AreaSystem : MonoBehaviour
     [SerializeField, Header("AIプレイヤー")]
     private GameObject AIPlayerObj;
 
-    private List<GameObject> PlayerList = new List<GameObject>();
 
     private static List<AIPlayer> aiPlayerList = new List<AIPlayer>();
 
@@ -40,10 +39,6 @@ public class AreaSystem : MonoBehaviour
         StartCoroutine(AreaEnumerator());
     }
 
-    void Update()
-    {
-
-    }
 
     void AreaChange(Vector3 pos)
     {
@@ -58,15 +53,16 @@ public class AreaSystem : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Vector3 spwpos;
+            Quaternion qua = RandomQua();
             MobSpawnPos(pos, out spwpos);
             GameObject obj;
             if (EntrySystem.entryFlg[i])
             {
-                obj=(GameObject)Instantiate(PlayerObj, spwpos, Quaternion.identity);
+                obj=(GameObject)Instantiate(PlayerObj, spwpos, qua);
             }
             else
             {
-                obj=(GameObject)Instantiate(AIPlayerObj, spwpos, Quaternion.identity);
+                obj=(GameObject)Instantiate(AIPlayerObj, spwpos, qua);
             }
             obj.GetComponent<NavMeshAgent>().enabled = true;
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
@@ -74,8 +70,9 @@ public class AreaSystem : MonoBehaviour
         for (int i = 0; i < spcount; i++)
         {
             Vector3 spwpos;
+            Quaternion qua=RandomQua();
             MobSpawnPos(pos, out spwpos);
-            MobChangeSystem.MobChanger(spwpos, 0);
+            MobChangeSystem.MobChanger(spwpos, 0,qua);
         }
     }
 
@@ -107,29 +104,37 @@ public class AreaSystem : MonoBehaviour
         {
             AreaChange(poslist[i]);
             if (i != 0) { Destroy(areaQueue.Dequeue()); }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
         }
         //リザルトへ
     }
 
-    void PlayerCreate(Vector3[] pos)
+    //void PlayerCreate(Vector3[] pos)
+    //{
+    //    for (int i = 0; i < 4; i++)
+    //    {
+    //        GameObject cObj;
+    //        if (EntrySystem.entryFlg[i])
+    //        {
+    //            cObj = (GameObject)Instantiate(PlayerObj, pos[i], Quaternion.identity);
+    //            cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+    //            PlayerList.Add(cObj);
+    //        }
+    //        else
+    //        {
+    //            cObj = (GameObject)Instantiate(AIPlayerObj, pos[i], Quaternion.identity);
+    //            cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+    //            AreaSystem.AIPlayerList.Add(cObj.GetComponent<AIPlayer>());
+    //            PlayerList.Add(cObj);
+    //        }
+    //    }
+    //}
+
+    Quaternion RandomQua()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            GameObject cObj;
-            if (EntrySystem.entryFlg[i])
-            {
-                cObj = (GameObject)Instantiate(PlayerObj, pos[i], Quaternion.identity);
-                cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
-                PlayerList.Add(cObj);
-            }
-            else
-            {
-                cObj = (GameObject)Instantiate(AIPlayerObj, pos[i], Quaternion.identity);
-                cObj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
-                AreaSystem.AIPlayerList.Add(cObj.GetComponent<AIPlayer>());
-                PlayerList.Add(cObj);
-            }
-        }
+        Quaternion qu;
+        float Ry = Random.Range(0f, 360f);
+        qu = Quaternion.Euler(0f, Ry, 0f);
+        return qu;
     }
 }

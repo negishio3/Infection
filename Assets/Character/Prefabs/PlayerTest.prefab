@@ -1107,7 +1107,7 @@ Animator:
   m_GameObject: {fileID: 1874153863612752}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0e654e8d5ca370243802ebf5efffb521, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3ece4f13be7f1c641839e02ad35d30f3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1130,7 +1130,6 @@ MonoBehaviour:
   atk: {fileID: 1766161385238796, guid: 12f243bf48d57f74a9eb94354f47068b, type: 2}
   Createpos: {fileID: 1979243375325586}
   movespeed: 5
-  rotspeed: 4
 --- !u!136 &136716631469170406
 CapsuleCollider:
   m_ObjectHideFlags: 1

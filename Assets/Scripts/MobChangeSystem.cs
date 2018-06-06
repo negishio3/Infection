@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.AI;
@@ -13,7 +14,7 @@ public class MobChangeSystem : MonoBehaviour
     private static GameObject[] mobZombies=new GameObject[5];
     private static int[] scoreCount=new int[4];
     //0は市民,1～4がゾンビ
-
+    
     
     
     void Start()
@@ -38,10 +39,10 @@ public class MobChangeSystem : MonoBehaviour
         count = mobs.Length;
     }
 
-    public static void MobChanger(Vector3 pos, int num)
+    public static void MobChanger(Vector3 pos, int num,Quaternion rot)
     {
         GameObject obj;
-        obj=(GameObject)Instantiate(mobZombies[num], pos, Quaternion.identity);
+        obj=(GameObject)Instantiate(mobZombies[num], pos, rot);
         obj.GetComponent<NavMeshAgent>().enabled = true;
     }
 
