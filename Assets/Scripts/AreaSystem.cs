@@ -7,12 +7,12 @@ using UnityEngine.AI;
 public class AreaSystem : MonoBehaviour
 {
     [SerializeField, Header("プレイヤー")]
-    private GameObject PlayerObj;
+    private List<GameObject> PlayerList=new List<GameObject>();
     [SerializeField, Header("AIプレイヤー")]
-    private GameObject AIPlayerObj;
+    private List<GameObject> AIPlayerobjList=new List<GameObject>();
 
 
-    private static List<AIPlayer> aiPlayerList = new List<AIPlayer>();
+    //private static List<AIPlayer> aiPlayerList = new List<AIPlayer>();
 
     [SerializeField]
     private Camera cam;
@@ -28,11 +28,11 @@ public class AreaSystem : MonoBehaviour
 
 
 
-    public static List<AIPlayer> AIPlayerList
-    {
-        get { return aiPlayerList; }
-        set { aiPlayerList = value; }
-    }
+    //public static List<AIPlayer> AIPlayerList
+    //{
+    //    get { return aiPlayerList; }
+    //    set { aiPlayerList = value; }
+    //}
 
     void Start()
     {
@@ -58,11 +58,11 @@ public class AreaSystem : MonoBehaviour
             GameObject obj;
             if (EntrySystem.entryFlg[i])
             {
-                obj=(GameObject)Instantiate(PlayerObj, spwpos, qua);
+                obj=(GameObject)Instantiate(PlayerList[i], spwpos, qua);
             }
             else
             {
-                obj=(GameObject)Instantiate(AIPlayerObj, spwpos, qua);
+                obj=(GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
             }
             obj.GetComponent<NavMeshAgent>().enabled = true;
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
@@ -72,7 +72,7 @@ public class AreaSystem : MonoBehaviour
             Vector3 spwpos;
             Quaternion qua=RandomQua();
             MobSpawnPos(pos, out spwpos);
-            MobChangeSystem.MobChanger(spwpos, 0,qua);
+            MobChangeSystem.HumanSpawn(spwpos,qua);
         }
     }
 
@@ -104,7 +104,7 @@ public class AreaSystem : MonoBehaviour
         {
             AreaChange(poslist[i]);
             if (i != 0) { Destroy(areaQueue.Dequeue()); }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(45f);
         }
         //リザルトへ
     }

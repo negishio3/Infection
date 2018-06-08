@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 79b4d26883efaf347b03b6e3a7ec4d0f
-timeCreated: 1527741666
+guid: acf01469efafac7449e11724e7962e40
+timeCreated: 1528350436
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,13 +10,8 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder004
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: cb2630d0cc499814b93d813820a354e4, type: 2}
+    4300000: Sphere001
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0

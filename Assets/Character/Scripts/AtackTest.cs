@@ -18,8 +18,7 @@ public class AtackTest : MonoBehaviour {//そのうち消すはず
     {
         if (col.tag == "Mob" && col.GetComponent<PlayerNumber>().PlayerNum != parNum) {
             Quaternion qua = col.transform.rotation;
-            MobChangeSystem.MobChanger(col.transform.position, parNum,qua);
-            Destroy(col.gameObject);
+            MobChangeSystem.MobChanger(col.gameObject, parNum);
             Destroy(gameObject, 0.05f);
         }
     }

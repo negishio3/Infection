@@ -11,8 +11,13 @@ public class MobChangeSystem : MonoBehaviour
     public Text a;
     [SerializeField]
     private GameObject[] objs;
+    [SerializeField]
+    private Material[] materials = new Material[4];
+    private static Material[] mat = new Material[4];
     private static GameObject[] mobZombies=new GameObject[5];
     private static int[] scoreCount=new int[4];
+    private static int[] NowZombiNum=new int[5];
+
     //0は市民,1～4がゾンビ
     
     
@@ -23,26 +28,55 @@ public class MobChangeSystem : MonoBehaviour
         {
             mobZombies[i] = objs[i];
         }
+        for (int i = 0; i < materials.Length; i++)
+        {
+            mat[i] = materials[i];
+        }
     }
 
     void Update()
     {
-        a.text = "1P:" + scoreCount[0] + "  2P:" + scoreCount[1] + "  3P" + scoreCount[2] + "  4P" + scoreCount[3];
+        for(int i = 0; i < 5; i++)
+        {
+            NowZombiNum[i]=MobCount(i);
+        }
+        a.text = "1P:" + NowZombiNum[1]+ 
+            "  2P:" + NowZombiNum[2] + 
+            "  3P:" + NowZombiNum[3] + 
+            "  4P:" + NowZombiNum[4]+
+            "市民:"+NowZombiNum[0];
     }
 
-    public static void MobCount(int num, out int count)//mobオブジェクトの番号がnumと一致するオブジェクトの数をcountに渡すはず
+    public static int MobCount(int num)//mobオブジェクトの番号がnumと一致するオブジェクトの数をcountに渡すはず
     {
         GameObject[] mobs;
         mobs = GameObject.FindGameObjectsWithTag("Mob").
         Where(e => e.GetComponent<PlayerNumber>().PlayerNum == num).
         ToArray();
-        count = mobs.Length;
+        return mobs.Length;
     }
 
-    public static void MobChanger(Vector3 pos, int num,Quaternion rot)
+    public static void MobChanger(GameObject obj, int num)
+    {
+        if (obj.GetComponent<PlayerNumber>().PlayerNum == 0)
+        {
+            GameObject zombi;
+            zombi = (GameObject)Instantiate(mobZombies[num], obj.transform.position, obj.transform.rotation);
+            zombi.GetComponent<NavMeshAgent>().enabled = true;
+            Destroy(obj);
+        }
+        else
+        {
+            SkinnedMeshRenderer s = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+            s.material = mat[num - 1];
+            obj.GetComponent<PlayerNumber>().PlayerNum = num;
+        }
+    }
+
+    public static void HumanSpawn(Vector3 pos,Quaternion qu)
     {
         GameObject obj;
-        obj=(GameObject)Instantiate(mobZombies[num], pos, rot);
+        obj = (GameObject)Instantiate(mobZombies[0], pos, qu);
         obj.GetComponent<NavMeshAgent>().enabled = true;
     }
 
@@ -50,9 +84,7 @@ public class MobChangeSystem : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            int a=0;
-            MobCount(i + 1, out a);
-            scoreCount[i] += a;
+            scoreCount[i] += MobCount(i + 1);
         }
         foreach (GameObject mob in GameObject.FindGameObjectsWithTag("Mob"))
         {

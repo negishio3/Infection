@@ -207,7 +207,7 @@ public class AIPlayer : AIBase
 
     void OnDestroy()
     {
-        AreaSystem.AIPlayerList.Remove(gameObject.GetComponent<AIPlayer>());
+
     }
     protected override void OnTriggerEnter(Collider col)
     {
