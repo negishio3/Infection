@@ -15,7 +15,7 @@ public class MobChangeSystem : MonoBehaviour
     private Material[] materials = new Material[4];
     private static Material[] mat = new Material[4];
     private static GameObject[] mobZombies=new GameObject[5];
-    private static int[] scoreCount=new int[4];
+    public static int[] scoreCount=new int[4];
     private static int[] NowZombiNum=new int[5];
 
     //0は市民,1～4がゾンビ
@@ -36,15 +36,18 @@ public class MobChangeSystem : MonoBehaviour
 
     void Update()
     {
-        for(int i = 0; i < 5; i++)
+        if (a)
         {
-            NowZombiNum[i]=MobCount(i);
+            for (int i = 0; i < 5; i++)
+            {
+                NowZombiNum[i] = MobCount(i);
+            }
+            a.text = "1P:" + NowZombiNum[1] +
+                "  2P:" + NowZombiNum[2] +
+                "  3P:" + NowZombiNum[3] +
+                "  4P:" + NowZombiNum[4] +
+                "市民:" + NowZombiNum[0];
         }
-        a.text = "1P:" + NowZombiNum[1]+ 
-            "  2P:" + NowZombiNum[2] + 
-            "  3P:" + NowZombiNum[3] + 
-            "  4P:" + NowZombiNum[4]+
-            "市民:"+NowZombiNum[0];
     }
 
     public static int MobCount(int num)//mobオブジェクトの番号がnumと一致するオブジェクトの数をcountに渡すはず

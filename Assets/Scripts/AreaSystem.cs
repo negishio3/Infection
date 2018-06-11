@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class AreaSystem : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class AreaSystem : MonoBehaviour
     private List<GameObject> PlayerList=new List<GameObject>();
     [SerializeField, Header("AIプレイヤー")]
     private List<GameObject> AIPlayerobjList=new List<GameObject>();
+    [SerializeField]
+    private string sceneName;
 
 
     //private static List<AIPlayer> aiPlayerList = new List<AIPlayer>();
@@ -100,6 +103,7 @@ public class AreaSystem : MonoBehaviour
 
     IEnumerator AreaEnumerator()
     {
+        yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < 4; i++)
         {
             AreaChange(poslist[i]);
@@ -107,6 +111,7 @@ public class AreaSystem : MonoBehaviour
             yield return new WaitForSeconds(45f);
         }
         //リザルトへ
+        GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
     }
 
     //void PlayerCreate(Vector3[] pos)

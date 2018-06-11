@@ -79,6 +79,6 @@ public class EntrySystem : MonoBehaviour {
 
     void ChangeScene()
     {
-        SceneManager.LoadScene(sceneName);
+        GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
     }
 }
