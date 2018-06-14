@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class AreaSystem : MonoBehaviour
 {
+    [SerializeField, Header("変更間隔")]
+    private float changeTime;
     [SerializeField, Header("プレイヤー")]
     private List<GameObject> PlayerList=new List<GameObject>();
     [SerializeField, Header("AIプレイヤー")]
@@ -108,7 +110,7 @@ public class AreaSystem : MonoBehaviour
         {
             AreaChange(poslist[i]);
             if (i != 0) { Destroy(areaQueue.Dequeue()); }
-            yield return new WaitForSeconds(45f);
+            yield return new WaitForSeconds(changeTime);
         }
         //リザルトへ
         GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);

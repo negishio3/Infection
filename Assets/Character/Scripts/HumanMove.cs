@@ -104,7 +104,6 @@ public class HumanMove : AIBase {
 
     void Wait()
     {
-        //navMeshAgent.ResetPath();
         if (targetMobs.Any())
         {
             if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)

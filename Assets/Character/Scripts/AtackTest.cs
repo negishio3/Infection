@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtackTest : MonoBehaviour {//そのうち消すはず
+public class AtackTest : MonoBehaviour {//そのうち作り直す可能性あり
     private int parNum;
 
     public int ParNum
@@ -11,7 +11,8 @@ public class AtackTest : MonoBehaviour {//そのうち消すはず
         set { parNum = value; }
     }
 	void Start () {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 1f);
+
 	}
 
     void OnTriggerEnter(Collider col)

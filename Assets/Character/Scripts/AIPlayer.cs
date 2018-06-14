@@ -133,9 +133,6 @@ public class AIPlayer : AIBase
         {
             //攻撃処理
             anim.SetBool("Bress", true);
-            GameObject obj;
-            obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
-            obj.GetComponent<AtackTest>().ParNum = playerNum;
             recastFlg = false;
             moveState = MoveState.WAIT;
             StartCoroutine(RecastTime(waitMoveTime));
@@ -215,7 +212,12 @@ public class AIPlayer : AIBase
     IEnumerator AtkCor()
     {
         atkFlg = false;
-        yield return new WaitForSeconds(2.4f);
+        yield return new WaitForSeconds(0.6f);
+        GameObject obj;
+        obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
+        obj.GetComponent<AtackTest>().ParNum = playerNum;
+        obj.transform.parent = gameObject.transform;
+        yield return new WaitForSeconds(1.8f);
         atkFlg = true;
     }
 }

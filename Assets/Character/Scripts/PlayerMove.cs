@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMove : PlayerNumber
 {
     public GameObject atk;
-    public GameObject Createpos;
+    public GameObject createpos;
     [SerializeField, Header("速度")]
     private float movespeed;
     //[SerializeField, Header("回転速")]
@@ -20,7 +20,7 @@ public class PlayerMove : PlayerNumber
     private AnimatorStateInfo stateInfo;
 
     private Vector3 vecInput;
-    private bool atkflg = true;
+    private bool atkFlg = true;
     //private Vector3 velocity;
     //private Vector3 vecRot;
     //private Vector3 graVelocity;
@@ -40,7 +40,7 @@ public class PlayerMove : PlayerNumber
     {
         if (stateInfo.normalizedTime < 0.1) { anim.SetBool("Bress", false); }
 
-        if (Input.GetButtonDown("Fire" + playerNum.ToString())&&atkflg)
+        if (Input.GetButtonDown("Fire" + playerNum.ToString())&&atkFlg)
         {
             anim.SetBool("Bress", true);
             StartCoroutine(AtkCor());
@@ -76,12 +76,13 @@ public class PlayerMove : PlayerNumber
     }
     IEnumerator AtkCor()
     {
-        atkflg = false;
-        yield return new WaitForSeconds(0.4f);
+        atkFlg = false;
+        yield return new WaitForSeconds(0.6f);
         GameObject obj;
-        obj = (GameObject)Instantiate(atk, Createpos.transform.position, Quaternion.identity);
+        obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
         obj.GetComponent<AtackTest>().ParNum = playerNum;
-        yield return new WaitForSeconds(1f);
-        atkflg = true;
+        obj.transform.parent = gameObject.transform;
+        yield return new WaitForSeconds(1.8f);
+        atkFlg = true;
     }
 }

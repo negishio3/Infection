@@ -13,8 +13,11 @@ public class MobChangeSystem : MonoBehaviour
     private GameObject[] objs;
     [SerializeField]
     private Material[] materials = new Material[4];
+    [SerializeField]
+    private GameObject[] par=new GameObject[4];
     private static Material[] mat = new Material[4];
     private static GameObject[] mobZombies=new GameObject[5];
+    private static GameObject[] pars=new GameObject[4];
     public static int[] scoreCount=new int[4];
     private static int[] NowZombiNum=new int[5];
 
@@ -31,6 +34,10 @@ public class MobChangeSystem : MonoBehaviour
         for (int i = 0; i < materials.Length; i++)
         {
             mat[i] = materials[i];
+        }
+        for (int i = 0; i < par.Length; i++)
+        {
+            pars[i] = par[i];
         }
     }
 
@@ -61,6 +68,8 @@ public class MobChangeSystem : MonoBehaviour
 
     public static void MobChanger(GameObject obj, int num)
     {
+
+        //Instantiate(pars[num - 1], new Vector3(obj.transform.position.x,0.7f,obj.transform.position.z),Quaternion.Euler(-90,0,0));
         if (obj.GetComponent<PlayerNumber>().PlayerNum == 0)
         {
             GameObject zombi;

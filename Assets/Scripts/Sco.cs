@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Sco : MonoBehaviour {
-
+    //そのうち削除
     public Text t;
     [SerializeField]
     private string sceneName;
