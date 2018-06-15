@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 26266ea8f3517624b8ad8e9f57e62a3c
-timeCreated: 1527485366
+guid: 70a72cbc3a9c7b54d9701830fe8c84ed
+timeCreated: 1527745228
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -69,7 +69,7 @@ ModelImporter:
     400058: Bip002 Spine1
     400060: Box004
     400062: //RootNode
-    2100000: 'Material #73'
+    2100000: 'Material #96'
     4300000: Box004
     7400000: Take 001
     9500000: //RootNode
@@ -100,7 +100,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
