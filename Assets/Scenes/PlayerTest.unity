@@ -99,7 +99,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -107,7 +107,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -127,9 +127,9 @@ GameObject:
   - component: {fileID: 84401942}
   m_Layer: 0
   m_Name: Cube1
-  m_TagString: Floor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 3
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &84401941
@@ -159,7 +159,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9f8788f5f6090524db1d7f2d56e0441f, type: 2}
+  - {fileID: 2100000, guid: 91ea8e6e8e5add245b5c150d002a9b87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,7 +215,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &120133243
 Transform:
@@ -294,7 +294,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 184381312}
   - component: {fileID: 184381311}
   - component: {fileID: 184381310}
+  - component: {fileID: 184381314}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -392,6 +393,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &184381314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 184381309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e826a2d53a47e94469d4ea25269dc898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &215179341
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +421,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &215179342
 Transform:
@@ -418,7 +430,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 215179341}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.8, y: 3.23, z: -7}
+  m_LocalPosition: {x: -10.8, y: 3.23, z: -36.9}
   m_LocalScale: {x: 4, y: 6, z: 18}
   m_Children: []
   m_Father: {fileID: 1076394279}
@@ -488,7 +500,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -509,7 +521,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &263313849
 Transform:
@@ -588,7 +600,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -626,6 +638,16 @@ MonoBehaviour:
   - {fileID: 1271012826707560, guid: 867423e9fbcca824fbf7e9963c22be6b, type: 2}
   - {fileID: 1928774518430764, guid: f6db0a58ed094d64f98c9875b58f19df, type: 2}
   - {fileID: 1827124701828780, guid: 65958d28a19975a4a96ac2cba5c383aa, type: 2}
+  materials:
+  - {fileID: 2100000, guid: a7076ef7e8c66c14380e4305249ab5a1, type: 2}
+  - {fileID: 2100000, guid: 9b961b6b454dbd3449aab668abadb442, type: 2}
+  - {fileID: 2100000, guid: 995715c503606d44b80eff3ae08382b5, type: 2}
+  - {fileID: 2100000, guid: 0e3d1cbf997f165468535f7b4491031d, type: 2}
+  par:
+  - {fileID: 1581059868613088, guid: a9874de18e15e9a459cb94e3e70df1ef, type: 2}
+  - {fileID: 1576221079940516, guid: 1e6d4c69d5a5b694dadea9c64d9cfcc3, type: 2}
+  - {fileID: 1064482292653164, guid: 37f9962c146f9c04288f8a25e45f363a, type: 2}
+  - {fileID: 1162404998339600, guid: 98a8e51a6490b2240b7950e4f749dff3, type: 2}
 --- !u!4 &473735290
 Transform:
   m_ObjectHideFlags: 0
@@ -637,7 +659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &492762238
 GameObject:
@@ -743,11 +765,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 563855729}
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 80, z: -40}
+  m_LocalPosition: {x: 25, y: 40, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!1 &788454232
 GameObject:
@@ -766,7 +788,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &788454233
 Transform:
@@ -775,7 +797,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 788454232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.9, y: 3.23, z: -30.2}
+  m_LocalPosition: {x: 33.9, y: 3.23, z: -24.5}
   m_LocalScale: {x: 15, y: 6, z: 4}
   m_Children: []
   m_Father: {fileID: 1076394279}
@@ -845,7 +867,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -866,7 +888,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &971267162
 Transform:
@@ -945,7 +967,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1002,7 +1024,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1077137594
 Transform:
@@ -1081,7 +1103,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1102,7 +1124,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1237660322
 Transform:
@@ -1111,7 +1133,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1237660321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.1, y: 3.23, z: -14.41}
+  m_LocalPosition: {x: -33.1, y: 3.23, z: -25.5}
   m_LocalScale: {x: 18, y: 6, z: 4}
   m_Children: []
   m_Father: {fileID: 1076394279}
@@ -1181,7 +1203,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1212,9 +1234,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db5bfe5d22f8c848a40dba6e96586b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
-  AIPlayerObj: {fileID: 1317057438595746, guid: 18a6823aaa152ae4da6df99f7e09691d,
-    type: 2}
+  PlayerList:
+  - {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
+  - {fileID: 1418627143791990, guid: 32bfb638f70ae8e4285bcf0a8337a457, type: 2}
+  - {fileID: 1906895544271616, guid: f3411681fbaec8a45a34ca3afb7b7970, type: 2}
+  - {fileID: 1542676329377648, guid: 64dc3c6a3fc6aa74db78cd6a9fa76dbc, type: 2}
+  AIPlayerobjList:
+  - {fileID: 1317057438595746, guid: 18a6823aaa152ae4da6df99f7e09691d, type: 2}
+  - {fileID: 1505804964894004, guid: 109f4e51d41bcbf4bbf4f71c278fa2ea, type: 2}
+  - {fileID: 1990765755191576, guid: 9736c07a4c8e250419f50cceb686b569, type: 2}
+  - {fileID: 1227949417337364, guid: ec0e419f7a8d8ba4ba46015ded83061f, type: 2}
+  sceneName: Rizart
   cam: {fileID: 563855732}
   areaobj: {fileID: 1290580213265138, guid: 10c3dbb69eec8c249a40a98d14f194af, type: 2}
   poslist:
@@ -1252,7 +1282,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1581462471
 Transform:
@@ -1261,8 +1291,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1581462470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.7, y: 3.23, z: -14.41}
-  m_LocalScale: {x: 18, y: 6, z: 4}
+  m_LocalPosition: {x: 18.3, y: 3.23, z: -36}
+  m_LocalScale: {x: 26, y: 6, z: 4}
   m_Children: []
   m_Father: {fileID: 1076394279}
   m_RootOrder: 4
@@ -1331,7 +1361,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1363,7 +1393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 1788593241}
-  m_Size: {x: 100, y: 30, z: 100}
+  m_Size: {x: 100, y: 15, z: 100}
 --- !u!4 &1788593241
 Transform:
   m_ObjectHideFlags: 0
@@ -1371,11 +1401,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1788593239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1859178342
 GameObject:
@@ -1504,54 +1534,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2008985850
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2008985852}
-  - component: {fileID: 2008985851}
-  m_Layer: 0
-  m_Name: StartCreate
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2008985851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2008985850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2a1edd389843a49af51adbc45711ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
-  AIPlayerObj: {fileID: 1317057438595746, guid: 18a6823aaa152ae4da6df99f7e09691d,
-    type: 2}
-  poss:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
---- !u!4 &2008985852
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2008985850}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.340891, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2100704219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,10 +1564,10 @@ RectTransform:
   m_Father: {fileID: 184381313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 330, y: -47}
+  m_SizeDelta: {x: 640, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2100704221
 MonoBehaviour:
@@ -1608,10 +1590,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
