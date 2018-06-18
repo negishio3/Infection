@@ -19,8 +19,8 @@ public class AreaSystem : MonoBehaviour
 
     //private static List<AIPlayer> aiPlayerList = new List<AIPlayer>();
 
-    [SerializeField]
-    private Camera cam;
+    //[SerializeField]
+    //private Camera cam;
     [SerializeField]
     private GameObject areaobj;
     private float times;//エリア変更感覚
@@ -30,6 +30,8 @@ public class AreaSystem : MonoBehaviour
 
     private Queue<GameObject> areaQueue=new Queue<GameObject>();
     public List<Vector3> poslist = new List<Vector3>(4);
+
+    private MultipleTargetCamera MTC;
 
 
 
@@ -42,6 +44,7 @@ public class AreaSystem : MonoBehaviour
     void Start()
     {
         StartCoroutine(AreaEnumerator());
+        MTC = GameObject.Find("Camera").GetComponent<MultipleTargetCamera>();
     }
 
 
@@ -54,7 +57,7 @@ public class AreaSystem : MonoBehaviour
         {
             Destroy(pl);
         }
-        cam.transform.position = new Vector3(pos.x, 40f, pos.z - 20);
+        //cam.transform.position = new Vector3(pos.x, 40f, pos.z - 20);
         for (int i = 0; i < 4; i++)
         {
             Vector3 spwpos;
@@ -109,6 +112,7 @@ public class AreaSystem : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             AreaChange(poslist[i]);
+            MTC.PlayerSearch();
             if (i != 0) { Destroy(areaQueue.Dequeue()); }
             yield return new WaitForSeconds(changeTime);
         }

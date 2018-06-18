@@ -19,8 +19,11 @@ public class PlayerMove : PlayerNumber
     private Animator anim;
     private AnimatorStateInfo stateInfo;
 
+
     private Vector3 vecInput;
     private bool atkFlg = true;
+
+    private float defaltSpeed;
     //private Vector3 velocity;
     //private Vector3 vecRot;
     //private Vector3 graVelocity;
@@ -32,7 +35,7 @@ public class PlayerMove : PlayerNumber
         cCon = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
+        defaltSpeed = movespeed;
     }
 
     // Update is called once per frame
@@ -74,6 +77,9 @@ public class PlayerMove : PlayerNumber
         //    cCon.Move(graVelocity * Time.deltaTime);
         //}
     }
+
+
+
     IEnumerator AtkCor()
     {
         atkFlg = false;
@@ -84,5 +90,12 @@ public class PlayerMove : PlayerNumber
         obj.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(1.8f);
         atkFlg = true;
+    }
+
+    public IEnumerator SpeedUp()
+    {
+        movespeed *= 2;
+        yield return new WaitForSeconds(5f);
+        movespeed = defaltSpeed;
     }
 }

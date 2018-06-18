@@ -27,6 +27,7 @@ public class AIPlayer : AIBase
     private Animator anim;
     private AnimatorStateInfo stateInfo;
 
+    private float defaltSpeed;
 
     protected override void Start()
     {
@@ -34,6 +35,7 @@ public class AIPlayer : AIBase
         anim = GetComponent<Animator>();
         stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         targetTag = "Mob";
+        defaltSpeed = navMeshAgent.speed;
     }
 
     protected override void Update()
@@ -202,12 +204,14 @@ public class AIPlayer : AIBase
         }
     }
 
-    void OnDestroy()
-    {
 
-    }
     protected override void OnTriggerEnter(Collider col)
     {
+        if (col.tag == "Item")
+        {
+            col.GetComponent<ItemBase>().Execution(gameObject);
+            Destroy(col);
+        }
     }
     IEnumerator AtkCor()
     {
@@ -219,5 +223,12 @@ public class AIPlayer : AIBase
         obj.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(1.8f);
         atkFlg = true;
+    }
+
+    public IEnumerator SpeedUp()
+    {
+        navMeshAgent.speed*= 2;
+        yield return new WaitForSeconds(5f);
+        navMeshAgent.speed = defaltSpeed;
     }
 }

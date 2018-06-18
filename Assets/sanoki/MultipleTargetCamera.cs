@@ -21,6 +21,15 @@ public class MultipleTargetCamera : MonoBehaviour
         cam = GetComponent<Camera>();//カメラコンポーネントを取得
     }
 
+    public void PlayerSearch()
+    {
+        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            targets.Add(obj.transform);
+        }
+    } 
+
+
     private void LateUpdate()
     {
         if (targets.Count == 0) return;//例外処理
@@ -58,6 +67,10 @@ public class MultipleTargetCamera : MonoBehaviour
     /// <returns></returns>
     private Vector3 GetCenterPoint()
     {
+        while (!targets[0])
+        {
+            targets.RemoveAt(0);
+        }
         if (targets.Count == 1) return targets[0].position;
         var bounds = new Bounds(targets[0].position, Vector3.zero);
         for (int i = 0; i < targets.Count; i++)
