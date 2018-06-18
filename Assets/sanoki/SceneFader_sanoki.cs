@@ -48,16 +48,16 @@ public class SceneFader_sanoki : MonoBehaviour
         if (!isFade)//フェード中でないなら
         {
             isFade = true;//フェード中に変更
-            fade = 1;
-            StartCoroutine(SceneFade(fadeSpeed, false));
+            fade = 1;//フェードインに設定
+            StartCoroutine(SceneFade(fadeSpeed, false));//コルーチンの呼び出し
         }
     }
 
     //フェード用のGUI
     void OnGUI()
     {   
-        GUI.color = fadeColor;
-        GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),Texture2D.whiteTexture);
+        GUI.color = fadeColor;//設定されている色にする
+        GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),Texture2D.whiteTexture);//が面大の幕を表示
     }
 
     /// <summary>
@@ -68,32 +68,32 @@ public class SceneFader_sanoki : MonoBehaviour
     /// <returns></returns>
     public IEnumerator SceneFade(float seconds,bool sceneChange)
     {
-        float t = 0.0f;
-        switch (fade)
+        float t = 0.0f;//時間をリセット
+        switch (fade)//1:フェードイン　0:フェードアウト
         {
             case 1:
                 //Debug.Log("フェードイン");
-                while (t < 1.0f)
+                while (t < 1.0f)//時間になるまで繰り返す
                 {
-                    t += Time.deltaTime / seconds;
-                    fadeColor.a = Mathf.Lerp(0.0f, 1.0f, t);
-                    yield return null;
+                    t += Time.deltaTime / seconds;//時間経過
+                    fadeColor.a = Mathf.Lerp(0.0f, 1.0f, t);//アルファ値を徐々に上げる
+                    yield return null;//1フレーム待つ
                 }
-                if (sceneChange) { SceneManager.LoadScene(next_Scene); }
+                if (sceneChange) { SceneManager.LoadScene(next_Scene); }//シーン遷移
                 else
                 {
-                    fade = 0;
-                    StartCoroutine(SceneFade(fadeSpeed, false));
+                    fade = 0;//フェードアウトに設定
+                    StartCoroutine(SceneFade(fadeSpeed, false));//コルーチンを呼び出し
                 }
                 break;
             case 0:
-                while (t < 1.0f)
+                while (t < 1.0f)//時間になるまで繰り返す
                 {
-                    t += Time.deltaTime / seconds;
-                    fadeColor.a = Mathf.Lerp(1.0f, 0.0f, t);
-                    yield return null;
+                    t += Time.deltaTime / seconds;//時間経過
+                    fadeColor.a = Mathf.Lerp(1.0f, 0.0f, t);//アルファ値を徐々に下げる
+                    yield return null;//1フレーム待つ
                 }
-                isFade = false;
+                isFade = false;//フェード中状態を解除
                 break;
         }
     }

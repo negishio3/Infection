@@ -8,6 +8,11 @@ TagManager:
   - Floor
   - Area
   - grownd
+  - Zombie
+  - Red
+  - Blue
+  - Green
+  - Yellow
   layers:
   - Default
   - TransparentFX
