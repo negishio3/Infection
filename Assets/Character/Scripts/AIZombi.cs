@@ -9,7 +9,8 @@ public class AIZombi : AIBase
     {
         WAIT,
         RUNDOMWAIK,
-        RUN
+        RUN,
+        CARRIED
     }
     private MobPattern mobPattern;
 
