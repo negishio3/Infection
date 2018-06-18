@@ -4,26 +4,26 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class MultipleTargetCamera : MonoBehaviour
 {
-    public Camera cam;
-    public List<Transform> targets;
+    public Camera cam;//使用するカメラ
+    public List<Transform> targets;//画面内に収めたいオブジェクト
 
-    public Vector3 offset;
-    public float smoothTime = 0.5f;
+    public Vector3 offset;//オフセット値
+    public float smoothTime = 0.5f;//カメラの動くスピード
 
-    public float minZoom = 40;
-    public float maxZoom = 10;
-    public float zoomLimiter = 50;
+    public float minZoom = 40;//最低ズーム値
+    public float maxZoom = 10;//最大ズーム値
+    public float zoomLimiter = 50;//
 
     private Vector3 velocity;
 
     private void Reset()
     {
-        cam = cam.GetComponent<Camera>();
+        cam = GetComponent<Camera>();//カメラコンポーネントを取得
     }
 
     private void LateUpdate()
     {
-        if (targets.Count == 0) return;
+        if (targets.Count == 0) return;//例外処理
 
         Move();
         Zoom();
@@ -52,6 +52,10 @@ public class MultipleTargetCamera : MonoBehaviour
         return bounds.size.x;
     }
 
+    /// <summary>
+    /// 中心座標の計算
+    /// </summary>
+    /// <returns></returns>
     private Vector3 GetCenterPoint()
     {
         if (targets.Count == 1) return targets[0].position;
