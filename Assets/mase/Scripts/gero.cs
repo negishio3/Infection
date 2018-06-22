@@ -38,6 +38,8 @@ public class gero : MonoBehaviour
         {
             ThrowingBall();
         }
+
+
     }
 
     /// <summary>
