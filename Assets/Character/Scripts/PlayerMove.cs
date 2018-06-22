@@ -64,7 +64,6 @@ public class PlayerMove : PlayerNumber
         cCon.Move(vecInput * Time.deltaTime);
         if (Input.GetAxis("HorizontalL" + playerNum.ToString())!=0 || Input.GetAxis("VerticalL" + playerNum.ToString())!=0)
         {
-            Debug.Log("a");
             transform.rotation = Quaternion.LookRotation(transform.position +
             (Vector3.right * Input.GetAxisRaw("HorizontalL" + playerNum.ToString())) +
             (Vector3.forward * Input.GetAxisRaw("VerticalL" + playerNum.ToString()))
@@ -78,7 +77,13 @@ public class PlayerMove : PlayerNumber
         //}
     }
 
-
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Item")
+        {
+            col.GetComponent<ItemBase>().Execution(gameObject);
+        }
+    }
 
     IEnumerator AtkCor()
     {
@@ -88,14 +93,19 @@ public class PlayerMove : PlayerNumber
         obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
         obj.GetComponent<AtackTest>().ParNum = playerNum;
         obj.transform.parent = gameObject.transform;
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.2f);
         atkFlg = true;
     }
 
-    public IEnumerator SpeedUp()
+    public void SpeedUp()
     {
-        movespeed *= 2;
-        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpeedUpCoroutine());
+    }
+
+    IEnumerator SpeedUpCoroutine()
+    {
+        movespeed = defaltSpeed * 2;
+        yield return new WaitForSeconds(10f);
         movespeed = defaltSpeed;
     }
 }

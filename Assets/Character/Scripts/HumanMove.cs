@@ -26,6 +26,8 @@ public class HumanMove : AIBase {
     private float dis;//プレイヤーが近ければ0それ以外５
     protected string secondTags;
 
+    public bool Smoke { get; set; }
+
     public MobPattern _MobPattern
     {
         get { return mobPattern; }
@@ -93,6 +95,14 @@ public class HumanMove : AIBase {
             else { dis = 5; }
         }
         Mypos = transform.position;
+    }
+
+    void LateUpdate()
+    {
+        if (Smoke)
+        {
+            Smoke = false;
+        }
     }
 
 

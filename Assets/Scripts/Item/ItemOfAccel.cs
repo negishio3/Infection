@@ -9,11 +9,16 @@ public class ItemOfAccel : ItemBase {
         int i=obj.GetComponent<PlayerNumber>().PlayerNum;
         if (EntrySystem.entryFlg[i-1])
         {
-            StartCoroutine(obj.GetComponent<PlayerMove>().SpeedUp());
+            PlayerMove PM= obj.GetComponent<PlayerMove>();
+            PM.StopAllCoroutines();
+            PM.SpeedUp();
         }
         else
         {
-            StartCoroutine(obj.GetComponent<AIPlayer>().SpeedUp());
+            AIPlayer AI = obj.GetComponent<AIPlayer>();
+            AI.StopAllCoroutines();
+            AI.SpeedUp();
         }
+        Destroy(gameObject);
     }
 }

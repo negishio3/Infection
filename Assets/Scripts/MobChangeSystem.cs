@@ -8,18 +8,15 @@ using UnityEngine.AI;
 
 public class MobChangeSystem : MonoBehaviour
 {
-    public Text a;
+    public Text[] tx =new Text[5];
     [SerializeField]
-    private GameObject[] objs;
+    private GameObject[] objs;//モブのprefab
     [SerializeField]
-    private Material[] materials = new Material[4];
-    [SerializeField]
-    private GameObject[] par=new GameObject[4];
-    private static Material[] mat = new Material[4];
-    private static GameObject[] mobZombies=new GameObject[5];
-    private static GameObject[] pars=new GameObject[4];
+    private Material[] materials = new Material[4];//色変え用
+    private static Material[] mat = new Material[4];//色変え用
+    private static GameObject[] mobZombies=new GameObject[5];//モブのprefab
     public static int[] scoreCount=new int[4];
-    private static int[] NowZombiNum=new int[5];
+    private int[] NowZombiNum=new int[5];
 
     //0は市民,1～4がゾンビ
     
@@ -35,25 +32,17 @@ public class MobChangeSystem : MonoBehaviour
         {
             mat[i] = materials[i];
         }
-        for (int i = 0; i < par.Length; i++)
-        {
-            pars[i] = par[i];
-        }
     }
 
     void Update()
     {
-        if (a)
+        if (tx.Length > 4)
         {
             for (int i = 0; i < 5; i++)
             {
                 NowZombiNum[i] = MobCount(i);
+                tx[i].text = NowZombiNum[i].ToString();
             }
-            a.text = "1P:" + NowZombiNum[1] +
-                "  2P:" + NowZombiNum[2] +
-                "  3P:" + NowZombiNum[3] +
-                "  4P:" + NowZombiNum[4] +
-                "市民:" + NowZombiNum[0];
         }
     }
 
@@ -72,10 +61,17 @@ public class MobChangeSystem : MonoBehaviour
         //Instantiate(pars[num - 1], new Vector3(obj.transform.position.x,0.7f,obj.transform.position.z),Quaternion.Euler(-90,0,0));
         if (obj.GetComponent<PlayerNumber>().PlayerNum == 0)
         {
-            GameObject zombi;
-            zombi = (GameObject)Instantiate(mobZombies[num], obj.transform.position, obj.transform.rotation);
-            zombi.GetComponent<NavMeshAgent>().enabled = true;
-            Destroy(obj);
+            if (obj.GetComponent<HumanMove>().Smoke == false)
+            {
+                GameObject zombi;
+                zombi = (GameObject)Instantiate(mobZombies[num], obj.transform.position, obj.transform.rotation);
+                zombi.GetComponent<NavMeshAgent>().enabled = true;
+                Destroy(obj);
+            }
+            else
+            {
+                return;
+            }
         }
         else
         {
