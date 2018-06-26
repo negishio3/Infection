@@ -77,7 +77,7 @@
 		half nl = max(1, dot(i.normal, _WorldSpaceLightPos0.xyz));
 	if (nl <= 0.01f) nl = 0.1f;
 	else if (nl <= 0.1f) nl = 0.1f;
-	else nl = 1.0f;
+	else clip(-1);
 	fixed4 col = fixed4(nl, nl, nl, 0);
 	return col;
 	}
