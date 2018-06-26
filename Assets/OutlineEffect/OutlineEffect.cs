@@ -98,14 +98,16 @@ namespace cakeslice
 
         Material GetMaterialFromID(int ID)
         {
-            if(ID == 0)
+            if (ID == 0)
                 return outline1Material;
-            else if(ID == 1)
+            else if (ID == 1)
                 return outline2Material;
-            else if(ID == 2)
+            else if (ID == 2)
                 return outline3Material;
-            else
+            else if (ID == 3)
                 return outline4Material;
+            else
+                return null;
         }
         List<Material> materialBuffer = new List<Material>();
         Material CreateMaterial(Color emissionColor)
@@ -118,7 +120,7 @@ namespace cakeslice
             m.DisableKeyword("_ALPHATEST_ON");
             m.EnableKeyword("_ALPHABLEND_ON");
             m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            m.renderQueue = 3000;
+            m.renderQueue = 4000;
             return m;
         }
 
@@ -299,7 +301,7 @@ namespace cakeslice
             if(outline3Material == null)
                 outline3Material = CreateMaterial(new Color(0, 0, 1, 0));
             if (outline4Material == null)
-                outline4Material = CreateMaterial(new Color(2, 5, 0, 0));
+                outline4Material = CreateMaterial(new Color(1, 1, 0, 0));
         }
 
         private void DestroyMaterials()
