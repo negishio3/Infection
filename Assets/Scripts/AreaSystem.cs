@@ -14,7 +14,8 @@ public class AreaSystem : MonoBehaviour
     private List<GameObject> PlayerList=new List<GameObject>();
     [SerializeField, Header("AIプレイヤー")]
     private List<GameObject> AIPlayerobjList=new List<GameObject>();
-
+    [SerializeField]
+    FlowText flowtext;
     [SerializeField]
     private string sceneName;
 
@@ -35,13 +36,15 @@ public class AreaSystem : MonoBehaviour
     private const int spcount = 20;//沸き数
     private const int areDis = 8;//エリアの中心からの距離
 
-    private Queue<GameObject> areaQueue=new Queue<GameObject>();
+   // private Queue<GameObject> areaQueue=new Queue<GameObject>();
 
 
     private MultipleTargetCamera MTC;
 
     private int nowArea;
 
+    [SerializeField]
+    private GameObject[] AreaObject;
     
 
 
@@ -54,6 +57,7 @@ public class AreaSystem : MonoBehaviour
         StartCoroutine(ItemCoroutine());
         MTC = GameObject.Find("Camera").GetComponent<MultipleTargetCamera>();
         timer = changeTime+1;
+        PlayerSpawn(areaPosList[0]);
     }
 
     void Update()
@@ -66,37 +70,21 @@ public class AreaSystem : MonoBehaviour
     }
 
 
-    void AreaChange(Vector3 pos)
+    IEnumerator AreaChange(Vector3 pos)
     {
         foreach(GameObject g in GameObject.FindGameObjectsWithTag("Item"))
         {
             Destroy(g);
         }
+        foreach(AIPlayer Aip in GameObject.FindObjectsOfType<AIPlayer>())
+        {
+            Aip.AreaPos = pos;
+        }
         MobChangeSystem.MobDelete();
-        GameObject area= Instantiate(areaobj, new Vector3(pos.x,0.1f,pos.z), Quaternion.identity);
-        areaQueue.Enqueue(area);
-        foreach (GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            Destroy(pl);
-        }
-        //cam.transform.position = new Vector3(pos.x, 40f, pos.z - 20);
-        for (int i = 0; i < 4; i++)
-        {
-            Vector3 spwpos;
-            Quaternion qua = RandomQua();
-            MobSpawnPos(pos, out spwpos);
-            GameObject obj;
-            if (EntrySystem.entryFlg[i])
-            {
-                obj=(GameObject)Instantiate(PlayerList[i], spwpos, qua);
-            }
-            else
-            {
-                obj=(GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
-            }
-            obj.GetComponent<NavMeshAgent>().enabled = true;
-            obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
-        }
+        //GameObject area= Instantiate(areaobj, new Vector3(pos.x,0.1f,pos.z), Quaternion.identity);
+        //areaQueue.Enqueue(area);
+
+        yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < spcount; i++)
         {
             Vector3 spwpos;
@@ -130,20 +118,45 @@ public class AreaSystem : MonoBehaviour
 
     IEnumerator AreaEnumerator()
     {
-        yield return new WaitForSeconds(0.2f);
         for (int i=0; i < 4; i++)
         {
-            nowArea = i;
-            AreaChange(areaPosList[i]);
+            if (i < 3)
+            {
+                AreaObject[i + 1].SetActive(true);
+                timer = changeTime + 1;
+            }
+            flowtext.ChangeWave = true;
+            nowArea = i;                //アイテム処理で使用
+            yield return StartCoroutine(AreaChange(areaPosList[i]));
             MTC.PlayerSearch();
-            if (i != 0) { Destroy(areaQueue.Dequeue()); }
+            //if (i != 0) { Destroy(areaQueue.Dequeue()); }
             yield return new WaitWhile(()=>timer>=0);
-            timer = changeTime + 1;
+            AreaObject[i].SetActive(false);
         }
         //リザルトへ
         GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
     }
 
+    void PlayerSpawn(Vector3 pos)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 spwpos;
+            Quaternion qua = RandomQua();
+            MobSpawnPos(pos, out spwpos);
+            GameObject obj;
+            if (EntrySystem.entryFlg[i])
+            {
+                obj = (GameObject)Instantiate(PlayerList[i], spwpos, qua);
+            }
+            else
+            {
+                obj = (GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
+            }
+            obj.GetComponent<NavMeshAgent>().enabled = true;
+            obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+        }
+    }
 
 
     Quaternion RandomQua()

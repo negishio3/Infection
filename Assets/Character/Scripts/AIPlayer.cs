@@ -12,7 +12,8 @@ public class AIPlayer : AIBase
         MOVE,       //移動
         STALKING,   //追跡
         ATACK,      //攻撃
-        ITEM        //アイテムを取りに行く
+        ITEM,        //アイテムを取りに行く
+        AREA
     }
     [SerializeField]
     protected MoveState moveState=MoveState.MOVE;
@@ -32,6 +33,15 @@ public class AIPlayer : AIBase
 
     private float defaltSpeed=3.7f;
 
+    private Vector3 areaPos;
+
+    public Vector3 AreaPos
+    {
+        set { areaPos = value;
+            moveState = MoveState.AREA;
+            navMeshAgent.SetDestination(areaPos);
+        }
+    }
     protected override void Start()
     {
         base.Start();
@@ -85,6 +95,9 @@ public class AIPlayer : AIBase
                 break;
             case MoveState.ITEM:
                 Item();
+                break;
+            case MoveState.AREA:
+                Area();
                 break;
         }
 
@@ -186,6 +199,19 @@ public class AIPlayer : AIBase
         else
         {
             moveState = MoveState.MOVE;
+        }
+    }
+
+    void Area()
+    {
+        Ray raycast = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(raycast,out hit))
+        {
+            if (hit.collider.tag == "Area")
+            {
+                moveState = MoveState.MOVE;
+            }
         }
     }
 

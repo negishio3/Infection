@@ -12,6 +12,8 @@ public class EntrySystem : MonoBehaviour {
     private string noEntryText = "NPC";
     [SerializeField]
     private string sceneName;
+    [SerializeField]
+    private GameObject[] pObj;
 
     public bool[] EntryFlg
     {
@@ -28,47 +30,59 @@ public class EntrySystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1")&&!entryFlg[0])
         {
             entryFlg[0] = true;
             text[0].text = entryText;
+            GameObject g = (GameObject)Instantiate(pObj[0], new Vector3(-7, -1, 0), Quaternion.Euler(0, -210, 0));
+            g.name = pObj[0].name;
         }
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !entryFlg[1])
         {
             entryFlg[1] = true;
             text[1].text = entryText;
+            GameObject g = (GameObject)Instantiate(pObj[1], new Vector3(-2, -1, 0), Quaternion.Euler(0, -190, 0));
+            g.name = pObj[1].name;
         }
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") && !entryFlg[2])
         {
             entryFlg[2] = true;
             text[2].text = entryText;
+            GameObject g = (GameObject)Instantiate(pObj[2], new Vector3(2, -1, 0), Quaternion.Euler(0, -170, 0));
+            g.name = pObj[1].name;
         }
-        if (Input.GetButtonDown("Fire4"))
+        if (Input.GetButtonDown("Fire4") && !entryFlg[3])
         {
             entryFlg[3] = true;
             text[3].text = entryText;
+            GameObject g = (GameObject)Instantiate(pObj[3], new Vector3(7, -1, 0), Quaternion.Euler(0,-150,0));
+            g.name = pObj[1].name;
         }
 
 
-        if (Input.GetButtonDown("Jump1"))
+        if (Input.GetButtonDown("Jump1")&&entryFlg[0])
         {
             entryFlg[0] = false;
             text[0].text = noEntryText;
+            Destroy(GameObject.Find("Entry1"));
         }
-        if (Input.GetButtonDown("Jump2"))
+        if (Input.GetButtonDown("Jump2") && entryFlg[1])
         {
             entryFlg[1] = false;
             text[1].text = noEntryText;
+            Destroy(GameObject.Find("Entry2"));
         }
-        if (Input.GetButtonDown("Jump3"))
+        if (Input.GetButtonDown("Jump3") && entryFlg[2])
         {
             entryFlg[2] = false;
             text[2].text = noEntryText;
+            Destroy(GameObject.Find("Entry3"));
         }
-        if (Input.GetButtonDown("Jump4"))
+        if (Input.GetButtonDown("Jump4") && entryFlg[3])
         {
             entryFlg[3] = false;
             text[3].text = noEntryText;
+            Destroy(GameObject.Find("Entry4"));
         }
 
         if (Input.GetKeyDown(KeyCode.G))

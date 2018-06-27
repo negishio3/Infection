@@ -36,9 +36,9 @@ public class MobChangeSystem : MonoBehaviour
 
     void Update()
     {
-        if (tx.Length > 4)
+        for (int i = 0; i < 5; i++)
         {
-            for (int i = 0; i < 5; i++)
+            if (tx[i])
             {
                 NowZombiNum[i] = MobCount(i);
                 tx[i].text = NowZombiNum[i].ToString();
