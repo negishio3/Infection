@@ -36,7 +36,7 @@
 
 	fixed4 frag(v2f i) : SV_Target
 	{
-		fixed4 col = fixed4(0.1,0.2,1.3,1);//色の変更
+		fixed4 col = fixed4(1,0,1.0,1);//色の変更
 	return col;
 	}
 		ENDCG
@@ -77,7 +77,7 @@
 		half nl = max(1, dot(i.normal, _WorldSpaceLightPos0.xyz));
 	if (nl <= 0.01f) nl = 0.1f;
 	else if (nl <= 0.1f) nl = 0.1f;
-	else nl = 1.0f;
+	else clip(-1);
 	fixed4 col = fixed4(nl, nl, nl, 0);
 	return col;
 	}
