@@ -5,13 +5,14 @@ using UnityEngine;
 public class ZombieInstant : MonoBehaviour {
     public GameObject cam;
     public GameObject[] instantPos;//0:赤 1:青 2:緑 3:黄
-    public GameObject zombiePre;//ゾンビプレハブ
+    public GameObject[] zombiePre;//ゾンビプレハブ
+    public GameObject[] playerZom;//プレイヤーごとのゾンビプレハブ
     BoxCollider col;//ボックスコライダー
     Vector3 pos;//座標
-    public int[] score;//0:赤 1:青 2:緑 3:黄
+    public int[] scores;//0:赤 1:青 2:緑 3:黄
     private void Start()
     {
-         col=zombiePre.GetComponent<BoxCollider>();//ボックスコライダーを取得
+         col=zombiePre[0].GetComponent<BoxCollider>();//ボックスコライダーを取得
     }
     void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -19,10 +20,10 @@ public class ZombieInstant : MonoBehaviour {
             Instans();
         }
 	}
-    string autTagCnange(int preId)
+    string autTagCnange(int preID)
     {
         string preTag = "None";
-        switch (preId)
+        switch (preID)
         {
             case 0:
                 preTag = "Red";
@@ -41,9 +42,9 @@ public class ZombieInstant : MonoBehaviour {
     }
     public void Instans()
     {
-        StartCoroutine(ScoreCount());//生成コルーチンを呼び出し
+        StartCoroutine(ScoreCount(scores));//生成コルーチンを呼び出し
     }
-    private IEnumerator ScoreCount()
+    private IEnumerator ScoreCount(int[] score)
     {
         int highScore = score[0];//プレイヤー1のスコアを取得
 
@@ -58,12 +59,12 @@ public class ZombieInstant : MonoBehaviour {
         {
             for (int k = 0; k < instantPos.Length; k++)//生成位置の数だけ繰り返す
             {
-                if (j <= score[k])//各プレイヤーのスコア以下なら
+                if (j < score[k])//各プレイヤーのスコア以下なら
                 {
                     pos = instantPos[k].transform.position;//生成位置座標を取得
                     //生成
                     Instantiate(
-                        zombiePre,                        // プレハブ
+                        zombiePre[k],                        // プレハブ
                         instantPos[k].transform.position, // 座標
                         Quaternion.identity               // 回転
                         ).tag = autTagCnange(k);

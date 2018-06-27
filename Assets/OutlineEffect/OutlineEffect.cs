@@ -74,7 +74,7 @@ namespace cakeslice
         [Header("Advanced settings")]
         public bool scaleWithScreenSize = true;
         [Range(0.1f, .9f)]
-        public float alphaCutoff = .5f;
+        public float alphaCutoff = 0.5f;
         public bool flipY = false;
         public Camera sourceCamera;
 
@@ -299,7 +299,7 @@ namespace cakeslice
             if(outline3Material == null)
                 outline3Material = CreateMaterial(new Color(0, 0, 1, 0));
             if (outline4Material == null)
-                outline4Material = CreateMaterial(new Color(2, 5, 0, 0));
+                outline4Material = CreateMaterial(new Color(1, 1, 0, 0));
         }
 
         private void DestroyMaterials()
