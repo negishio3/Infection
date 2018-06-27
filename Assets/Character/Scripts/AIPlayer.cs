@@ -22,7 +22,7 @@ public class AIPlayer : AIBase
     [SerializeField]
     private GameObject atk;
 
-    protected bool atkFlg=true;
+    protected bool atkFlg=true;         //攻撃中か否か
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
 
@@ -30,6 +30,7 @@ public class AIPlayer : AIBase
 
     private Animator anim;
     private AnimatorStateInfo stateInfo;
+    private AreaGuideLine areaGuideLine;
 
     private float defaltSpeed=3.7f;
 
@@ -39,7 +40,10 @@ public class AIPlayer : AIBase
     {
         set { areaPos = value;
             moveState = MoveState.AREA;
-            navMeshAgent.SetDestination(areaPos);
+            if (navMeshAgent)
+            {
+                navMeshAgent.SetDestination(areaPos);
+            }
         }
     }
     protected override void Start()
@@ -49,6 +53,7 @@ public class AIPlayer : AIBase
         stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         targetTag = "Mob";
         navMeshAgent.speed=defaltSpeed;
+        areaGuideLine = GetComponentInChildren<AreaGuideLine>();
     }
 
     protected override void Update()
@@ -204,6 +209,7 @@ public class AIPlayer : AIBase
 
     void Area()
     {
+        areaGuideLine.LineRender.enabled = true;
         Ray raycast = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
         if (Physics.Raycast(raycast,out hit))
@@ -211,8 +217,10 @@ public class AIPlayer : AIBase
             if (hit.collider.tag == "Area")
             {
                 moveState = MoveState.MOVE;
+                areaGuideLine.LineRender.enabled = false;
             }
         }
+        areaGuideLine.LineWrite(transform.position, areaPos);
     }
 
     protected override void MoveRandom(float range)

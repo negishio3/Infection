@@ -19,11 +19,16 @@ public class PlayerMove : PlayerNumber
     private Animator anim;
     private AnimatorStateInfo stateInfo;
 
+    private AreaGuideLine areaGuideLine;
+
 
     private Vector3 vecInput;
     private bool atkFlg = true;
+    private bool inArea=false;
 
     private float defaltSpeed;
+
+    public Vector3 AreaPos { get; set; }
     //private Vector3 velocity;
     //private Vector3 vecRot;
     //private Vector3 graVelocity;
@@ -36,6 +41,7 @@ public class PlayerMove : PlayerNumber
         anim = GetComponent<Animator>();
         stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         defaltSpeed = movespeed;
+        areaGuideLine = GetComponentInChildren<AreaGuideLine>();
     }
 
     // Update is called once per frame
@@ -75,6 +81,31 @@ public class PlayerMove : PlayerNumber
         //    graVelocity.y += Physics.gravity.y * Time.deltaTime;
         //    cCon.Move(graVelocity * Time.deltaTime);
         //}
+        Ray raycast = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(raycast, out hit))
+        {
+            if (hit.collider.tag == "Area")
+            {
+                inArea = true;
+                if (areaGuideLine.LineRender.enabled)
+                {
+                    areaGuideLine.LineRender.enabled = false;
+                }
+            }
+            else
+            {
+                inArea = false;
+                if (!areaGuideLine.LineRender.enabled)
+                {
+                    areaGuideLine.LineRender.enabled = true;
+                }
+            }
+        }
+        if (!inArea)
+        {
+            areaGuideLine.LineWrite(transform.position, AreaPos);
+        }
     }
 
     void OnTriggerEnter(Collider col)

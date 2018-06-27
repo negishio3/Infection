@@ -39,7 +39,6 @@ public class AreaSystem : MonoBehaviour
    // private Queue<GameObject> areaQueue=new Queue<GameObject>();
 
 
-    private MultipleTargetCamera MTC;
 
     private int nowArea;
 
@@ -55,9 +54,16 @@ public class AreaSystem : MonoBehaviour
         nowArea = 0;
         StartCoroutine(AreaEnumerator());
         StartCoroutine(ItemCoroutine());
-        MTC = GameObject.Find("Camera").GetComponent<MultipleTargetCamera>();
         timer = changeTime+1;
         PlayerSpawn(areaPosList[0]);
+        foreach (AIPlayer Aip in FindObjectsOfType<AIPlayer>())
+        {
+            Aip.AreaPos = areaPosList[0];
+        }
+        foreach (PlayerMove Pm in FindObjectsOfType<PlayerMove>())
+        {
+            Pm.AreaPos = areaPosList[0];
+        }
     }
 
     void Update()
@@ -76,9 +82,13 @@ public class AreaSystem : MonoBehaviour
         {
             Destroy(g);
         }
-        foreach(AIPlayer Aip in GameObject.FindObjectsOfType<AIPlayer>())
+        foreach(AIPlayer Aip in FindObjectsOfType<AIPlayer>())
         {
             Aip.AreaPos = pos;
+        }
+        foreach(PlayerMove Pm in FindObjectsOfType<PlayerMove>())
+        {
+            Pm.AreaPos = pos;
         }
         MobChangeSystem.MobDelete();
         //GameObject area= Instantiate(areaobj, new Vector3(pos.x,0.1f,pos.z), Quaternion.identity);
@@ -128,7 +138,6 @@ public class AreaSystem : MonoBehaviour
             flowtext.ChangeWave = true;
             nowArea = i;                //アイテム処理で使用
             yield return StartCoroutine(AreaChange(areaPosList[i]));
-            MTC.PlayerSearch();
             //if (i != 0) { Destroy(areaQueue.Dequeue()); }
             yield return new WaitWhile(()=>timer>=0);
             AreaObject[i].SetActive(false);
@@ -153,7 +162,6 @@ public class AreaSystem : MonoBehaviour
             {
                 obj = (GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
             }
-            obj.GetComponent<NavMeshAgent>().enabled = true;
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
         }
     }
