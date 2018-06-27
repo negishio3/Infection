@@ -12,7 +12,7 @@ public class Bress : MonoBehaviour {
         set { parNum = value; }
     }
     void Start () {
-		
+        Destroy(gameObject,3f);
 	}
 	
 	// Update is called once per frame

@@ -11,7 +11,9 @@ public class AIPlayer : AIBase
         WAIT,       //待機
         MOVE,       //移動
         STALKING,   //追跡
-        ATACK       //攻撃
+        ATACK,      //攻撃
+        ITEM,        //アイテムを取りに行く
+        AREA
     }
     [SerializeField]
     protected MoveState moveState=MoveState.MOVE;
@@ -24,16 +26,29 @@ public class AIPlayer : AIBase
     protected float randomPosRange=30;  //移動場所ランダム範囲
     protected GameObject atackedTarget; //直近の攻撃済みのtarget
 
+    private GameObject itemTarget;
+
     private Animator anim;
     private AnimatorStateInfo stateInfo;
 
+    private float defaltSpeed=3.7f;
 
+    private Vector3 areaPos;
+
+    public Vector3 AreaPos
+    {
+        set { areaPos = value;
+            moveState = MoveState.AREA;
+            navMeshAgent.SetDestination(areaPos);
+        }
+    }
     protected override void Start()
     {
         base.Start();
         anim = GetComponent<Animator>();
         stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         targetTag = "Mob";
+        navMeshAgent.speed=defaltSpeed;
     }
 
     protected override void Update()
@@ -50,9 +65,19 @@ public class AIPlayer : AIBase
             stopTrackingTime -= Time.deltaTime;
         }
 
-
         base.Update();
 
+        if (GameObject.FindGameObjectWithTag("Item"))
+        {
+            GameObject[] obj = GameObject.FindGameObjectsWithTag("Item").
+                Where(e => Vector3.Distance(transform.position, e.transform.position) < 10).
+                OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).ToArray();
+            if (obj.Length != 0)
+            {
+                itemTarget = obj[0];
+                moveState = MoveState.ITEM;
+            }
+        }
 
         switch (moveState)
         {
@@ -67,6 +92,12 @@ public class AIPlayer : AIBase
                 break;
             case MoveState.ATACK:
                 Atack();
+                break;
+            case MoveState.ITEM:
+                Item();
+                break;
+            case MoveState.AREA:
+                Area();
                 break;
         }
 
@@ -111,7 +142,7 @@ public class AIPlayer : AIBase
         }
         else if (target)
         {
-            if (Vector3.Distance(target.transform.position, transform.position) < 2&&atkFlg)//接触していたらATACKに変更
+            if (Vector3.Distance(target.transform.position, transform.position) < 3.5f&&atkFlg)//接触していたらATACKに変更
             {
                 moveState = MoveState.ATACK;
                 StartCoroutine(AtkCor());
@@ -152,13 +183,37 @@ public class AIPlayer : AIBase
     {
         if (atackedTarget)//対象がいるか確認
         {
-            float rotationSpeed = 5;
+            float rotationSpeed = 20;
             Vector3 dir = new Vector3(atackedTarget.transform.position.x, transform.position.y, atackedTarget.transform.position.z) - transform.position;
             Vector3 newdir = Vector3.RotateTowards(transform.forward, dir, rotationSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(newdir);
         }
     }
 
+    void Item()
+    {
+        if (itemTarget)
+        {
+            navMeshAgent.SetDestination(itemTarget.transform.position);
+        }
+        else
+        {
+            moveState = MoveState.MOVE;
+        }
+    }
+
+    void Area()
+    {
+        Ray raycast = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(raycast,out hit))
+        {
+            if (hit.collider.tag == "Area")
+            {
+                moveState = MoveState.MOVE;
+            }
+        }
+    }
 
     protected override void MoveRandom(float range)
     {
@@ -202,12 +257,13 @@ public class AIPlayer : AIBase
         }
     }
 
-    void OnDestroy()
-    {
 
-    }
     protected override void OnTriggerEnter(Collider col)
     {
+        if (col.tag == "Item")
+        {
+            col.GetComponent<ItemBase>().Execution(gameObject);
+        }
     }
     IEnumerator AtkCor()
     {
@@ -217,7 +273,19 @@ public class AIPlayer : AIBase
         obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
         obj.GetComponent<AtackTest>().ParNum = playerNum;
         obj.transform.parent = gameObject.transform;
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.3f);
         atkFlg = true;
+    }
+
+    public void SpeedUp()
+    {
+        StartCoroutine(SpeedUpCoroutine());
+    }
+
+    IEnumerator SpeedUpCoroutine()
+    {
+        navMeshAgent.speed = defaltSpeed * 2;
+        yield return new WaitForSeconds(10f);
+        navMeshAgent.speed = defaltSpeed;
     }
 }
