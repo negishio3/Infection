@@ -36,7 +36,7 @@
 
 	fixed4 frag(v2f i) : SV_Target
 	{
-		fixed4 col = fixed4(0.1,0.2,1.3,1);//色の変更
+		fixed4 col = fixed4(1,0,1.0,1);//色の変更
 	return col;
 	}
 		ENDCG

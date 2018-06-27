@@ -351,7 +351,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d11d02a6f9c04f48b63ef363ea8b8ef, type: 3}
   m_IsPrefabParent: 0
---- !u!84 &1008774052
+--- !u!84 &1005809432
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -362,8 +362,8 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_Width: 858
-  m_Height: 483
+  m_Width: 860
+  m_Height: 484
   m_AntiAliasing: 1
   m_DepthFormat: 1
   m_ColorFormat: 0
@@ -382,25 +382,6 @@ RenderTexture:
     m_WrapW: 1
   m_Dimension: 2
   m_VolumeDepth: 1
---- !u!1 &1234227844 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100060, guid: 70a72cbc3a9c7b54d9701830fe8c84ed, type: 3}
-  m_PrefabInternal: {fileID: 1378297020}
---- !u!114 &1234227846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1234227844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 1
-  eraseRenderer: 0
-  originalLayer: 0
-  originalMaterials: []
 --- !u!1 &1305028997
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +424,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 1008774052}
+  m_TargetTexture: {fileID: 1005809432}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -473,6 +454,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 13700000, guid: 70a72cbc3a9c7b54d9701830fe8c84ed, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: 70a72cbc3a9c7b54d9701830fe8c84ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -529,10 +514,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 70a72cbc3a9c7b54d9701830fe8c84ed, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 828dbd5f1457d3141a88fdbccf506d5f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70a72cbc3a9c7b54d9701830fe8c84ed, type: 3}
   m_IsPrefabParent: 0
---- !u!84 &1403850322
+--- !u!84 &1425936317
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -543,8 +532,8 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
-  m_Width: 858
-  m_Height: 483
+  m_Width: 860
+  m_Height: 484
   m_AntiAliasing: 1
   m_DepthFormat: 1
   m_ColorFormat: 0
@@ -740,8 +729,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 1778486581}
   outlineCamera: {fileID: 1305028998}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 1008774052}
-  extraRenderTexture: {fileID: 1403850322}
+  renderTexture: {fileID: 1005809432}
+  extraRenderTexture: {fileID: 1425936317}
 --- !u!81 &1778486579
 AudioListener:
   m_ObjectHideFlags: 0

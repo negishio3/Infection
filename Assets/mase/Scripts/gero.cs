@@ -34,10 +34,10 @@ public class gero : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            ThrowingBall();
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    ThrowingBall();
+        //}
 
 
     }
