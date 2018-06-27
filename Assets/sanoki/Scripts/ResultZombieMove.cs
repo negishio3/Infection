@@ -53,6 +53,7 @@ public class ResultZombieMove : MonoBehaviour {
             }
             transform.position = pos;//微調整した位置に移動
             ani.SetTrigger("landing");//地面に触れたら落下モーションを再生
+            //Debug.Log("落ちた");
         }
     }
 

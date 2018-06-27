@@ -74,7 +74,7 @@ namespace cakeslice
         [Header("Advanced settings")]
         public bool scaleWithScreenSize = true;
         [Range(0.1f, .9f)]
-        public float alphaCutoff = .5f;
+        public float alphaCutoff = 0.5f;
         public bool flipY = false;
         public Camera sourceCamera;
 
