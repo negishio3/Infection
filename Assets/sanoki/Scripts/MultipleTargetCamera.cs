@@ -7,7 +7,7 @@ public class MultipleTargetCamera : MonoBehaviour
 {
     public Camera cam;//使用するカメラ
 
-    public List<Transform> targets;//画面内に収めたいオブジェクト
+    public List<GameObject> targets;//画面内に収めたいオブジェクト
 
     public Vector3 offset;//オフセット値
     public float smoothTime = 0.5f;//カメラの動くスピード
@@ -22,14 +22,16 @@ public class MultipleTargetCamera : MonoBehaviour
     private Vector3 velocity;
     private void Start()
     {
-        GetPoint();
-        cam.transform.LookAt(GetPoint());
+        GetCenterPoint();
+        cam.transform.LookAt(GetCenterPoint());
         //Debug.Log("X(" + GetPoint().x + "):Y(" + GetPoint().y + "):Z(" + GetPoint().z + ")");
         centerObj = new GameObject("Empty Game Object");//からのオブジェクトを生成して
+        centerObj.name = "CenterPoint";
         centerObj.transform.position = GetPoint();
         transform.parent = centerObj.transform;
-        getObjScreenPos();
+        getScreenPos();
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        Debug.Log("ID:"+farCharacter());
     }
 
     private void Reset()
@@ -53,22 +55,23 @@ public class MultipleTargetCamera : MonoBehaviour
     }
 
     //スクリーン座標に変換する
-    private void getObjScreenPos()
+    private Vector3[] getScreenPos()
     {
-        Vector2[] screenPos=new Vector2[4];
+        Vector3[] screenPos = new Vector3[4];
         for(int i = 0; i < screenPos.Length; i++)
         {
             screenPos[i] = Camera.main.WorldToScreenPoint(targets[i].transform.position);
-            Debug.Log((i+1)+"番目：X(" + screenPos[i].x + ")：Y(" + screenPos[i].y + ")");
+            //Debug.Log((i+1)+"番目：X(" + screenPos[i].x + ")：Y(" + screenPos[i].y + ")");
         }
+        return screenPos;
     }
 
     private float GetGreatestDistance()
     {
-        Bounds bounds = new Bounds(targets[0].position, Vector3.zero);
+        Bounds bounds = new Bounds(targets[0].transform.position, Vector3.zero);
         for (int i = 0; i < targets.Count; i++)
         {
-            bounds.Encapsulate(targets[i].position);
+            bounds.Encapsulate(targets[i].transform.position);
         }
         return bounds.size.x;
     }
@@ -77,34 +80,42 @@ public class MultipleTargetCamera : MonoBehaviour
     /// 中心座標の計算
     /// </summary>
     /// <returns></returns>
-    private Vector3 GetPoint()
+    private Vector3 GetCenterPoint()
     {
-        //Vector3 pos;//
         Vector3 centerPoint = Vector3.zero;//中心座標
-        if (targets.Count == 1) return targets[0].position;//ターゲットが一体しかいないならターゲットが中心座標
-        float maxX, maxZ;//値が一番大きい座標
-        float minX, minZ;//値が一番小さい座標
-        //とりあえず配列の頭のターゲットの座標を代入
-        maxX = targets[0].transform.position.x;
-        maxZ = targets[0].transform.position.z;
-        minX = targets[0].transform.position.x;
-        minZ = targets[0].transform.position.z;
-        //ターゲット分回す
-        for (int i = 1; i < targets.Count; i++)
+        if (targets.Count == 1) return getScreenPos()[0];//ターゲットが一体しかいないならターゲットが中心座標
+        for (int i = 0; i < targets.Count; i++)
         {
-            //比較した座標を代入
-            if (maxX < targets[i].transform.position.x) maxX = targets[i].transform.position.x;
-            if (maxZ < targets[i].transform.position.z) maxZ = targets[i].transform.position.z;
-            if (minX > targets[i].transform.position.x) minX = targets[i].transform.position.x;
-            if (minZ > targets[i].transform.position.z) minZ = targets[i].transform.position.z;
+            centerPoint += getScreenPos()[i];
         }
-        //pos.x = (maxX - minX) / 2;
-        //pos.z = (maxZ - minZ) / 2;
-        centerPoint.x = minX + (maxX - minX) / 2;
-        centerPoint.z = minZ + (maxZ - minZ) / 2;
-
+        centerPoint /= 4;
         return centerPoint;
 
+    }
+    private Vector3 GetPoint()
+    {
+        Vector3 centerPoint = Vector3.zero;
+        for(int i = 0; i < targets.Count; i++)
+        {
+            centerPoint += targets[i].transform.position;
+        }
+        return centerPoint/4;
+    }
+    //一番遠いオブジェクトを調べる
+    private int farCharacter()
+    {
+        float farObj = 0;
+        float newPos = 0;
+        int farObjID = 0;
+        for(int i = 0; i < targets.Count; i++)
+        {
+            newPos = targets[i].transform.position.magnitude;
+            if (farObj < newPos)
+            {
+                farObjID = i;
+            }
+        }
+        return farObjID;
     }
     private string getDistantCharacter()
     {

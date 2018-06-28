@@ -14,7 +14,7 @@ public class SceneFader_sanoki : MonoBehaviour
     public static bool isFade = false;//フェード中かどうか
     int fade;//FadeIn：１ FadeOut：０
 
-    Color fadeColor;//フェード時の色
+    public Color fadeColor;//フェード時の色
 
     float fadeSpeed = 1.5f;//フェードの速さ
 
