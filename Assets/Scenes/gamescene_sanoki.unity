@@ -315,7 +315,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 338218288}
   m_LocalRotation: {x: -0.6375988, y: -0.10302696, z: 0.086602494, w: -0.7585204}
-  m_LocalPosition: {x: 4.45, y: 0, z: -4.56}
+  m_LocalPosition: {x: 2.89, y: 0, z: -8.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -450,7 +450,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787445269}
   m_LocalRotation: {x: -0.37974718, y: -0.07218572, z: 0.1135948, w: -0.91524726}
-  m_LocalPosition: {x: -2.44, y: 0, z: 8.98}
+  m_LocalPosition: {x: -1, y: 0, z: 3.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -549,7 +549,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 809643339}
   m_LocalRotation: {x: -0.6375988, y: -0.10302696, z: 0.086602494, w: -0.7585204}
-  m_LocalPosition: {x: 7.81, y: 0, z: 3.8}
+  m_LocalPosition: {x: -0.5, y: 0, z: -2.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -650,10 +650,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 983500666}
   targets:
-  - {fileID: 338218292}
-  - {fileID: 787445273}
-  - {fileID: 809643343}
-  - {fileID: 1159754603}
+  - {fileID: 338218288}
+  - {fileID: 787445269}
+  - {fileID: 809643339}
+  - {fileID: 1159754599}
   offset: {x: 0, y: 20, z: 0}
   smoothTime: 0.5
   minZoom: 80
@@ -737,7 +737,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1159754599}
   m_LocalRotation: {x: -0.6375988, y: -0.10302696, z: 0.086602494, w: -0.7585204}
-  m_LocalPosition: {x: -4, y: 0, z: -1}
+  m_LocalPosition: {x: -12.77, y: 0, z: 0.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

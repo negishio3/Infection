@@ -14,7 +14,7 @@ public class ResultZombieMove : MonoBehaviour {
         col = GetComponent<BoxCollider>();//ボックスコライダーを取得
         ani = GetComponent<Animator>();//Animatorコンポーネントを取得
         pos = transform.position;//初期位置を代入
-        qua.y = Random.value*360;//0.0f～360.0fの間のランダムな数字を取得
+        qua.y = Random.value * 360;//0.0f～360.0fの間のランダムな数字を取得
         transform.Rotate(qua);//回転
     }
 

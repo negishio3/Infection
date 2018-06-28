@@ -1,21 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ZombieInstant : MonoBehaviour {
     public GameObject cam;
     public GameObject[] instantPos;//0:赤 1:青 2:緑 3:黄
     public GameObject[] zombiePre;//ゾンビプレハブ
-    public GameObject[] playerZom;//プレイヤーごとのゾンビプレハブ
+    public GameObject[] playerZom;//プレイヤーキャラ
     BoxCollider col;//ボックスコライダー
     Vector3 pos;//座標
     public int[] scores;//0:赤 1:青 2:緑 3:黄
+    public int[] playerID= { 0, 1, 2, 3 };
+    public int Count;
+
     private void Start()
     {
          col=zombiePre[0].GetComponent<BoxCollider>();//ボックスコライダーを取得
     }
     void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!SceneFader_sanoki.isFade && Count == 0)
         {
             Instans();
         }
@@ -46,13 +51,15 @@ public class ZombieInstant : MonoBehaviour {
     }
     private IEnumerator ScoreCount(int[] score)
     {
+        Count = 1;
         int highScore = score[0];//プレイヤー1のスコアを取得
-
+        int highScorePlayer = 0;
         for (int i = 1; i < instantPos.Length; i++)//プレイヤーの数だけ繰り返す
         {
             if (highScore < score[i])//スコアの大きい方を比較
             {
                 highScore = score[i];//ハイスコアの更新
+                highScorePlayer = i;
             }
         }
         for (int j = 0; j <= highScore; j++)//ハイスコアの数だけ繰り返す
@@ -74,6 +81,34 @@ public class ZombieInstant : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.1f);//0.1秒待つ
         }
+        int maxScore = SortArray(score, playerID)[0] ;
+        FindObjectOfType<ResultCam_sanoki>().camMove(maxScore);
 
+    }
+    int[] SortArray(int[] score,int[] playerID)
+    {
+        bool isEnd = false;
+        while (!isEnd)
+        {
+            bool loopSwap = false;
+            for (int i = 0; i < score.Length - 1; i++)
+            {
+                if (score[i] < score[i + 1])
+                {
+                    int x = score[i];
+                    int ID = playerID[i];
+                    score[i] = score[i + 1];
+                    playerID[i] = playerID[i + 1];
+                    score[i + 1] = x;
+                    playerID[i + 1] = ID;
+                    loopSwap = true;
+                }
+            }
+            if (!loopSwap) // Swapが一度も実行されなかった場合はソート終了
+            {
+                isEnd = true;
+            }
+        }
+        return playerID;
     }
 }
