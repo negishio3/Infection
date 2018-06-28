@@ -128,7 +128,6 @@ public class AreaSystem : MonoBehaviour
             flowtext.ChangeWave = true;
             nowArea = i;                //アイテム処理で使用
             yield return StartCoroutine(AreaChange(areaPosList[i]));
-            MTC.PlayerSearch();
             //if (i != 0) { Destroy(areaQueue.Dequeue()); }
             yield return new WaitWhile(()=>timer>=0);
             AreaObject[i].SetActive(false);
