@@ -10,41 +10,34 @@ public class AreaSystem : MonoBehaviour
 {
     [SerializeField, Header("変更間隔")]
     private float changeTime;
+    [SerializeField, Header("WAVE間の時間")]
+    private float nextTime;
     [SerializeField, Header("プレイヤー")]
     private List<GameObject> PlayerList=new List<GameObject>();
     [SerializeField, Header("AIプレイヤー")]
     private List<GameObject> AIPlayerobjList=new List<GameObject>();
     [SerializeField]
-    FlowText flowtext;
+    private FlowText flowtext;
     [SerializeField]
     private string sceneName;
-
     [SerializeField]
-    private GameObject areaobj;
+    private GameObject spawnSmoke;
     [SerializeField]
     private Text timeText;
-
-    public List<Vector3> areaPosList = new List<Vector3>(4);
-
-    [SerializeField]
+    [SerializeField,Header("アイテム")]
     private List<GameObject> Items=new List<GameObject>();
 
-
+    [SerializeField]
+    private GameObject[] AreaObject;
 
     private float timer;//残り時間
 
     private const int spcount = 20;//沸き数
     private const int areDis = 8;//エリアの中心からの距離
 
-   // private Queue<GameObject> areaQueue=new Queue<GameObject>();
-
-
-
     private int nowArea;
 
-    [SerializeField]
-    private GameObject[] AreaObject;
-    
+    private Vector3 smoke_Offset = new Vector3(0, 0, -5);
 
 
 
@@ -53,16 +46,15 @@ public class AreaSystem : MonoBehaviour
     {
         nowArea = 0;
         StartCoroutine(AreaEnumerator());
-        StartCoroutine(ItemCoroutine());
         timer = changeTime+1;
-        PlayerSpawn(areaPosList[0]);
+        PlayerSpawn(AreaObject[0].transform.position);
         foreach (AIPlayer Aip in FindObjectsOfType<AIPlayer>())
         {
-            Aip.AreaPos = areaPosList[0];
+            Aip.AreaPos = AreaObject[0].transform.position;
         }
         foreach (PlayerMove Pm in FindObjectsOfType<PlayerMove>())
         {
-            Pm.AreaPos = areaPosList[0];
+            Pm.AreaPos = AreaObject[0].transform.position;
         }
     }
 
@@ -76,31 +68,41 @@ public class AreaSystem : MonoBehaviour
     }
 
 
-    IEnumerator AreaChange(Vector3 pos)
+    void AreaFinish(Vector3 pos)
     {
-        foreach(GameObject g in GameObject.FindGameObjectsWithTag("Item"))
-        {
-            Destroy(g);
-        }
-        foreach(AIPlayer Aip in FindObjectsOfType<AIPlayer>())
+        foreach (AIPlayer Aip in FindObjectsOfType<AIPlayer>())
         {
             Aip.AreaPos = pos;
         }
-        foreach(PlayerMove Pm in FindObjectsOfType<PlayerMove>())
+        foreach (PlayerMove Pm in FindObjectsOfType<PlayerMove>())
         {
             Pm.AreaPos = pos;
         }
-        MobChangeSystem.MobDelete();
-        //GameObject area= Instantiate(areaobj, new Vector3(pos.x,0.1f,pos.z), Quaternion.identity);
-        //areaQueue.Enqueue(area);
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Item"))
+        {
+            Destroy(g);
+        }
+        MobChangeSystem.MobDelete();      
+    }
 
-        yield return new WaitForSeconds(0.1f);
+    IEnumerator AreaStart(Vector3 pos)
+    {
+        foreach (AIPlayer Aip in FindObjectsOfType<AIPlayer>())
+        {
+            Aip.AreaPos = pos;
+        }
+        foreach (PlayerMove Pm in FindObjectsOfType<PlayerMove>())
+        {
+            Pm.AreaPos = pos;
+        }
+        Instantiate(spawnSmoke, pos+smoke_Offset, Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < spcount; i++)
         {
             Vector3 spwpos;
-            Quaternion qua=RandomQua();
+            Quaternion qua = RandomQua();
             MobSpawnPos(pos, out spwpos);
-            MobChangeSystem.HumanSpawn(spwpos,qua);
+            MobChangeSystem.HumanSpawn(spwpos, qua);
         }
     }
 
@@ -128,19 +130,26 @@ public class AreaSystem : MonoBehaviour
 
     IEnumerator AreaEnumerator()
     {
-        for (int i=0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-            if (i < 3)
-            {
-                AreaObject[i + 1].SetActive(true);
-                timer = changeTime + 1;
-            }
+            StartCoroutine(ItemCoroutine());
+            timer = changeTime + 1;
+
             flowtext.ChangeWave = true;
             nowArea = i;                //アイテム処理で使用
-            yield return StartCoroutine(AreaChange(areaPosList[i]));
-            //if (i != 0) { Destroy(areaQueue.Dequeue()); }
-            yield return new WaitWhile(()=>timer>=0);
+            yield return StartCoroutine(AreaStart(AreaObject[i].transform.position));
+            yield return new WaitWhile(() => timer >= 10);
+            AreaObject[i + 1].SetActive(true);
+            yield return new WaitWhile(() => timer >= 0);
+
             AreaObject[i].SetActive(false);
+            //次のwaveへ
+
+            nowArea = i + 1;
+            AreaFinish(AreaObject[i + 1].transform.position);
+            timer = nextTime + 1;
+            flowtext.WaveFinish = true;
+            yield return new WaitWhile(() => timer >= 0);
         }
         //リザルトへ
         GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
@@ -196,7 +205,7 @@ public class AreaSystem : MonoBehaviour
     void ItemCreate(int item)
     {
         Vector3 spwpos;
-        MobSpawnPos(areaPosList[nowArea], out spwpos);
+        MobSpawnPos(AreaObject[nowArea].transform.position, out spwpos);
         GameObject obj = (GameObject)Instantiate(Items[item], spwpos, Quaternion.Euler(-90,0,0));
         obj.name = Items[item].name;
     }

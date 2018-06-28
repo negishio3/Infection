@@ -32,7 +32,7 @@ public class AIPlayer : AIBase
     private AnimatorStateInfo stateInfo;
     private AreaGuideLine areaGuideLine;
 
-    private float defaltSpeed=3.7f;
+    private float defaltSpeed=5.2f;
 
     private Vector3 areaPos;
 
@@ -109,6 +109,21 @@ public class AIPlayer : AIBase
         if (!recastFlg)//攻撃中なら対象のほうへ向く
         {
             AtackRotation();
+        }
+
+
+        if (transform.position == Mypos)
+        {
+            Ray raycast = new Ray(transform.position, Vector3.down);
+            RaycastHit hit;
+            if (Physics.Raycast(raycast, out hit))
+            {
+                if (hit.collider.tag != "Area")
+                {
+                    navMeshAgent.SetDestination(areaPos);
+                    moveState = MoveState.AREA;
+                }
+            }
         }
 
         Mypos = transform.position;

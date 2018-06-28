@@ -118,7 +118,7 @@ public class AIZombi : AIBase
             navMeshAgent.ResetPath();
             if (targetMobs.Any())
             {
-                if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance)
+                if (Vector3.Distance(targetMobs[0].transform.position, transform.position) < walkDistance*3)
                 {
                     mobPattern = MobPattern.RUNDOMWAIK;
                     MoveRandom(RandomWalkPosRange);

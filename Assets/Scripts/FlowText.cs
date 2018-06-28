@@ -18,10 +18,12 @@ public class FlowText : MonoBehaviour {
     private float speed=12f;
 
     public bool ChangeWave { get; set; }
+    public bool WaveFinish { get; set; }
 
     void Start() {
         rect = GetComponent<RectTransform>();
         text = GetComponent<Text>();
+        rect.localPosition = new Vector3(550f, 0, 0);
     }
 
     // Update is called once per frame
@@ -38,15 +40,14 @@ public class FlowText : MonoBehaviour {
                 StopMove();
                 break;
         }
-        text.text = "WAVE" + wave.ToString();
     }
 
     void StatePosition()
     {
         //初期位置移動処理
         flowState = FlowState.FLOWMOVING;
-        rect.localPosition = new Vector3(550f, 0, 0);
         ChangeWave = false;
+        text.text = "WAVE" + wave.ToString();
     }
 
     void FlowMoving()
@@ -69,7 +70,14 @@ public class FlowText : MonoBehaviour {
 
     void StopMove()
     {
+        rect.localPosition = new Vector3(550f, 0, 0);
         //流れた後の待機処理
+        if (WaveFinish)
+        {
+            flowState = FlowState.FLOWMOVING;
+            WaveFinish = false;
+            text.text = "NEXT";
+        }
         if (ChangeWave)
         {
             flowState = FlowState.STATEPOSITION;
