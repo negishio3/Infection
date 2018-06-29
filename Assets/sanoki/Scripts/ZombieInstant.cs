@@ -17,6 +17,7 @@ public class ZombieInstant : MonoBehaviour {
 
     private void Start()
     {
+
          col=zombiePre[0].GetComponent<BoxCollider>();//ボックスコライダーを取得
     }
     void Update () {
@@ -47,7 +48,7 @@ public class ZombieInstant : MonoBehaviour {
     }
     public void Instans()
     {
-        StartCoroutine(ScoreCount(scores));//生成コルーチンを呼び出し
+        StartCoroutine(ScoreCount(MobChangeSystem.scoreCount));//生成コルーチンを呼び出し
     }
     private IEnumerator ScoreCount(int[] score)
     {
