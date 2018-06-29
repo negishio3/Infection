@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RandomMaterialChanger : MonoBehaviour {
 
-    Material[] _materials;
+    //Material[] _materials;
 
-    public List<Material> _materialLis;
+    List<Material> _materialLis=new List<Material>();
 
     private void Start()
     {
-        _materials = GetComponent<Renderer>().materials;
+        //_materials = GetComponent<Renderer>().materials;
         _materialLis.AddRange(Resources.LoadAll<Material>("ResultZombieMaterial"));
         ReplaceMaterial(0, _materialLis[Random.Range(0, _materialLis.Count)]);
     }

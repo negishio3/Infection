@@ -15,6 +15,7 @@ TagManager:
   - Yellow
   - Item
   - Head
+  - Target
   layers:
   - Default
   - TransparentFX
