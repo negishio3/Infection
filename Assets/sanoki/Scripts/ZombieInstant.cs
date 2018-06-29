@@ -9,6 +9,7 @@ public class ZombieInstant : MonoBehaviour {
     public GameObject[] instantPos;//0:赤 1:青 2:緑 3:黄
     public GameObject[] zombiePre;//ゾンビプレハブ
     public GameObject[] playerZom;//プレイヤーキャラ
+    public GameObject[] Crowns;//王冠プレハブ
     BoxCollider col;//ボックスコライダー
     Vector3 pos;//座標
     public int[] scores;//0:赤 1:青 2:緑 3:黄
