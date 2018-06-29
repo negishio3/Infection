@@ -85,9 +85,12 @@ public class EntrySystem : MonoBehaviour {
             Destroy(GameObject.Find("Entry4"));
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        for (int i = 1; i < 5; i++)
         {
-            ChangeScene();
+            if (Input.GetButtonDown("Start" + i.ToString()))
+            {
+                ChangeScene();
+            }
         }
     }
 

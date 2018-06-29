@@ -8,7 +8,7 @@ public class GeroOnGround : MonoBehaviour {
     
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag != "Mob" && col.tag != "Player")
+        if (col.tag != "Mob" && col.tag != "Player"&&col.tag!="Item")
         {
             Vector3 hitpos= col.ClosestPointOnBounds(this.transform.position);
             Instantiate(Owe, hitpos, Quaternion.Euler(-90, 0, 0));

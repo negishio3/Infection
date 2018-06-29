@@ -25,6 +25,7 @@ public class PlayerMove : PlayerNumber
     private bool inArea=false;
 
     private float defaltSpeed;
+    private float atktime=0;
 
     public Vector3 AreaPos { get; set; }
     //private Vector3 velocity;
@@ -45,6 +46,14 @@ public class PlayerMove : PlayerNumber
     // Update is called once per frame
     void Update()
     {
+        if (!atkFlg)
+        {
+            atktime+=Time.deltaTime;
+            if (atktime > 3.5f)
+            {
+                atkFlg = true;
+            }            
+        }
         if (stateInfo.normalizedTime < 0.1) { anim.SetBool("Bress", false); }
 
         if (Input.GetButtonDown("Fire" + playerNum.ToString())&&atkFlg)
@@ -52,16 +61,6 @@ public class PlayerMove : PlayerNumber
             anim.SetBool("Bress", true);
             StartCoroutine(AtkCor());
         }
-
-
-        //vecRot = new Vector3(0f, Input.GetAxis("HorizontalR"+ playerNum.ToString()), 0f);
-        //transform.Rotate(vecRot * rotspeed);
-
-        //vecInput = new Vector3(Input.GetAxis("HorizontalL" + playerNum.ToString()), 0, Input.GetAxis("VerticalL" + playerNum.ToString()));
-        //velocity = Quaternion.Euler(0f, transform.localEulerAngles.y, 0f) * vecInput;
-
-        //velocity *= movespeed;
-        //cCon.Move(velocity * Time.deltaTime);
 
         vecInput = new Vector3(Input.GetAxis("HorizontalL" + playerNum.ToString()), 0, Input.GetAxis("VerticalL" + playerNum.ToString()));
         vecInput *= movespeed;
@@ -74,11 +73,6 @@ public class PlayerMove : PlayerNumber
             - transform.position);
         }
 
-        //void FixedUpdate()
-        //{
-        //    graVelocity.y += Physics.gravity.y * Time.deltaTime;
-        //    cCon.Move(graVelocity * Time.deltaTime);
-        //}
         Ray raycast = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
         if (Physics.Raycast(raycast, out hit))
@@ -116,14 +110,15 @@ public class PlayerMove : PlayerNumber
 
     IEnumerator AtkCor()
     {
+        if (atkFlg == false)
+        {
+            yield break;
+        }
         atkFlg = false;
+        atktime = 0;
         yield return new WaitForSeconds(0.6f);
         geroScri.ThrowingBall();
-        //GameObject obj;
-        //obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
-        //obj.GetComponent<AtackTest>().ParNum = playerNum;
-        //obj.transform.parent = gameObject.transform;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.3f);
         atkFlg = true;
     }
 

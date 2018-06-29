@@ -35,6 +35,7 @@ public class AIPlayer : AIBase
     private AreaGuideLine areaGuideLine;
 
     private float defaltSpeed=5.2f;
+    private float timecCountOfRecast=0;
 
     private Vector3 areaPos;
 
@@ -60,6 +61,15 @@ public class AIPlayer : AIBase
 
     protected override void Update()
     {
+        if (!recastFlg)
+        {
+            timecCountOfRecast += Time.deltaTime;
+            if (timecCountOfRecast > 3.5f)
+            {
+                recastFlg = true;
+            }
+        }
+
         if (stateInfo.normalizedTime<0.9) { anim.SetBool("Bress", false); }
 
         if (stopTrackingTime <= 0)//一定時間視界に入らなかったら見失う
@@ -164,7 +174,7 @@ public class AIPlayer : AIBase
         }
         else if (target)
         {
-            if (Vector3.Distance(target.transform.position, transform.position) < 3.5f&&atkFlg)//接触していたらATACKに変更
+            if (Vector3.Distance(target.transform.position, transform.position) < 4.5f&&atkFlg)//接触していたらATACKに変更
             {
                 moveState = MoveState.ATACK;
                 StartCoroutine(AtkCor());
@@ -295,10 +305,6 @@ public class AIPlayer : AIBase
         atkFlg = false;
         yield return new WaitForSeconds(0.6f);
         geroScr.ThrowingBall();
-        //GameObject obj;
-        //obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
-        //obj.GetComponent<AtackTest>().ParNum = playerNum;
-        //obj.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(1.3f);
         atkFlg = true;
     }
