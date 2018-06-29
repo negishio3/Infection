@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AreaSystem : MonoBehaviour
@@ -61,9 +58,13 @@ public class AreaSystem : MonoBehaviour
     void Update()
     {
         timeText.text = Mathf.Floor(timer).ToString();
-        if (timer >= 0)
+        if (timer > 0)
         {
             timer -= Time.deltaTime;
+        }
+        else if(timer<0)
+        {
+            timer = 0;
         }
     }
 
@@ -138,18 +139,23 @@ public class AreaSystem : MonoBehaviour
             flowtext.ChangeWave = true;
             nowArea = i;                //アイテム処理で使用
             yield return StartCoroutine(AreaStart(AreaObject[i].transform.position));
-            yield return new WaitWhile(() => timer >= 10);
-            AreaObject[i + 1].SetActive(true);
+            if (i < 3)
+            {
+                yield return new WaitWhile(() => timer >= 10);
+                AreaObject[i + 1].SetActive(true);
+            }
             yield return new WaitWhile(() => timer >= 0);
 
             AreaObject[i].SetActive(false);
             //次のwaveへ
-
-            nowArea = i + 1;
-            AreaFinish(AreaObject[i + 1].transform.position);
-            timer = nextTime + 1;
-            flowtext.WaveFinish = true;
-            yield return new WaitWhile(() => timer >= 0);
+            if (i < 3)
+            {
+                nowArea = i + 1;
+                AreaFinish(AreaObject[i + 1].transform.position);
+                timer = nextTime + 1;
+                flowtext.WaveFinish = true;
+                yield return new WaitWhile(() => timer >= 0);
+            }
         }
         //リザルトへ
         GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
@@ -204,9 +210,19 @@ public class AreaSystem : MonoBehaviour
 
     void ItemCreate(int item)
     {
+        int Qx=0;
+        switch (item)
+        {
+            case 0:
+                Qx = 0;
+                break;
+            case 1:
+                Qx = -90;
+                break;
+        }
         Vector3 spwpos;
         MobSpawnPos(AreaObject[nowArea].transform.position, out spwpos);
-        GameObject obj = (GameObject)Instantiate(Items[item], spwpos, Quaternion.Euler(-90,0,0));
+        GameObject obj = (GameObject)Instantiate(Items[item], spwpos, Quaternion.Euler(Qx,0,0));
         obj.name = Items[item].name;
     }
 }

@@ -790,7 +790,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167236257674292}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -0.000016848082, y: 0.7673077, z: -3.4463006e-29}
+  m_LocalPosition: {x: -0.000016848082, y: 8.4, z: -3.4463006e-29}
   m_LocalScale: {x: 3.234421, y: 2.3757167, z: 3.0051727}
   m_Children: []
   m_Father: {fileID: 4514713933911916}
@@ -872,7 +872,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548304475661990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 8.33, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4514713933911916}
@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 0
+  seibetu: 0
   walkSpeed: 1.5
   runSpeed: 3.7
   searchDistance: 30
@@ -1048,6 +1049,7 @@ MonoBehaviour:
   waitMoveTime: 2
   walkDistance: 25
   runDistance: 15
+  skin: {fileID: 137689377162856206}
 --- !u!136 &136421992863410032
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1075,7 +1077,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9bdac105ab000134287ff243da8355d2, type: 3}
+  - {fileID: 2100000, guid: c26ef0612192182458438075946fbb79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1131,7 +1133,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548304475661990}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
   m_Speed: 3.5

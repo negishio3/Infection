@@ -13,7 +13,10 @@ public class MobChangeSystem : MonoBehaviour
     private GameObject[] objs;//モブのprefab
     [SerializeField]
     private Material[] materials = new Material[4];//色変え用
+    [SerializeField]
+    private Material[] humanS=new Material[2];
     private static Material[] mat = new Material[4];//色変え用
+    private static Material[] HumanMaterialS = new Material[2];
     private static GameObject[] mobZombies=new GameObject[5];//モブのprefab
     public static int[] scoreCount=new int[4];
     private int[] NowZombiNum=new int[5];
@@ -31,6 +34,10 @@ public class MobChangeSystem : MonoBehaviour
         for (int i = 0; i < materials.Length; i++)
         {
             mat[i] = materials[i];
+        }
+        for (int i = 0; i < humanS.Length; i++)
+        {
+            HumanMaterialS[i] = humanS[i];
         }
     }
 
@@ -83,9 +90,15 @@ public class MobChangeSystem : MonoBehaviour
 
     public static void HumanSpawn(Vector3 pos,Quaternion qu)
     {
+        int s = UnityEngine.Random.Range(0,2);
         GameObject obj;
         obj = (GameObject)Instantiate(mobZombies[0], pos, qu);
         obj.GetComponent<NavMeshAgent>().enabled = true;
+        if (s == 1)
+        {
+            obj.GetComponent<PlayerNumber>().Seibetu = 1;
+            obj.GetComponent<HumanMove>().skin.material =HumanMaterialS[1];
+        }
     }
 
     public static void MobDelete()

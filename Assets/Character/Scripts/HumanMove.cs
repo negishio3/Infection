@@ -19,6 +19,8 @@ public class HumanMove : AIBase {
     [SerializeField]
     private int runDistance;
 
+    public SkinnedMeshRenderer skin;
+
 
     protected float RandomRunPosrange = 25;
     protected float RandomWalkPosRange = 15;
