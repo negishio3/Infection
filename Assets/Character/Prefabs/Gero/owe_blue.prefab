@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4148340614163494}
   - component: {fileID: 198537380589074096}
-  - component: {fileID: 114636990988493214}
   - component: {fileID: 199798203675807926}
   m_Layer: 0
   m_Name: gero
@@ -57,7 +56,9 @@ GameObject:
   - component: {fileID: 198865798844773916}
   - component: {fileID: 199705571963996336}
   - component: {fileID: 114699476538713990}
-  - component: {fileID: 54487280581813258}
+  - component: {fileID: 136084884302237348}
+  - component: {fileID: 114130036514509962}
+  - component: {fileID: 54273681866046670}
   m_Layer: 0
   m_Name: owe_blue
   m_TagString: Untagged
@@ -113,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1478627489756772}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 15.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4148340614163494}
@@ -135,7 +136,7 @@ Transform:
   m_Father: {fileID: 4362637499246582}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54487280581813258
+--- !u!54 &54273681866046670
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -145,23 +146,23 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114636990988493214
+--- !u!114 &114130036514509962
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1449062310233984}
+  m_GameObject: {fileID: 1478627489756772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab1cd3541249b94bab3380eabf0c783, type: 3}
+  m_Script: {fileID: 11500000, guid: a3a3f7a8a03fd674fbf8c0f0e7e03701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerNum: 2
+  plNum: 2
 --- !u!114 &114699476538713990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,6 +175,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life_time: 1.5
+--- !u!136 &136084884302237348
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1478627489756772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198537380589074096
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -234,7 +248,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -181267226
+  randomSeed: 562015351
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2582,7 +2596,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 1
     collisionMode: 0
@@ -3595,7 +3609,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 931070923
+  randomSeed: -183545641
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6956,7 +6970,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1533926729
+  randomSeed: -1500616619
   InitialModule:
     serializedVersion: 3
     enabled: 1

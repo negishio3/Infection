@@ -179,6 +179,7 @@ public class AreaSystem : MonoBehaviour
                 obj = (GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
             }
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
+            CameraAddPlayer(obj);
         }
     }
 
@@ -226,5 +227,11 @@ public class AreaSystem : MonoBehaviour
         MobSpawnPos(AreaObject[nowArea].transform.position, out spwpos);
         GameObject obj = (GameObject)Instantiate(Items[item], spwpos+offset, Quaternion.Euler(Qx,0,0));
         obj.name = Items[item].name;
+    }
+
+    void CameraAddPlayer(GameObject obj)
+    {
+        MultipleTargetCamera mtc = GameObject.Find("Camera").GetComponent<MultipleTargetCamera>();
+        mtc.targets.Add(obj);
     }
 }

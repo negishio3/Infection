@@ -17,7 +17,7 @@ public class MultipleTargetCamera : MonoBehaviour
 
     private void Update()
     {
-        targets = GameObject.FindGameObjectsWithTag("Target").ToList();
+        //targets = GameObject.FindGameObjectsWithTag("Target").ToList();
         transform.position = Vector3.Lerp(transform.position, calcCameraPosition(), 1.0f);
     }
 

@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4724279240892822}
   - component: {fileID: 198464377132949236}
-  - component: {fileID: 114820799719257594}
   - component: {fileID: 199735962580842146}
   m_Layer: 0
   m_Name: gero
@@ -72,7 +71,9 @@ GameObject:
   - component: {fileID: 198659157119213404}
   - component: {fileID: 199242122513553358}
   - component: {fileID: 114401420113657190}
-  - component: {fileID: 54512784230436710}
+  - component: {fileID: 136969352795854218}
+  - component: {fileID: 114352323298717738}
+  - component: {fileID: 54336438707137476}
   m_Layer: 0
   m_Name: owe_green
   m_TagString: Untagged
@@ -135,7 +136,7 @@ Transform:
   m_Father: {fileID: 4309612949125412}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54512784230436710
+--- !u!54 &54336438707137476
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -145,11 +146,23 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114352323298717738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1631921541026292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a3f7a8a03fd674fbf8c0f0e7e03701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plNum: 3
 --- !u!114 &114401420113657190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,18 +175,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life_time: 1.5
---- !u!114 &114820799719257594
-MonoBehaviour:
+--- !u!136 &136969352795854218
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1270343387506252}
+  m_GameObject: {fileID: 1631921541026292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab1cd3541249b94bab3380eabf0c783, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerNum: 3
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198202484335381166
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -234,7 +248,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1297704740
+  randomSeed: -26804802
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3595,7 +3609,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 682218483
+  randomSeed: 581366153
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5943,7 +5957,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 1
     collisionMode: 0
@@ -6956,7 +6970,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -418908797
+  randomSeed: 1211698185
   InitialModule:
     serializedVersion: 3
     enabled: 1
