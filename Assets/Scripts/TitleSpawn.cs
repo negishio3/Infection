@@ -31,9 +31,12 @@ public class TitleSpawn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.G))
+        for (int i = 1; i < 5; i++)
         {
-            GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
+            if (Input.GetButtonDown("Start" + i.ToString()))
+            {
+                GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect(sceneName);
+            }
         }
     }
     Quaternion RandomQua()
