@@ -560,7 +560,23 @@ GameObject:
   m_Component:
   - component: {fileID: 4539050480824136}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TargetPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1959544262427624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4341756916471674}
+  - component: {fileID: 114206494139265814}
+  m_Layer: 0
+  m_Name: Gero_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -790,8 +806,22 @@ Transform:
   - {fileID: 4274689556130206}
   - {fileID: 4769226138082932}
   - {fileID: 4665311127185252}
+  - {fileID: 4341756916471674}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4341756916471674
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959544262427624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4307686933376914}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4427534706012162
 Transform:
@@ -844,7 +874,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1932423225008870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4307686933376914}
@@ -1178,6 +1208,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114206494139265814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959544262427624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThrowingObject: {fileID: 1631921541026292, guid: 888cf58c78c188e44bde8f1d18887d0c,
+    type: 2}
+  TargetObject: {fileID: 1932423225008870}
+  ThrowingAngle: 20.9
 --- !u!114 &114308500183667850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1199,6 +1244,7 @@ MonoBehaviour:
   moveState: 1
   createpos: {fileID: 1932423225008870}
   atk: {fileID: 1766161385238796, guid: 12f243bf48d57f74a9eb94354f47068b, type: 2}
+  geroScr: {fileID: 114206494139265814}
 --- !u!114 &114729284665696104
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 136743951109031220}
   - component: {fileID: 54850079987667100}
   m_Layer: 0
-  m_Name: PlayerAI2
+  m_Name: PlayerAI5
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -842,7 +842,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380231350771584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 2.5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4814974054255212}
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   ThrowingObject: {fileID: 1966649707851420, guid: fcdcd737fc7df5e47a4667714e99df5c,
     type: 2}
   TargetObject: {fileID: 1380231350771584}
-  ThrowingAngle: 20.9
+  ThrowingAngle: 44.5
 --- !u!114 &114814590223958958
 MonoBehaviour:
   m_ObjectHideFlags: 1

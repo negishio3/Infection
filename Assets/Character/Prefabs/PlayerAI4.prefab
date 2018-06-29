@@ -379,6 +379,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1673798029881624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4586553549103096}
+  - component: {fileID: 114877067586410452}
+  m_Layer: 0
+  m_Name: Gero_Yellow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1736535385932480
 GameObject:
   m_ObjectHideFlags: 1
@@ -448,7 +464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4936042163950478}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TargetPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -854,6 +870,19 @@ Transform:
   m_Father: {fileID: 4451795943050456}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4586553549103096
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673798029881624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4967511722900258}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4613277945863858
 Transform:
   m_ObjectHideFlags: 1
@@ -1002,7 +1031,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875954179912882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4967511722900258}
@@ -1040,6 +1069,7 @@ Transform:
   - {fileID: 4105059665859308}
   - {fileID: 4683172267862596}
   - {fileID: 4727335738390126}
+  - {fileID: 4586553549103096}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1190,6 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
+  seibetu: 0
   walkSpeed: 1.5
   runSpeed: 5
   searchDistance: 30
@@ -1198,6 +1229,7 @@ MonoBehaviour:
   moveState: 1
   createpos: {fileID: 1875954179912882}
   atk: {fileID: 1766161385238796, guid: 12f243bf48d57f74a9eb94354f47068b, type: 2}
+  geroScr: {fileID: 114877067586410452}
 --- !u!114 &114178970757666700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1220,6 +1252,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51bb5300d1f159418ddbea0cab0663f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114877067586410452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673798029881624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThrowingObject: {fileID: 1215560001003228, guid: 5997c06d763fa554295c64fb7b5a8360,
+    type: 2}
+  TargetObject: {fileID: 1875954179912882}
+  ThrowingAngle: 20.9
 --- !u!120 &120877465704337674
 LineRenderer:
   m_ObjectHideFlags: 1

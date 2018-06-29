@@ -21,6 +21,8 @@ public class AIPlayer : AIBase
     public GameObject createpos;
     [SerializeField]
     private GameObject atk;
+    [SerializeField]
+    private gero geroScr;
 
     protected bool atkFlg=true;         //攻撃中か否か
     protected float randomPosRange=30;  //移動場所ランダム範囲
@@ -292,10 +294,11 @@ public class AIPlayer : AIBase
     {
         atkFlg = false;
         yield return new WaitForSeconds(0.6f);
-        GameObject obj;
-        obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
-        obj.GetComponent<AtackTest>().ParNum = playerNum;
-        obj.transform.parent = gameObject.transform;
+        geroScr.ThrowingBall();
+        //GameObject obj;
+        //obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
+        //obj.GetComponent<AtackTest>().ParNum = playerNum;
+        //obj.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(1.3f);
         atkFlg = true;
     }

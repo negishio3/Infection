@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: outline(B)
-  m_Shader: {fileID: 4800000, guid: f2493acd47162f44a80c81b000109145, type: 3}
+  m_Shader: {fileID: 4800000, guid: fae995d3eed06ef449d42d976ca296e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

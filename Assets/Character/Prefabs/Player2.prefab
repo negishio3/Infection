@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 137657690962555270}
   m_Layer: 0
   m_Name: Box004
-  m_TagString: Target
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,6 +391,22 @@ GameObject:
   - component: {fileID: 4744071104154380}
   m_Layer: 0
   m_Name: Bip002 Spine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1740273524236810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4760384078205942}
+  - component: {fileID: 114836031918805350}
+  m_Layer: 0
+  m_Name: Gero_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4370447463408904}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TargetPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,7 +796,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882486853268866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.535, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4605992888650112}
@@ -970,6 +986,7 @@ Transform:
   - {fileID: 4747643086740732}
   - {fileID: 4185717068010822}
   - {fileID: 4189299521169910}
+  - {fileID: 4760384078205942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1028,6 +1045,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4605992888650112}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4760384078205942
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740273524236810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4605992888650112}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4819392718248502
 Transform:
@@ -1200,6 +1230,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51bb5300d1f159418ddbea0cab0663f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114836031918805350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740273524236810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThrowingObject: {fileID: 1966649707851420, guid: fcdcd737fc7df5e47a4667714e99df5c,
+    type: 2}
+  TargetObject: {fileID: 1882486853268866}
+  ThrowingAngle: 20.9
 --- !u!114 &114982839148826864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1213,9 +1258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 1
   seibetu: 0
-  atk: {fileID: 1766161385238796, guid: 12f243bf48d57f74a9eb94354f47068b, type: 2}
-  createpos: {fileID: 1882486853268866}
   movespeed: 5
+  geroScri: {fileID: 114836031918805350}
 --- !u!120 &120807622482400878
 LineRenderer:
   m_ObjectHideFlags: 1
