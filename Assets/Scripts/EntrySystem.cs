@@ -49,14 +49,14 @@ public class EntrySystem : MonoBehaviour {
             entryFlg[2] = true;
             text[2].text = entryText;
             GameObject g = (GameObject)Instantiate(pObj[2], new Vector3(2, -1, 0), Quaternion.Euler(0, -170, 0));
-            g.name = pObj[1].name;
+            g.name = pObj[2].name;
         }
         if (Input.GetButtonDown("Fire4") && !entryFlg[3])
         {
             entryFlg[3] = true;
             text[3].text = entryText;
             GameObject g = (GameObject)Instantiate(pObj[3], new Vector3(7, -1, 0), Quaternion.Euler(0,-150,0));
-            g.name = pObj[1].name;
+            g.name = pObj[3].name;
         }
 
 

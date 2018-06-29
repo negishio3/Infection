@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class PlayerMove : PlayerNumber
 {
-    public GameObject atk;
-    public GameObject createpos;
+    //public GameObject atk;
+    //public GameObject createpos;
     [SerializeField, Header("速度")]
     private float movespeed;
-    //[SerializeField, Header("回転速")]
-    //private float rotspeed;
-    //[SerializeField]
-    //private GameObject Yajirushi;
+    [SerializeField]
+    private gero geroScri;
 
 
     private CharacterController cCon;
@@ -120,10 +118,11 @@ public class PlayerMove : PlayerNumber
     {
         atkFlg = false;
         yield return new WaitForSeconds(0.6f);
-        GameObject obj;
-        obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
-        obj.GetComponent<AtackTest>().ParNum = playerNum;
-        obj.transform.parent = gameObject.transform;
+        geroScri.ThrowingBall();
+        //GameObject obj;
+        //obj = (GameObject)Instantiate(atk, createpos.transform.position, Quaternion.identity);
+        //obj.GetComponent<AtackTest>().ParNum = playerNum;
+        //obj.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(1.2f);
         atkFlg = true;
     }

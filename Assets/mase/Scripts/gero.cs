@@ -45,15 +45,15 @@ public class gero : MonoBehaviour
     /// <summary>
     /// ボールを射出する
     /// </summary>
-    private void ThrowingBall()
+    public void ThrowingBall()
     {
-        if (ThrowingObject != null && TargetObject != null)
+        if (ThrowingObject != null /*&& TargetObject != null*/)
         {
             // Ballオブジェクトの生成
             GameObject ball = Instantiate(ThrowingObject, this.transform.position, Quaternion.identity);
 
-            // 標的の座標
-            Vector3 targetPosition = TargetObject.transform.position;
+            //標的の座標
+           Vector3 targetPosition = TargetObject.transform.position;
 
             // 射出角度
             float angle = ThrowingAngle;
