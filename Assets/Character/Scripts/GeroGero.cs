@@ -7,7 +7,6 @@ public class GeroGero : MonoBehaviour {
     private int plNum;
 void OnTriggerEnter(Collider obj)
     {
-        Debug.Log("a");
         if ((obj.tag == "Mob" && obj.GetComponent<PlayerNumber>().PlayerNum == 0))
         {
             Quaternion qua = obj.transform.rotation;

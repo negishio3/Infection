@@ -8851,7 +8851,9 @@ MonoBehaviour:
   - {fileID: 1827124701828780, guid: 65958d28a19975a4a96ac2cba5c383aa, type: 2}
   humanS:
   - {fileID: 2100000, guid: 4e95b0e3143ff5440af0420b0188c78a, type: 2}
-  - {fileID: 2100000, guid: 4e95b0e3143ff5440af0420b0188c78a, type: 2}
+  - {fileID: 2100000, guid: fbe47dd1dcf98574daf6b87d52a9695f, type: 2}
+  - {fileID: 2100000, guid: 08eb00b8f4a9f7b40b64a95bcd826a6e, type: 2}
+  - {fileID: 2100000, guid: 358b3acd2c611c440b6f98c13fc7242b, type: 2}
   outLine:
   - {fileID: 2100000, guid: 801d4edfc073ee34fa2f6025c9703447, type: 2}
   - {fileID: 2100000, guid: 61d925498de3d504d847c6d6ecb0c516, type: 2}
