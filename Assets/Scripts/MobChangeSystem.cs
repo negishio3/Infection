@@ -13,13 +13,13 @@ public class MobChangeSystem : MonoBehaviour
     private GameObject[] objs;//モブのprefab
 
     [SerializeField]
-    private Material[] humanS=new Material[2];
+    private Material[] humanS=new Material[4];
 
     [SerializeField]
     private Material[] outLine = new Material[4];
 
     private static Material[] OutLine = new Material[4];
-    private static Material[] HumanMaterialS = new Material[2];
+    private static Material[] HumanMaterialS = new Material[4];
     private static GameObject[] mobZombies=new GameObject[5];//モブのprefab
     public static int[] scoreCount=new int[4];
     private int[] NowZombiNum=new int[5];
@@ -93,14 +93,27 @@ public class MobChangeSystem : MonoBehaviour
 
     public static void HumanSpawn(Vector3 pos,Quaternion qu)
     {
-        int s = UnityEngine.Random.Range(0,2);
+        int s = UnityEngine.Random.Range(0,4);
         GameObject obj;
         obj = (GameObject)Instantiate(mobZombies[0], pos, qu);
         obj.GetComponent<NavMeshAgent>().enabled = true;
-        if (s == 1)
+        switch(s)
         {
-            obj.GetComponent<PlayerNumber>().Seibetu = 1;
+            case 0:
+                obj.GetComponent<HumanMove>().skin.material = HumanMaterialS[0];
+                break;
+
+            case 1:
             obj.GetComponent<HumanMove>().skin.material =HumanMaterialS[1];
+                break;
+
+            case 2:
+                obj.GetComponent<HumanMove>().skin.material = HumanMaterialS[2];
+                break;
+
+            case 3:
+                obj.GetComponent<HumanMove>().skin.material = HumanMaterialS[3];
+                break;
         }
     }
 
