@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 1
-  purification: {fileID: 1366629007851516, guid: 1867c60c13cce1f4d99c68905a861f6b,
+  purification: {fileID: 1366629007851516, guid: 0db57134b8f22f54ea565865af4a70d6,
     type: 2}
 --- !u!136 &136519091981172256
 CapsuleCollider:

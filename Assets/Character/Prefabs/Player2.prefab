@@ -1241,10 +1241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowingObject: {fileID: 1966649707851420, guid: fcdcd737fc7df5e47a4667714e99df5c,
+  ThrowingObject: {fileID: 1062857501169546, guid: c1cdf03a3d17f5442bc97af462a7d17f,
     type: 2}
   TargetObject: {fileID: 1882486853268866}
-  ThrowingAngle: 20.9
 --- !u!114 &114982839148826864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1375,7 +1374,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9800405a05f4fe849bece2530ae1f0eb, type: 2}
+  - {fileID: 2100000, guid: 419530562c9b4b544bd83f7034e0a6e8, type: 2}
   - {fileID: 2100000, guid: 61d925498de3d504d847c6d6ecb0c516, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

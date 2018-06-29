@@ -14,6 +14,11 @@ public class MobChangeSystem : MonoBehaviour
 
     [SerializeField]
     private Material[] humanS=new Material[2];
+
+    [SerializeField]
+    private Material[] outLine = new Material[4];
+
+    private static Material[] OutLine = new Material[4];
     private static Material[] HumanMaterialS = new Material[2];
     private static GameObject[] mobZombies=new GameObject[5];//モブのprefab
     public static int[] scoreCount=new int[4];
@@ -28,6 +33,10 @@ public class MobChangeSystem : MonoBehaviour
         for(int i = 0; i < objs.Length; i++)
         {
             mobZombies[i] = objs[i];
+        }
+        for(int i = 0; i < outLine.Length; i++)
+        {
+            OutLine[i] = outLine[i];
         }
         for (int i = 0; i < humanS.Length; i++)
         {
@@ -77,6 +86,7 @@ public class MobChangeSystem : MonoBehaviour
         else
         {
             SkinnedMeshRenderer s = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+            s.material = OutLine[num - 1];
             obj.GetComponent<PlayerNumber>().PlayerNum = num;
         }
     }

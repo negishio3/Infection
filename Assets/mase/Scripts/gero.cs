@@ -19,7 +19,7 @@ public class gero : MonoBehaviour
     /// <summary>
     /// 射出角度
     /// </summary>
-    [SerializeField, Range(0F, 90F), Tooltip("射出する角度")]
+    //[SerializeField, Range(0F, 90F), Tooltip("射出する角度")]
     private float ThrowingAngle;
 
     private void Start()
@@ -30,6 +30,7 @@ public class gero : MonoBehaviour
         //    // 干渉しないようにisTriggerをつける
         //    collider.isTrigger = true;
         //}
+        ThrowingAngle = 10;
     }
 
     private void Update()

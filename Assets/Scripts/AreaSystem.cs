@@ -221,9 +221,10 @@ public class AreaSystem : MonoBehaviour
                 Qx = -90;
                 break;
         }
+        Vector3 offset = new Vector3(0, -0.5f, 0);
         Vector3 spwpos;
         MobSpawnPos(AreaObject[nowArea].transform.position, out spwpos);
-        GameObject obj = (GameObject)Instantiate(Items[item], spwpos, Quaternion.Euler(Qx,0,0));
+        GameObject obj = (GameObject)Instantiate(Items[item], spwpos+offset, Quaternion.Euler(Qx,0,0));
         obj.name = Items[item].name;
     }
 }

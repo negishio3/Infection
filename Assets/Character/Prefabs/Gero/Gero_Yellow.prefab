@@ -51,6 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowingObject: {fileID: 1215560001003228, guid: 5997c06d763fa554295c64fb7b5a8360,
+  ThrowingObject: {fileID: 1062857501169546, guid: c5c1cb4a69e6a6943922a986477cc85c,
     type: 2}
-  ThrowingAngle: 56.6
+  TargetObject: {fileID: 0}

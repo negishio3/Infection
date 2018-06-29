@@ -1149,7 +1149,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 995715c503606d44b80eff3ae08382b5, type: 2}
+  - {fileID: 2100000, guid: 0e3d1cbf997f165468535f7b4491031d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1256,10 +1256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5186ef3234d26e42b2d782fecd3629d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowingObject: {fileID: 1631921541026292, guid: 888cf58c78c188e44bde8f1d18887d0c,
+  ThrowingObject: {fileID: 1062857501169546, guid: 56b7e7680c2457b469103942915fb588,
     type: 2}
   TargetObject: {fileID: 1471688825717278}
-  ThrowingAngle: 20.9
 --- !u!120 &120629789340387862
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -1375,8 +1374,8 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 419530562c9b4b544bd83f7034e0a6e8, type: 2}
   - {fileID: 2100000, guid: da25ac35acb6bed4c8d0d53b6447ef4a, type: 2}
+  - {fileID: 2100000, guid: 989d852379b68c54ebc55e23af950f38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

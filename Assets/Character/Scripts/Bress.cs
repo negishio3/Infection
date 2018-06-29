@@ -12,12 +12,10 @@ public class Bress : MonoBehaviour {
         {
             Quaternion qua = obj.transform.rotation;
             MobChangeSystem.MobChanger(obj.gameObject, PlayerNum);
-            Destroy(gameObject, 0.05f);
         }
         else if (obj.tag == "Mob" && obj.GetComponent<PlayerNumber>().PlayerNum != 0)
         {
             MobChangeSystem.MobChanger(obj.gameObject, PlayerNum);
-            Destroy(gameObject, 0.05f);
         }
     }
 }
