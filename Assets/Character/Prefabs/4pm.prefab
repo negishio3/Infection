@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4667541753996340}
   - component: {fileID: 137627250157941254}
+  - component: {fileID: 114157326857387392}
   m_Layer: 0
   m_Name: Box004
   m_TagString: Untagged
@@ -997,6 +998,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114157326857387392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012289593294982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd3438d77a2eee40a6e52c57cd979b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114571121134864950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1043,8 +1055,8 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 995715c503606d44b80eff3ae08382b5, type: 2}
-  - {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
+  - {fileID: 2100000, guid: b5a34bf4bb7b09540827b7e51be5ec8b, type: 2}
+  - {fileID: 2100000, guid: 4811bc8b44a3fe44aa2e2d6759a689a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

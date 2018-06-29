@@ -39,7 +39,7 @@ public class AreaSystem : MonoBehaviour
 
     private Vector3 smoke_Offset = new Vector3(0, 0, -5);
 
-
+    MultipleTargetCamera multipleCamera;
 
 
     void Start()
@@ -56,6 +56,7 @@ public class AreaSystem : MonoBehaviour
         {
             Pm.AreaPos = AreaObject[0].transform.position;
         }
+        multipleCamera = FindObjectOfType<MultipleTargetCamera>();
     }
 
     void Update()
@@ -171,6 +172,7 @@ public class AreaSystem : MonoBehaviour
             {
                 obj = (GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
             }
+            //FindObjectOfType<MultipleTargetCamera>().addTarget(obj);
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
         }
     }

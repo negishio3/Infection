@@ -65,6 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4197353666454624}
   - component: {fileID: 137709669733891446}
+  - component: {fileID: 114926421299378360}
   m_Layer: 0
   m_Name: Box004
   m_TagString: Untagged
@@ -1016,6 +1017,17 @@ MonoBehaviour:
   waitMoveTime: 2
   walkDistance: 25
   runDistance: 15
+--- !u!114 &114926421299378360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022454246615894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd3438d77a2eee40a6e52c57cd979b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136466637643707608
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1043,8 +1055,8 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0e3d1cbf997f165468535f7b4491031d, type: 2}
-  - {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
+  - {fileID: 2100000, guid: 419530562c9b4b544bd83f7034e0a6e8, type: 2}
+  - {fileID: 2100000, guid: da25ac35acb6bed4c8d0d53b6447ef4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
