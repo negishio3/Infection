@@ -22,9 +22,14 @@ public class Bress : MonoBehaviour {
 
     private void OnParticleCollision(GameObject obj)
     {
-        if ((obj.tag == "Mob" && obj.GetComponent<PlayerNumber>().PlayerNum != parNum))
+        if ((obj.tag == "Mob" && obj.GetComponent<PlayerNumber>().PlayerNum ==0))
         {
             Quaternion qua = obj.transform.rotation;
+            MobChangeSystem.MobChanger(obj.gameObject, parNum);
+            Destroy(gameObject, 0.05f);
+        }
+        else if (obj.tag == "Mob" && obj.GetComponent<PlayerNumber>().PlayerNum != 0)
+        {
             MobChangeSystem.MobChanger(obj.gameObject, parNum);
             Destroy(gameObject, 0.05f);
         }
