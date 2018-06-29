@@ -623,7 +623,7 @@ Prefab:
     - target: {fileID: 13700000, guid: 7b64390acb1736d49a8dc67e71cab99d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b5a34bf4bb7b09540827b7e51be5ec8b, type: 2}
+      objectReference: {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
     - target: {fileID: 9500000, guid: 7b64390acb1736d49a8dc67e71cab99d, type: 3}
       propertyPath: m_Controller
       value: 
@@ -965,7 +965,7 @@ Prefab:
     - target: {fileID: 13700000, guid: 7b64390acb1736d49a8dc67e71cab99d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
+      objectReference: {fileID: 2100000, guid: b5a34bf4bb7b09540827b7e51be5ec8b, type: 2}
     - target: {fileID: 9500000, guid: 7b64390acb1736d49a8dc67e71cab99d, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1248,6 +1248,8 @@ MonoBehaviour:
     spr: {fileID: 21300000, guid: a8317751972e7d249ae9c5c57bf064eb, type: 3}
   - name: ResultBackImage
     spr: {fileID: 21300000, guid: c0b462377449d644fb2637e63c739ef5, type: 3}
+  - name: ResultBackImage
+    spr: {fileID: 21300000, guid: 5f3c213e2876991499a6472bc09e7e7e, type: 3}
 --- !u!4 &1529811906
 Transform:
   m_ObjectHideFlags: 0
@@ -1431,6 +1433,7 @@ MonoBehaviour:
   - {fileID: 1649109370}
   - {fileID: 347826373}
   - {fileID: 1608844927}
+  Crowns: []
   scores: 3000000022000000310000002d000000
   playerID: 00000000010000000200000003000000
   Count: 0
