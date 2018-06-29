@@ -178,7 +178,6 @@ public class AreaSystem : MonoBehaviour
             {
                 obj = (GameObject)Instantiate(AIPlayerobjList[i], spwpos, qua);
             }
-            //FindObjectOfType<MultipleTargetCamera>().addTarget(obj);
             obj.GetComponent<PlayerNumber>().PlayerNum = i + 1;
         }
     }

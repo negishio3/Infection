@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 137657690962555270}
   m_Layer: 0
   m_Name: Box004
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1212,6 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
+  seibetu: 0
   atk: {fileID: 1766161385238796, guid: 12f243bf48d57f74a9eb94354f47068b, type: 2}
   createpos: {fileID: 1882486853268866}
   movespeed: 5

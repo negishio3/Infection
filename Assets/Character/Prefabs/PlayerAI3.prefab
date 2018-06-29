@@ -1190,6 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
+  seibetu: 0
   walkSpeed: 1.5
   runSpeed: 5
   searchDistance: 30

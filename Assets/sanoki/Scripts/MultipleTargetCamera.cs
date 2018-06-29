@@ -7,7 +7,7 @@ public class MultipleTargetCamera : MonoBehaviour
 {
     public Camera cam;//使用するカメラ
 
-    public GameObject[] targets;//画面内に収めたいオブジェクト
+    public List<GameObject> targets=new List<GameObject>();//画面内に収めたいオブジェクト
 
     public float offset;//オフセット値
     private void Reset()
@@ -15,14 +15,9 @@ public class MultipleTargetCamera : MonoBehaviour
         cam = GetComponent<Camera>();//カメラコンポーネントを取得
     }
 
-    //public void addTarget(GameObject target)
-    //{
-    //    targets.Add(target);
-    //}
-
     private void Update()
     {
-        targets = GameObject.FindGameObjectsWithTag("Target");
+        targets = GameObject.FindGameObjectsWithTag("Target").ToList();
         transform.position = Vector3.Lerp(transform.position, calcCameraPosition(), 1.0f);
     }
 
@@ -30,21 +25,24 @@ public class MultipleTargetCamera : MonoBehaviour
     private Vector3 calcCameraPosition()
     {
         //if (targets.Count== 0) return targets[0].transform.position;
-        Vector3[] targetPosArray = new Vector3[targets.Length];
+        Vector3[] targetPosArray = new Vector3[targets.Count];
         Vector3 centerPointWorld = new Vector3();
         Vector3 centerPointScreen = new Vector3();
-        for(int i = 0; i < targets.Length; i++)
+        for(int i = 0; i < targets.Count; i++)
         {
             targetPosArray[i] = targets[i].transform.position;
-            targetPosArray[i].x *= (float)Screen.height / Screen.width;
+            Debug.DrawRay(targetPosArray[i], Vector3.up * 5,Color.red);
             centerPointWorld += targetPosArray[i];
         }
-        centerPointWorld /= targets.Length;
+        centerPointWorld /= targets.Count;
         centerPointScreen = Camera.main.WorldToScreenPoint(centerPointWorld);
+        Debug.DrawRay(centerPointWorld, Vector3.up);
         float farDistans = new float();
-        for (int i = 0; i < targets.Length; i++)
+        for (int i = 0; i < targets.Count; i++)
         {
-            float newDistans = (targetPosArray[i] - centerPointWorld).magnitude;
+            Vector3 diff = targetPosArray[i] - centerPointWorld;
+            diff.x *= (float)Screen.height / Screen.width;
+            float newDistans = diff.magnitude;
             if (farDistans < newDistans)
             {
                 farDistans = newDistans;
