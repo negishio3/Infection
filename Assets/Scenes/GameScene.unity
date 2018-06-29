@@ -7010,20 +7010,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db5bfe5d22f8c848a40dba6e96586b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeTime: 45
+  changeTime: 10
   nextTime: 12
   PlayerList:
   - {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
   - {fileID: 1418627143791990, guid: 32bfb638f70ae8e4285bcf0a8337a457, type: 2}
-  - {fileID: 1542676329377648, guid: f3411681fbaec8a45a34ca3afb7b7970, type: 2}
-  - {fileID: 1906895544271616, guid: 64dc3c6a3fc6aa74db78cd6a9fa76dbc, type: 2}
+  - {fileID: 1542676329377648, guid: 64dc3c6a3fc6aa74db78cd6a9fa76dbc, type: 2}
+  - {fileID: 1906895544271616, guid: f3411681fbaec8a45a34ca3afb7b7970, type: 2}
   AIPlayerobjList:
   - {fileID: 1317057438595746, guid: 18a6823aaa152ae4da6df99f7e09691d, type: 2}
   - {fileID: 1505804964894004, guid: 109f4e51d41bcbf4bbf4f71c278fa2ea, type: 2}
-  - {fileID: 1227949417337364, guid: 9736c07a4c8e250419f50cceb686b569, type: 2}
-  - {fileID: 1990765755191576, guid: ec0e419f7a8d8ba4ba46015ded83061f, type: 2}
+  - {fileID: 1227949417337364, guid: ec0e419f7a8d8ba4ba46015ded83061f, type: 2}
+  - {fileID: 1990765755191576, guid: 9736c07a4c8e250419f50cceb686b569, type: 2}
   flowtext: {fileID: 123584236}
-  sceneName: Risult
+  sceneName: Result
   spawnSmoke: {fileID: 1958653685482202, guid: 309be11a442961c48be4b61696b73851, type: 2}
   timeText: {fileID: 1180850037}
   Items:
