@@ -1431,7 +1431,7 @@ MonoBehaviour:
   - {fileID: 1649109370}
   - {fileID: 347826373}
   - {fileID: 1608844927}
-  scores: 13000000170000001100000015000000
+  scores: 3000000022000000310000002d000000
   playerID: 00000000010000000200000003000000
   Count: 0
 --- !u!4 &1619997156
@@ -1618,7 +1618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1789143159
 RectTransform:
   m_ObjectHideFlags: 0

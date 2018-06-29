@@ -7010,7 +7010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db5bfe5d22f8c848a40dba6e96586b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeTime: 45
+  changeTime: 15
   nextTime: 12
   PlayerList:
   - {fileID: 1874153863612752, guid: 522ff6bfe08b60443907dad7f5f2d980, type: 2}
@@ -7023,7 +7023,7 @@ MonoBehaviour:
   - {fileID: 1227949417337364, guid: ec0e419f7a8d8ba4ba46015ded83061f, type: 2}
   - {fileID: 1990765755191576, guid: 9736c07a4c8e250419f50cceb686b569, type: 2}
   flowtext: {fileID: 123584236}
-  sceneName: Rizart
+  sceneName: Result
   spawnSmoke: {fileID: 1958653685482202, guid: 309be11a442961c48be4b61696b73851, type: 2}
   timeText: {fileID: 1180850037}
   Items:
@@ -8849,11 +8849,6 @@ MonoBehaviour:
   - {fileID: 1271012826707560, guid: 867423e9fbcca824fbf7e9963c22be6b, type: 2}
   - {fileID: 1928774518430764, guid: f6db0a58ed094d64f98c9875b58f19df, type: 2}
   - {fileID: 1827124701828780, guid: 65958d28a19975a4a96ac2cba5c383aa, type: 2}
-  materials:
-  - {fileID: 2100000, guid: a7076ef7e8c66c14380e4305249ab5a1, type: 2}
-  - {fileID: 2100000, guid: 9b961b6b454dbd3449aab668abadb442, type: 2}
-  - {fileID: 2100000, guid: 995715c503606d44b80eff3ae08382b5, type: 2}
-  - {fileID: 2100000, guid: 0e3d1cbf997f165468535f7b4491031d, type: 2}
   humanS:
   - {fileID: 2100000, guid: 4e95b0e3143ff5440af0420b0188c78a, type: 2}
   - {fileID: 2100000, guid: 4e95b0e3143ff5440af0420b0188c78a, type: 2}
