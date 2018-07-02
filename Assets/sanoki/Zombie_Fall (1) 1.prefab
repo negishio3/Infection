@@ -1013,7 +1013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd3438d77a2eee40a6e52c57cd979b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materialLis: []
 --- !u!137 &137569746310495190
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1028,8 +1027,8 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
   - {fileID: 2100000, guid: 61d925498de3d504d847c6d6ecb0c516, type: 2}
+  - {fileID: 2100000, guid: 989d852379b68c54ebc55e23af950f38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

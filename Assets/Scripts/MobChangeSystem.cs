@@ -28,7 +28,7 @@ public class MobChangeSystem : MonoBehaviour
     
     
     
-    void Start()
+    void Awake()
     {
         for(int i = 0; i < objs.Length; i++)
         {

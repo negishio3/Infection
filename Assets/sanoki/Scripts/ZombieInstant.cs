@@ -9,24 +9,40 @@ public class ZombieInstant : MonoBehaviour {
     public GameObject[] instantPos;//0:赤 1:青 2:緑 3:黄
     public GameObject[] zombiePre;//ゾンビプレハブ
     public GameObject[] playerZom;//プレイヤーキャラ
-    public GameObject[] Crowns;//王冠プレハブ
+    public GameObject[] crowns;//王冠プレハブ
+    public Text[] winnerTexts=new Text[4];
+    public Image[] winnerImages;
+    public GameObject drawImage;
+    public Text[] drawTexts;
+    public ParticleSystem[] particles=new ParticleSystem[4];
+    GameObject[] particlesGam;
+    public GameObject[] particlePoss;
+    ParticleSystem[] particlesIns = new ParticleSystem[4];
     BoxCollider col;//ボックスコライダー
     Vector3 pos;//座標
     public int[] scores;//0:赤 1:青 2:緑 3:黄
     public int[] playerID= { 0, 1, 2, 3 };
     public int Count;
+    public bool ParticlePlay;
 
     private void Start()
     {
-
          col=zombiePre[0].GetComponent<BoxCollider>();//ボックスコライダーを取得
     }
     void Update () {
-        if (!SceneFader_sanoki.isFade && Count == 0)
+        //if (Input.GetKeyDown(KeyCode.D)) Instans(scores);
+        if (!SceneFader_sanoki.isFade && Count == 0 && MobChangeSystem.scoreCount[0] > 0)
         {
-            Instans();
+            Instans(MobChangeSystem.scoreCount);
         }
-	}
+        for (int i = 1; i < 5; i++)
+        {
+            if (Input.GetButtonDown("Start" + i.ToString()))
+            {
+                GameObject.Find("Canvas").GetComponent<SceneFader_sanoki>().StageSelect("Title");
+            }
+        }
+    }
     string autTagCnange(int preID)
     {
         string preTag = "None";
@@ -47,9 +63,9 @@ public class ZombieInstant : MonoBehaviour {
         }
         return preTag;
     }
-    public void Instans()
+    public void Instans(int[] score)
     {
-        StartCoroutine(ScoreCount(MobChangeSystem.scoreCount));//生成コルーチンを呼び出し
+        StartCoroutine(ScoreCount(score));//生成コルーチンを呼び出し
     }
     private IEnumerator ScoreCount(int[] score)
     {
@@ -83,11 +99,45 @@ public class ZombieInstant : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.1f);//0.1秒待つ
         }
-        int maxScore = SortArray(score, playerID)[0] ;
-        FindObjectOfType<ResultCam_sanoki>().camMove(maxScore);
+        int maxScore = SortArray(score, playerID,true)[0];
+        if (SortArray(score,playerID,false)[0]!= SortArray(score, playerID, false)[1])
+        {
+            ParticleSwitch();
+            crowns[SortArray(score, playerID, true)[0]].SetActive(true);
+            Invoke("ParticleSwitch", 1.0f);
+            FindObjectOfType<ResultCam_sanoki>().camMove(maxScore);
+        }
+        else if(SortArray(score, playerID, false)[0] == SortArray(score, playerID, false)[1])
+        {
+            for (int i = 0; i < score.Length; i++)
+            {
+                drawTexts[SortArray(score, playerID, true)[i]].text = SortArray(score, playerID, false)[i].ToString();
+            }
+            drawImage.SetActive(true);
+        }
 
     }
-    int[] SortArray(int[] score,int[] playerID)
+    void ParticleSwitch()
+    {
+        ParticlePlay = !ParticlePlay;
+        if (ParticlePlay)
+        {
+            for (int i = 0; i < particles.Length; i++)
+            {
+
+                particlesIns[i] = Instantiate(particles[i], particlePoss[i].transform.position, Quaternion.identity);
+                particles[i].Play();
+            }
+        }
+        else
+        {
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particlesIns[i].enableEmission = ParticlePlay;
+            }
+        }
+    }
+    int[] SortArray(int[] score, int[] playerID, bool isID)
     {
         bool isEnd = false;
         while (!isEnd)
@@ -111,6 +161,15 @@ public class ZombieInstant : MonoBehaviour {
                 isEnd = true;
             }
         }
-        return playerID;
+        if (score[0] != score[1])
+        {
+            for (int i = 0; i < score.Length; i++)
+            {
+                winnerTexts[i].text = score[i].ToString();
+                winnerImages[i].sprite = FindObjectOfType<SpriteInfo>().sprits[playerID[i]].spr;
+            }
+        }
+        if(isID)return playerID;
+        return score;
     }
 }

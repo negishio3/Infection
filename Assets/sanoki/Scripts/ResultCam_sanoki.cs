@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ResultCam_sanoki : MonoBehaviour {
     public GameObject[] camPos;
+    public GameObject backImage;
+    public GameObject buttonText;
+
 
     public void camMove(int playerID)
     {
@@ -22,5 +25,7 @@ public class ResultCam_sanoki : MonoBehaviour {
             transform.position = Vector3.Lerp(startPos, endPos, time);
             yield return null;
         }
+        backImage.SetActive(true);
+        buttonText.SetActive(true);
     }
 }

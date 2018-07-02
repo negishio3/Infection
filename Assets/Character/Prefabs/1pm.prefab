@@ -1010,7 +1010,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 1
-  seibetu: 0
   walkSpeed: 1.5
   runSpeed: 3.7
   searchDistance: 20
@@ -1056,8 +1055,8 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
   - {fileID: 2100000, guid: 801d4edfc073ee34fa2f6025c9703447, type: 2}
+  - {fileID: 2100000, guid: f411fc6b20126764d9198de72d570691, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
